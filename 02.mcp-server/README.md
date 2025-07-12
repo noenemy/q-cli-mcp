@@ -25,5 +25,5 @@ MCP는 Model Context Protocol의 약자로, 애플리케이션이 LLM(Large Lang
 ## (Option)Lab.3-2. AWS MCP Server 를 만들어 보자
 
 ### 참조
-AWS MCP Server : [AWS MCP Server](https://github.com/noenemy/q-cli-mcp/blob/main/03.mcp-server/AWS-MCP-Server.MD)
+AWS MCP Server : [AWS MCP Server](https://github.com/noenemy/q-cli-mcp/blob/main/02.mcp-server/AWS-MCP-Server.MD)
 
