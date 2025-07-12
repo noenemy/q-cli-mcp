@@ -7,7 +7,7 @@ MCP 주요 개념
 
 MCP는 Model Context Protocol의 약자로, 애플리케이션이 LLM(Large Language Model)에 컨텍스트를 제공하는 방법을 표준화하는 개방형 프로토콜입니다. 이 프로토콜은 다양한 AI 애플리케이션에서 컨텍스트를 일관되고 효율적으로 관리할 수 있게 해주는 핵심 기술로 자리잡고 있습니다. LLM의 성능과 정확성을 높이기 위해서는 적절한 컨텍스트 제공이 필수적이며, MCP는 이를 체계적으로 지원합니다.
 
-!(https://github.com/noenemy/q-cli-mcp/blob/main/03.mcp-server/images/mcp.jpg)
+![mcp](https://github.com/noenemy/q-cli-mcp/blob/main/03.mcp-server/images/mcp.jpg)
 
 Claude Desktop
 사용자는 Amazon Q Developer CLI 
