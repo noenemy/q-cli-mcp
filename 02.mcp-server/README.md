@@ -21,7 +21,7 @@ MCP는 Model Context Protocol의 약자로, 애플리케이션이 LLM(Large Lang
 
 
 ## Lab.3-1. Weather MCP Server 개발과 사용
-Modelcontext.io - Weather MCP Server : [Weather](https://github.com/noenemy/q-cli-mcp/blob/main/02.mcp-server/weather-mcp-server.md)
+- Modelcontext.io - Weather MCP Server : [Weather](https://github.com/noenemy/q-cli-mcp/blob/main/02.mcp-server/weather-mcp-server.md)
 
 ## (Option)Lab.3-2. AWS MCP Server 를 만들어 보자
 
