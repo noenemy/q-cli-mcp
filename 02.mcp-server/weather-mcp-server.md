@@ -1,4 +1,7 @@
-## 수정 중
+## 수정 중 :shipit: :shipit: 
+> [!CAUTION]
+> 화면 캡쳐 및 내용 작성 중입니다
+
 목차
 1. modelcontext.io quickstart 의 서버 개발
 2. weather.py 작성
