@@ -13,3 +13,11 @@ Claude Desktop
 핵심 학습 목표
 
     MCP 프로토콜을 이용한 AI-인프라 연동 시스템 설계
+
+
+모델 컨텍스트 프로토콜(MCP)은 무엇이며 AWS MCP 서버와 어떻게 작동합니까?
+
+모델 컨텍스트 프로토콜(MCP)은 LLM 애플리케이션과 외부 데이터 소스 및 도구 간의 원활한 통합을 지원하는 개방형 프로토콜입니다. AI 기반 IDE를 구축하거나, 채팅 인터페이스를 개선하거나, 맞춤형 AI 워크플로를 만드는 경우, MCP는 LLM을 필요한 컨텍스트에 연결하는 표준화된 방법을 제공합니다. 
+
+모델 컨텍스트 프로토콜 README 
+https://github.com/modelcontextprotocol#:~:text=The%20Model%20Context,context%20they%20need.
