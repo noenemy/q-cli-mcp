@@ -14,3 +14,7 @@ MCP는 Model Context Protocol의 약자로, 애플리케이션이 LLM(Large Lang
 
 ## 핵심 학습 목표
 > MCP 프로토콜을 이용한 AI-인프라 연동 시스템 설계
+
+### 참조
+AWS MCP Server [AWS MCP Server](https://github.com/noenemy/q-cli-mcp/blob/main/03.mcp-server/AWS-MCP-Server.MD)
+
