@@ -1,3 +1,4 @@
+<!-- Written by @skjun , 2025-07-13 -->
 # Lab3-1. Weather MCP Server
 
 ## 1. Python 가상 환경을 설정하고 필요한 패키지를 설치합니다.
@@ -76,12 +77,12 @@ MCP tools에 기상정보와 기상경보에 대한 tool이 포함되어 있는�
 
 ## 5.Amazon Q Developer CLI를 재실행
 아래와 같은 프롬프트 질문을 하나씩 입력하여 응답을 확인합니다. 
-> Pormpt : 시카고의 현재 날씨를 알려주세요
+> Pormpt : 시카고의 현재 날씨를 알려주세요  
 ![mcp](https://github.com/noenemy/q-cli-mcp/blob/main/02.mcp-server/images/mcp_02.png)  
 ![mcp](https://github.com/noenemy/q-cli-mcp/blob/main/02.mcp-server/images/mcp_03.png)  
 
 <BR>  
-> Prompt : 텍사의 날씨 경보를 알려주세요
+> Prompt : 텍사스의 날씨 경보를 알려주세요  
 ![mcp](https://github.com/noenemy/q-cli-mcp/blob/main/02.mcp-server/images/mcp_04.png)  
 ![mcp](https://github.com/noenemy/q-cli-mcp/blob/main/02.mcp-server/images/mcp_05.png)  
 
