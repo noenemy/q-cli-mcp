@@ -1,5 +1,5 @@
 <!-- Written by @skjun , 2025-07-13 -->
-# Lab3-1. Weather MCP Server
+# Lab 2. Weather MCP Server
 
 ## 1. Python 가상 환경을 설정하고 필요한 패키지를 설치합니다.
 ### System requirements
