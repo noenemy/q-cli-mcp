@@ -1,3 +1,4 @@
+<!-- @skjun, Create :2025-07-12 / Revision :2025-07-13 -->
 # MCP(Model Context Protocol) 워크샵 시작하기
 
 이 워크샵은 MCP(Model Context Protocol) 
