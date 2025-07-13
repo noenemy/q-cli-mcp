@@ -22,7 +22,7 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 uv init weather  # weather 프로젝트를 앞 Lab에서 구성하였다면 skip
 cd weather
-'''
+```
 <BR><BR>
 
 ## 2.Python 가상 환경을 설정하고 필요한 패키지를 설치합니다.
