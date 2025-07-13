@@ -82,6 +82,7 @@ MCP tools에 기상정보와 기상경보에 대한 tool이 포함되어 있는�
 ![mcp](https://github.com/noenemy/q-cli-mcp/blob/main/02.mcp-server/images/mcp_03.png)  
 
 <BR>  
+ 
 > Prompt : 텍사스의 날씨 경보를 알려주세요  
 ![mcp](https://github.com/noenemy/q-cli-mcp/blob/main/02.mcp-server/images/mcp_04.png)  
 ![mcp](https://github.com/noenemy/q-cli-mcp/blob/main/02.mcp-server/images/mcp_05.png)  
