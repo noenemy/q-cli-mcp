@@ -44,7 +44,8 @@ weather.py 파일을 열어 코드를 확인합니다.
 -- 워크스페이스 구성: .amazonq/mcp.json - 현재 워크스페이스에만 해당됩니다.
 <BR>
 **참조**
-https://github.com/noenemy/q-cli-mcp/blob/main/02.mcp-server/mcp.json
+  
+- https://github.com/noenemy/q-cli-mcp/blob/main/02.mcp-server/mcp.json
 
 ```
 cat > ~/.aws/amazonq/mcp.json << EOF
