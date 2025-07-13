@@ -75,7 +75,7 @@ EOF
 <BR><BR>
 MCP tools에 기상정보와 기상경보에 대한 tool이 포함되어 있는지를 확인해 본다.
 
-## 5.Amazon Q Developer CLI를 재실행
+## 5.Amazon Q Developer CLI 에서 프롬프트를 통해 MCP Tools 호출
 아래와 같은 프롬프트 질문을 하나씩 입력하여 응답을 확인합니다. 
 > Pormpt : 시카고의 현재 날씨를 알려주세요  
 ![mcp](https://github.com/noenemy/q-cli-mcp/blob/main/02.mcp-server/images/mcp_02.png)  
