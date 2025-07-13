@@ -6,35 +6,31 @@
 <BR>
 
 ### Set up your environment
-** Windows **
-
+**Windows**
 ```
 powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 ```
 <BR>
 
-** Mac/Linux **
-
-'''
+**Mac/Linux**
+```
 curl -LsSf https://astral.sh/uv/install.sh | sh
-'''
+```
 <BR>
 
-** 환경설치**
-
-'''
+**환경설치**
+```
 uv init weather  # weather 프로젝트를 앞 Lab에서 구성하였다면 skip
 cd weather
 '''
 <BR><BR>
 
 ## 2.Python 가상 환경을 설정하고 필요한 패키지를 설치합니다.
-
-'''
+```
 uv venv
 source .venv/bin/activate
 uv add "mcp[cli]" httpx
-'''
+```
 <BR><BR>
 
 ## 3.weather.py 파일을 열어 코드를 확인합니다.
@@ -46,10 +42,11 @@ weather.py 파일을 열어 코드를 확인합니다.
 - Amazon Q Developer CLI는 두 가지 수준의 MCP 구성을 지원합니다.
 -- 글로벌 구성: ~/.aws/amazonq/mcp.json - 모든 워크스페이스에 적용됩니다.
 -- 워크스페이스 구성: .amazonq/mcp.json - 현재 워크스페이스에만 해당됩니다.
-* 참조
+<BR>
+**참조**
 https://github.com/noenemy/q-cli-mcp/blob/main/02.mcp-server/mcp.json
 
-'''
+```
 cat > ~/.aws/amazonq/mcp.json << EOF
 {
   "mcpServers": {
@@ -65,7 +62,7 @@ cat > ~/.aws/amazonq/mcp.json << EOF
   }
 }
 EOF
-'''
+```
 <BR><BR>
 
 ## 4.MCP 서버가 정상적으로 등록됐는지 Amazon Q Developer CLI를 다시 실행하고 /tools 명령어로 확인합니다.
