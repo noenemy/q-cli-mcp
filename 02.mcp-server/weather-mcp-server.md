@@ -1,28 +1,29 @@
 # Lab3-1. Weather MCP Server
 
-
-
 ## 1. Python 가상 환경을 설정하고 필요한 패키지를 설치합니다.
 ### System requirements
 > Python 3.10 or higher installed.
-> You must use the Python MCP SDK 1.2.0 or higher.
+<BR>
 
 ### Set up your environment
 ** Windows **
 '''
 powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 '''
+<BR>
 
 ** Mac/Linux **
 '''
 curl -LsSf https://astral.sh/uv/install.sh | sh
 '''
+<BR>
 
-환경설치
+** 환경설치**
 '''
 uv init weather  # weather 프로젝트를 앞 Lab에서 구성하였다면 skip
 cd weather
 '''
+<BR><BR>
 
 ## 2.Python 가상 환경을 설정하고 필요한 패키지를 설치합니다.
 '''
@@ -30,6 +31,7 @@ uv venv
 source .venv/bin/activate
 uv add "mcp[cli]" httpx
 '''
+<BR><BR>
 
 ## 3.weather.py 파일을 열어 코드를 확인합니다.
 weather.py 파일을 열어 코드를 확인합니다.
@@ -60,14 +62,16 @@ cat > ~/.aws/amazonq/mcp.json << EOF
 }
 EOF
 '''
+<BR><BR>
 
 ## 4.MCP 서버가 정상적으로 등록됐는지 Amazon Q Developer CLI를 다시 실행하고 /tools 명령어로 확인합니다.
 ![mcp](https://github.com/noenemy/q-cli-mcp/blob/main/02.mcp-server/images/mcp_01.png)
+<BR><BR>
 
 ## 5.Amazon Q Developer CLI를 재실행
 What are the active weather alerts in Texas? 와 같은 질문을 입력하여 응답을 확인합니다. Allow this action? Use 't' to trust (always allow) this tool for the session. [y/n/t]: 입력창이 나타나면, t를 입력합니다.
 
-<BR><BR>
+<BR><BR><BR>
 ## 수정 중 :shipit: :shipit: 
 > [!CAUTION]
 > 이미지 및 워크샵 내용 작성 중입니다
