@@ -34,7 +34,7 @@ uv add "mcp[cli]" httpx
 <BR><BR>
 
 ## 3.weather.py 파일을 열어 코드를 확인합니다.
-weather.py 파일을 열어 코드를 확인합니다.
+weather.py 파일을 열어 코드를 확인합니다. [./weather.py](https://github.com/noenemy/q-cli-mcp/blob/main/02.mcp-server/weather-mcp-server.md)
 > cat weather.py
 > [!INFO]
 > 이 스크립트는 미국 국립 기상 서비스 API를 통해 날씨 정보를 가져오는 MCP 서버를 구현합니다. 사용자의 프롬프트로부터 날씨를 받을 때, get_alerts, get_forecast를 활용하여 위도와 경보를 파악하고 기상 정보를 가져오도록 동작합니다.
