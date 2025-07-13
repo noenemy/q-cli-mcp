@@ -18,7 +18,7 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 <BR>
 
-**환경설치**
+**환경구성(프로젝트 구성)**
 ```
 uv init weather  # weather 프로젝트를 앞 Lab에서 구성하였다면 skip
 cd weather
