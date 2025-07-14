@@ -1,5 +1,5 @@
 <!-- Written by @skjun , 2025-07-13 -->
-# Lab 2. Weather MCP Server
+# Lab 2. Local환경에서 Weather API MCP Server를 만들어 보기
 
 ## 1. Python 가상 환경을 설정하고 필요한 패키지를 설치합니다.
 ### System requirements
@@ -26,7 +26,6 @@ cd weather
 ```
 <BR><BR>
 
-## 2.Python 가상 환경을 설정하고 필요한 패키지를 설치합니다.
 ```
 uv venv
 source .venv/bin/activate
@@ -34,7 +33,7 @@ uv add "mcp[cli]" httpx
 ```
 <BR><BR>
 
-## 3.weather.py 파일을 열어 코드를 확인합니다.
+## 2.weather.py 파일을 열어 코드를 확인합니다.
 weather.py 파일을 열어 코드를 확인합니다. [weather.py](https://github.com/noenemy/q-cli-mcp/blob/main/02.mcp-server/weather.py)
 > cat weather.py
 > [!INFO]
@@ -67,7 +66,7 @@ EOF
 ```
 <BR><BR>
 
-## 4.MCP 서버가 정상적으로 등록됐는지 Amazon Q Developer CLI를 다시 실행하고 /tools 명령어로 확인합니다.
+## 3.MCP 서버가 정상적으로 등록됐는지 Amazon Q Developer CLI를 다시 실행하고 /tools 명령어로 확인합니다.
 ![mcp](https://github.com/noenemy/q-cli-mcp/blob/main/02.mcp-server/images/mcp_00.png)
 코드 작성과 실행 그리고 mcp.json이 정상인 경우 Amazon Q Dev. CLI를 재실행시 Loaded 메시지를 보게 된다.
 
@@ -76,7 +75,7 @@ EOF
 MCP tools에 기상정보와 기상경보에 대한 tool이 포함되어 있는지를 확인해 본다.
 
 <BR><BR>  
-## 5.Amazon Q Developer CLI 에서 프롬프트를 통해 MCP Tools 호출
+## 4.Amazon Q Developer CLI 에서 프롬프트를 통해 MCP Tools 호출
 아래와 같은 프롬프트 질문을 하나씩 입력하여 응답을 확인합니다. 
 > Pormpt : 시카고의 현재 날씨를 알려주세요  
 ![mcp](https://github.com/noenemy/q-cli-mcp/blob/main/02.mcp-server/images/mcp_02.png)  
