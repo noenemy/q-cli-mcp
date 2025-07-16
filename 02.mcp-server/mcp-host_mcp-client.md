@@ -2,7 +2,7 @@
 
 
 ## 개요
-중앙 집중식 MCP 서버를 구축하여 여러 사용자나 애플리케이션에서 공유할 수 있는 환경을 구성합니다. 그렇다면 MCP 서버를 AWS 환경에 배포하여 운영하면 어떤 장점이 있을까요? MCP 서버를 사용하는 사용자의 관점과 MCP 서버를 운영하는 관점에서 살펴보겠습니다.
+중앙 집중식 MCP 서버를 구축하여 여러 사용자나 애플리케이션에서 공유할 수 있는 환경을 구성합니다. 이 모듈에서는 MCP(Model Context Protocol) 클라이언트 기반의 Streamlit MCP Host 챗봇을 구축하고, 이전 모듈에서 배포한 MCP 서버와의 연동 방법을 학습합니다. 이를 통해 LLM과 외부 도구 간의 상호작용을 위한 표준 프로토콜인 MCP의 클라이언트 측 구현을 실습합니다.
 
 
 ## MCP 서버 사용자 관점
@@ -46,3 +46,74 @@ MCP(Model Context Protocol)는 원격 통신을 위해 다양한 Transport 방�
 - 사용 사례: 중앙 집중식 서버, 여러 사용자가 공유하는 환경
 - 호환성: 2025-03-26 버전과의 하위 호환성 유지
 
+1. IDE 터미널에서 다음 명령어를 실행하여 Python 가상 환경을 생성합니다:
+   ```
+   uv venv --python 3.12
+   source .venv/bin/activate
+   ```
+
+2. Remote weather mcp server 기동
+   weather3.py
+
+   ```
+   uv run weather3.py
+   ```
+   
+3. 다음 명령어를 실행하여 필요한 의존성 패키지를 설치합니다:
+   ```
+   cd client\
+   uv pip install -r requirements.txt
+   ```
+   requriements.txt
+
+## MCP 클라이언트 및 서버 구축하기
+1. MCP Client 구현
+client.py 파일에는 LangGraph ReAct 에이전트 기반의 MCPClient 클래스가 정의되어 있습니다. MCPClient 객체 초기화 시 비동기 작업 처리를 위한 AsyncExitStack과 LLM 호출을 위한 langchain-aws의 ChatBedrockConverse 인스턴스가 초기화되며, MCP 세션 및 ReAct 에이전트 변수는 초기 값으로 None이 설정됩니다.
+
+client.py
+
+클라이언트는 mcp 패키지의 sse_client를 통해 Streamable HTTP Transport 방식으로 MCP 서버와 연결하고, 클라이언트 세션을 초기화합니다. 이후 해당 세션에서 사용 가능한 도구(tools)를 로드하고, LangChain MCP Adapters의 load_mcp_tools 메서드를 통해 이 도구들을 LangChain 및 LangGraph와 호환되는 형식으로 변환합니다. 변환된 도구를 사용하여 LangGraph 기반의 ReAct 에이전트를 생성합니다.
+
+터미널에서 다음 명령어를 실행하여 MCP Client를 테스트할 수 있습니다. 이때, module-02에서 배포한 MCP 서버의 URL 뒤에 /mcp/ 엔드포인트를 추가하여 명령행 인자로 전달합니다.
+
+```
+python app/streamlit-app/client.py <Your-MCP-Server-Endpoint-URL>/mcp/
+```
+
+What are the active weather alerts in Texas?와 같은 쿼리를 입력하여 응답을 확인합니다. 정상적인 응답이 반환되면 클라이언트 설정이 완료된 것입니다.
+
+
+2. Streamlit 기반 MCP Host 애플리케이션 개발
+app.py 파일에서는 client.py에 정의된 MCPClient 클래스를 활용하여 Streamlit 기반의 독립형(standalone) MCP Host 애플리케이션을 구현합니다.
+
+app.py
+
+Streamlit 애플리케이션에서는 사용할 LLM 모델 ID, AWS 리전, 그리고 MCP Server URL을 입력받아 MCPClient 객체를 생성하고 MCP Server와 연결합니다. 서버 연결이 성공하면 Streamlit의 session_state에 client 인스턴스와 사용 가능한 도구 정보를 저장합니다. 
+
+MCP 서버와 성공적으로 연결된 후에는 사용 가능한 각 도구의 이름, 설명, 그리고 매개변수에 관한 상세 정보를 계층적 확장 컴포넌트(expander)를 통해 표시합니다.
+
+MCP 서버와 연결이 완료되면 사용자 입력을 chat_input 컴포넌트를 통해 받아 MCPClient의 invoke_agent 메서드를 비동기적으로 호출합니다. 이때 MCPClient의 ReAct 에이전트는 사용자의 쿼리를 분석하여 적절한 도구를 선택적으로 활용하고, 도구 실행 결과를 바탕으로 최종 응답을 생성합니다.
+
+
+3. 애플리케이션 확인하기
+
+IDE 터미널에서 다음 명령어를 실행하여 Streamlit 애플리케이션을 실행합니다.
+
+```
+streamlit run app/streamlit-app/app.py
+```
+streamlit-app.png
+
+
+http://<Your-MCP-Server-Endpoint-URL>/app로 접속하여 배포된 streamlit 애플리케이션을 확인합니다. 이때 MCP Server URL에는 http://<Your-MCP-Server-Endpoint-URL>/mcp/로 기입하고 Connect 버튼으로 연결합니다.
+
+요약
+
+이 모듈에서는 MCP(Model Context Protocol) 라이브러리를 활용하여 MCP Client를 구현하고, 이전 모듈에서 배포한 MCP Server와 연결했습니다. 또한 LangChain MCP Adapters를 통해 MCP Server에서 제공하는 도구들을 LangChain 호환 형식으로 변환하여 LangGraph 기반 ReAct 에이전트를 구성하는 방법을 학습했습니다. 이렇게 구현된 에이전트를 Streamlit 웹 프레임워크와 통합하여 독립형 MCP Host 애플리케이션을 개발함으로써, MCP Host 애플리케이션의 기본 작동 원리를 실제로 구현하고 이해할 수 있습니다.
+
+
+## 참고 자료
+- [Model Context Protocol 공식 문서](https://modelcontextprotocol.io/introduction)
+- [langchain-aws 라이브러리 문서](https://python.langchain.com/docs/integrations/providers/aws/) 
+- [LangChain MCP Adapters 리포지토리](https://github.com/langchain-ai/langchain-mcp-adapters)
+- [LangGraph 프레임워크 공식 문서](https://langchain-ai.github.io/langgraph/)
