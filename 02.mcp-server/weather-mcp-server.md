@@ -93,11 +93,8 @@ MCP tools에 기상정보와 기상경보에 대한 tool이 포함되어 있는�
 > Allow this action? Use 't' to trust (always allow) this tool for the session. [y/n/t]: 입력창이 나타나면, t를 입력합니다.
 
 <BR><BR><BR>
-## 수정 중 :shipit: :shipit: 
-> [!CAUTION]
-> 이미지 및 워크샵 내용 작성 중입니다
-
-목차
+## 요약 :shipit: :shipit: 
+> [!INFO]
 1. modelcontext.io quickstart 의 서버 개발
 2. weather.py 작성
 3. uv, node 설치
