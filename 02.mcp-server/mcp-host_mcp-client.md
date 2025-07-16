@@ -102,7 +102,7 @@ IDE 터미널에서 다음 명령어를 실행하여 Streamlit 애플리케이�
 ```
 streamlit run app/streamlit-app/app.py
 ```
-[streamlit](https://github.com/noenemy/q-cli-mcp/blob/main/02.mcp-server/images/streamlit-app.png) 
+![streamlit](https://github.com/noenemy/q-cli-mcp/blob/main/02.mcp-server/images/streamlit-app.png) 
 
 
 http://<Your-MCP-Server-Endpoint-URL>/app로 접속하여 배포된 streamlit 애플리케이션을 확인합니다. 이때 MCP Server URL에는 http://<Your-MCP-Server-Endpoint-URL>/mcp/로 기입하고 Connect 버튼으로 연결합니다.
