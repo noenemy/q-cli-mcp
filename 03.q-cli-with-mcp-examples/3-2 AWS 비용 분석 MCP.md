@@ -8,12 +8,12 @@ Application Load Balancer, 두 개의 t3.medium EC2 인스턴스, 그리고 RDS 
 
 Example 1: Analyze a serverless application
 ```
-API Gateway, Lambda, 그리고 DynamoDB를 사용하는 서버리스 애플리케이션의 비용 분석을 작성해 주세요. 월 100만 건의 API 호출, 평균 Lambda 실행 시간 200ms(512MB 메모리), 그리고 10GB의 DynamoDB 스토리지와 월 500만 건의 읽기 요청 및 100만 건의 쓰기 요청을 가정합니다. 예상 비용을 PDF 형식으로 변환해 주시기 바랍니다.
+API Gateway, Lambda, 그리고 DynamoDB를 사용하는 서버리스 애플리케이션의 비용 분석을 작성해 주세요. 월 100만 건의 API 호출, 평균 Lambda 실행 시간 200ms(512MB 메모리), 그리고 10GB의 DynamoDB 스토리지와 월 500만 건의 읽기 요청 및 100만 건의 쓰기 요청을 가정합니다. 예상 비용을 /home/ec2-user/cost-analysis디렉토리에 PDF 형식으로 변환해 주시기 바랍니다.
 ```
 
 Example 2: Analyze multi-tier architectures
 ```
-CloudFront와 ALB를 포함한 프레젠테이션 계층, Fargate를 사용하는 ECS의 애플리케이션 계층, 그리고 Aurora PostgreSQL의 데이터 계층으로 구성된 3계층 웹 애플리케이션의 비용 분석을 작성해 주세요. 각각 1 vCPU와 2GB 메모리를 가진 2개의 Fargate 태스크, 100GB 스토리지가 있는 Aurora db.r5.large 인스턴스, 그리고 10을 포함한 Application Load Balancer의 비용을 포함해 주시기 바랍니다.
+CloudFront와 ALB를 포함한 프레젠테이션 계층, Fargate를 사용하는 ECS의 애플리케이션 계층, 그리고 Aurora PostgreSQL의 데이터 계층으로 구성된 3계층 웹 애플리케이션의 비용 분석을 작성해 주세요. 각각 1 vCPU와 2GB 메모리를 가진 2개의 Fargate 태스크, 100GB 스토리지가 있는 Aurora db.r5.large 인스턴스, 그리고 10을 포함한 Application Load Balancer의 비용을 포함해 주시기 바랍니다. /home/ec2-user/cost-analysis디렉토리에 저장해 주시기 바랍니다.
 ```
 
 <img width="1024" height="797" alt="image" src="https://github.com/user-attachments/assets/1ee71c4e-11ac-46d5-bbbf-8c717631e6fd" />
@@ -37,3 +37,19 @@ EC2 시작 유형과 Fargate 시작 유형을 사용하는 ECS에서 컨테이�
 ```
 
 <img width="600" height="453" alt="image" src="https://github.com/user-attachments/assets/3f1e953a-fa22-465a-ba62-35667ecee80b" />
+
+Example 4: Data analytics platform
+```
+일일 500GB의 새로운 데이터를 처리하는 데이터 분석 플랫폼의 비용 분석을 작성해 주세요. 데이터 수집(Kinesis), 저장(S3), 처리(EMR) 및 시각화(QuickSight)를 위한 구성 요소를 포함해 주세요. 매일 50명의 사용자가 대시보드에 접속하고 데이터 보존 기간이 90일이라고 가정합니다. 분석 시 AWS 비용 최적화 모범 사례를 따르고 비용 효율적인 확장을 위한 권장 사항을 포함하며, 예상 비용을 /home/ec2-user/cost-analysis디렉토리에 HTML 웹페이지 형식으로 변환해 주시기 바랍니다.
+
+주요 고려사항:
+- 일일 데이터 처리량 기준 리소스 산정
+- 데이터 수집부터 시각화까지 전체 파이프라인 비용
+- 스토리지 계층화 전략
+- EMR 클러스터 최적화 방안
+- QuickSight 라이선스 및 사용량 기반 비용
+- 데이터 보존 정책에 따른 스토리지 비용
+- 확장성 고려한 아키텍처 설계 권장사항
+```
+
+<img width="1024" height="777" alt="image" src="https://github.com/user-attachments/assets/765b95c3-9f92-4e16-ad3d-87519d9b64c2" />
