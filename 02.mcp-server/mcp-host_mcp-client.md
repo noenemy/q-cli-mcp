@@ -106,9 +106,9 @@ streamlit run app/streamlit-app/app.py
 
 
 http://<Your-MCP-Server-Endpoint-URL>/app로 접속하여 배포된 streamlit 애플리케이션을 확인합니다. 이때 MCP Server URL에는 http://<Your-MCP-Server-Endpoint-URL>/mcp/로 기입하고 Connect 버튼으로 연결합니다.
+<BR><BR>
 
-
-###요약
+### 요약
 
 이 모듈에서는 MCP(Model Context Protocol) 라이브러리를 활용하여 MCP Client를 구현하고, 이전 모듈에서 배포한 MCP Server와 연결했습니다. 또한 LangChain MCP Adapters를 통해 MCP Server에서 제공하는 도구들을 LangChain 호환 형식으로 변환하여 LangGraph 기반 ReAct 에이전트를 구성하는 방법을 학습했습니다. 이렇게 구현된 에이전트를 Streamlit 웹 프레임워크와 통합하여 독립형 MCP Host 애플리케이션을 개발함으로써, MCP Host 애플리케이션의 기본 작동 원리를 실제로 구현하고 이해할 수 있습니다.
 
