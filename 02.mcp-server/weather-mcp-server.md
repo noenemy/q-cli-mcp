@@ -94,7 +94,7 @@ MCP tools에 기상정보와 기상경보에 대한 tool이 포함되어 있는�
 
 <BR><BR><BR>
 ## 요약 :shipit: :shipit: 
-> [!INFO]
+> [!CAUTION]
 1. modelcontext.io quickstart 의 서버 개발
 2. weather.py 작성
 3. uv, node 설치
