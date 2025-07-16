@@ -67,7 +67,7 @@ MCP(Model Context Protocol)는 원격 통신을 위해 다양한 Transport 방�
    requriements.txt
 
 ## MCP 클라이언트 및 서버 구축하기
-1. MCP Client 구현
+###1. MCP Client 구현
 client.py 파일에는 LangGraph ReAct 에이전트 기반의 MCPClient 클래스가 정의되어 있습니다. MCPClient 객체 초기화 시 비동기 작업 처리를 위한 AsyncExitStack과 LLM 호출을 위한 langchain-aws의 ChatBedrockConverse 인스턴스가 초기화되며, MCP 세션 및 ReAct 에이전트 변수는 초기 값으로 None이 설정됩니다.
 
 client.py
@@ -82,8 +82,8 @@ python app/streamlit-app/client.py <Your-MCP-Server-Endpoint-URL>/mcp/
 
 What are the active weather alerts in Texas?와 같은 쿼리를 입력하여 응답을 확인합니다. 정상적인 응답이 반환되면 클라이언트 설정이 완료된 것입니다.
 
-
-2. Streamlit 기반 MCP Host 애플리케이션 개발
+<BR>  
+###2. Streamlit 기반 MCP Host 애플리케이션 개발
 app.py 파일에서는 client.py에 정의된 MCPClient 클래스를 활용하여 Streamlit 기반의 독립형(standalone) MCP Host 애플리케이션을 구현합니다.
 
 app.py
@@ -94,8 +94,8 @@ MCP 서버와 성공적으로 연결된 후에는 사용 가능한 각 도구의
 
 MCP 서버와 연결이 완료되면 사용자 입력을 chat_input 컴포넌트를 통해 받아 MCPClient의 invoke_agent 메서드를 비동기적으로 호출합니다. 이때 MCPClient의 ReAct 에이전트는 사용자의 쿼리를 분석하여 적절한 도구를 선택적으로 활용하고, 도구 실행 결과를 바탕으로 최종 응답을 생성합니다.
 
-
-3. 애플리케이션 확인하기
+<BR>
+###3.애플리케이션 확인하기
 
 IDE 터미널에서 다음 명령어를 실행하여 Streamlit 애플리케이션을 실행합니다.
 
@@ -107,11 +107,12 @@ streamlit run app/streamlit-app/app.py
 
 http://<Your-MCP-Server-Endpoint-URL>/app로 접속하여 배포된 streamlit 애플리케이션을 확인합니다. 이때 MCP Server URL에는 http://<Your-MCP-Server-Endpoint-URL>/mcp/로 기입하고 Connect 버튼으로 연결합니다.
 
-요약
+<BR><BR>
+###요약
 
 이 모듈에서는 MCP(Model Context Protocol) 라이브러리를 활용하여 MCP Client를 구현하고, 이전 모듈에서 배포한 MCP Server와 연결했습니다. 또한 LangChain MCP Adapters를 통해 MCP Server에서 제공하는 도구들을 LangChain 호환 형식으로 변환하여 LangGraph 기반 ReAct 에이전트를 구성하는 방법을 학습했습니다. 이렇게 구현된 에이전트를 Streamlit 웹 프레임워크와 통합하여 독립형 MCP Host 애플리케이션을 개발함으로써, MCP Host 애플리케이션의 기본 작동 원리를 실제로 구현하고 이해할 수 있습니다.
 
-
+<BR><BR>
 ## 참고 자료
 - [Model Context Protocol 공식 문서](https://modelcontextprotocol.io/introduction)
 - [langchain-aws 라이브러리 문서](https://python.langchain.com/docs/integrations/providers/aws/) 
