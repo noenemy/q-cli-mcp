@@ -1,2 +1,0 @@
-ehongjin 
-하이
