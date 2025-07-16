@@ -24,7 +24,7 @@ MCP는 Model Context Protocol의 약자로, 애플리케이션이 LLM(Large Lang
 <BR><BR>
 
 ## Lab.2-2. Streamable-HTTP MCP Server 와 MCP Client/MCP Host 만들어 보기
-- [Weather](https://github.com/noenemy/q-cli-mcp/blob/main/02.mcp-server/mcp-host_mcp-client.md)
+- [Remote Weather MCP Server, MCP Client, MCP Host](https://github.com/noenemy/q-cli-mcp/blob/main/02.mcp-server/mcp-host_mcp-client.md)
 <BR><BR>
 
 ### 참조
