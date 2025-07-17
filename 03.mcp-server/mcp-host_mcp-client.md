@@ -169,6 +169,7 @@ if __name__ == "__main__":
 >[!TIP]
 > MCP 서버가 Streamable HTTP 전송방식을 사용하여 원격의 단일 엔드포인트에서 양방향 통신을 제공하며, Uvicorn을 통해 8123 포트에서 실행되어 더 안정적이고 효율적인 날씨 정보 서비스를 제공합니다. (테스트에서는 편의를 위해 같은 instance의 localhost로 구성)
 
+3. Weather MCP server를 기동시킵니다.
    ```
    uv run weather3.py
    ```
