@@ -53,7 +53,7 @@ MCP(Model Context Protocol)는 원격 통신을 위해 다양한 Transport 방�
    ```
 
 2. Remote weather mcp server 기동
-   weather3.py
+   [weather3.py](weather3.py)
 
    ```
    uv run weather3.py
