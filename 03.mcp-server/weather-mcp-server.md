@@ -40,7 +40,7 @@ uv add "mcp[cli]" httpx
 weather.py 파일을 열어 코드를 확인합니다. 
 [weather.py](https://github.com/noenemy/q-cli-mcp/blob/main/03.mcp-server/weather.py)
 
-```
+```python
 from typing import Any
 import httpx
 from mcp.server.fastmcp import FastMCP
