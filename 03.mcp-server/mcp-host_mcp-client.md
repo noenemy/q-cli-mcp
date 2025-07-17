@@ -64,7 +64,7 @@ MCP(Model Context Protocol)는 원격 통신을 위해 다양한 Transport 방�
    cd client\
    uv pip install -r requirements.txt
    ```
-   [client\requriements.txt](client\requriements.txt)
+   [client\requirements.txt](client\requirements.txt)
 
 ## MCP 클라이언트 및 서버 구축하기
 ### 1. MCP Client 구현
