@@ -64,7 +64,7 @@ MCP(Model Context Protocol)는 원격 통신을 위해 다양한 Transport 방�
    cd client\
    uv pip install -r requirements.txt
    ```
-   requriements.txt
+   [client\requriements.txt](client\requriements.txt)
 
 ## MCP 클라이언트 및 서버 구축하기
 ### 1. MCP Client 구현
@@ -86,7 +86,7 @@ What are the active weather alerts in Texas?와 같은 쿼리를 입력하여 �
 ### 2. Streamlit 기반 MCP Host 애플리케이션 개발
 app.py 파일에서는 client.py에 정의된 MCPClient 클래스를 활용하여 Streamlit 기반의 독립형(standalone) MCP Host 애플리케이션을 구현합니다.
 
-app.py
+[client\app.py](client\app.py)
 
 Streamlit 애플리케이션에서는 사용할 LLM 모델 ID, AWS 리전, 그리고 MCP Server URL을 입력받아 MCPClient 객체를 생성하고 MCP Server와 연결합니다. 서버 연결이 성공하면 Streamlit의 session_state에 client 인스턴스와 사용 가능한 도구 정보를 저장합니다. 
 
