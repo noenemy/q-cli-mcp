@@ -55,6 +55,120 @@ MCP(Model Context Protocol)는 원격 통신을 위해 다양한 Transport 방�
 2. Remote weather mcp server 기동<BR>
    [weather3.py](weather3.py)
 
+```python
+"""Weather tools for MCP Streamable HTTP server using NWS API."""
+
+import argparse
+from typing import Any
+
+import httpx
+import uvicorn
+
+from mcp.server.fastmcp import FastMCP
+
+
+# Initialize FastMCP server for Weather tools.
+# If json_response is set to True, the server will use JSON responses instead of SSE streams
+# If stateless_http is set to True, the server uses true stateless mode (new transport per request)
+mcp = FastMCP(name="weather", json_response=False, stateless_http=False)
+
+# Constants
+NWS_API_BASE = "https://api.weather.gov"
+USER_AGENT = "weather-app/1.0"
+
+
+async def make_nws_request(url: str) -> dict[str, Any] | None:
+    """Make a request to the NWS API with proper error handling."""
+    headers = {"User-Agent": USER_AGENT, "Accept": "application/geo+json"}
+    async with httpx.AsyncClient() as client:
+        try:
+            response = await client.get(url, headers=headers, timeout=30.0)
+            response.raise_for_status()
+            return response.json()
+        except Exception:
+            return None
+
+
+def format_alert(feature: dict) -> str:
+    """Format an alert feature into a readable string."""
+    props = feature["properties"]
+    return f"""
+Event: {props.get('event', 'Unknown')}
+Area: {props.get('areaDesc', 'Unknown')}
+Severity: {props.get('severity', 'Unknown')}
+Description: {props.get('description', 'No description available')}
+Instructions: {props.get('instruction', 'No specific instructions provided')}
+"""
+
+
+@mcp.tool()
+async def get_alerts(state: str) -> str:
+    """Get weather alerts for a US state.
+
+    Args:
+        state: Two-letter US state code (e.g. CA, NY)
+    """
+    url = f"{NWS_API_BASE}/alerts/active/area/{state}"
+    data = await make_nws_request(url)
+
+    if not data or "features" not in data:
+        return "Unable to fetch alerts or no alerts found."
+
+    if not data["features"]:
+        return "No active alerts for this state."
+
+    alerts = [format_alert(feature) for feature in data["features"]]
+    return "\n---\n".join(alerts)
+
+
+@mcp.tool()
+async def get_forecast(latitude: float, longitude: float) -> str:
+    """Get weather forecast for a location.
+
+    Args:
+        latitude: Latitude of the location
+        longitude: Longitude of the location
+    """
+    # First get the forecast grid endpoint
+    points_url = f"{NWS_API_BASE}/points/{latitude},{longitude}"
+    points_data = await make_nws_request(points_url)
+
+    if not points_data:
+        return "Unable to fetch forecast data for this location."
+
+    # Get the forecast URL from the points response
+    forecast_url = points_data["properties"]["forecast"]
+    forecast_data = await make_nws_request(forecast_url)
+
+    if not forecast_data:
+        return "Unable to fetch detailed forecast."
+
+    # Format the periods into a readable forecast
+    periods = forecast_data["properties"]["periods"]
+    forecasts = []
+    for period in periods[:5]:  # Only show next 5 periods
+        forecast = f"""
+{period['name']}:
+Temperature: {period['temperature']}°{period['temperatureUnit']}
+Wind: {period['windSpeed']} {period['windDirection']}
+Forecast: {period['detailedForecast']}
+"""
+        forecasts.append(forecast)
+
+    return "\n---\n".join(forecasts)
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Run MCP Streamable HTTP based server")
+    parser.add_argument("--port", type=int, default=8123, help="Localhost port to listen on")
+    args = parser.parse_args()
+
+    # Start the server with Streamable HTTP transport
+    uvicorn.run(mcp.streamable_http_app, host="localhost", port=args.port)
+```
+>[!TIP]
+> MCP 서버가 Streamable HTTP 전송방식을 사용하여 원격의 단일 엔드포인트에서 양방향 통신을 제공하며, Uvicorn을 통해 8123 포트에서 실행되어 더 안정적이고 효율적인 날씨 정보 서비스를 제공합니다. (테스트에서는 편의를 위해 같은 instance의 localhost로 구성)
+
    ```
    uv run weather3.py
    ```
@@ -74,8 +188,147 @@ MCP(Model Context Protocol)는 원격 통신을 위해 다양한 Transport 방�
 client.py 파일에는 LangGraph ReAct 에이전트 기반의 MCPClient 클래스가 정의되어 있습니다. MCPClient 객체 초기화 시 비동기 작업 처리를 위한 AsyncExitStack과 LLM 호출을 위한 langchain-aws의 ChatBedrockConverse 인스턴스가 초기화되며, MCP 세션 및 ReAct 에이전트 변수는 초기 값으로 None이 설정됩니다.
 
 [client/client.py](client/client.py)
+```python
+import asyncio
+import sys
+from contextlib import AsyncExitStack
+from typing import Any, List
 
-클라이언트는 mcp 패키지의 sse_client를 통해 Streamable HTTP Transport 방식으로 MCP 서버와 연결하고, 클라이언트 세션을 초기화합니다. 이후 해당 세션에서 사용 가능한 도구(tools)를 로드하고, LangChain MCP Adapters의 load_mcp_tools 메서드를 통해 이 도구들을 LangChain 및 LangGraph와 호환되는 형식으로 변환합니다. 변환된 도구를 사용하여 LangGraph 기반의 ReAct 에이전트를 생성합니다.
+from mcp import ClientSession
+from mcp.client.streamable_http import streamablehttp_client
+from langchain_mcp_adapters.tools import load_mcp_tools
+from langchain_aws import ChatBedrockConverse
+from langgraph.checkpoint.memory import MemorySaver
+from langgraph.prebuilt import create_react_agent
+import logging
+
+logging.basicConfig(level=logging.WARNING)
+logging.getLogger('botocore').setLevel(logging.WARNING)
+logging.getLogger('httpx').setLevel(logging.WARNING)
+logging.getLogger('mcp').setLevel(logging.WARNING)
+logging.getLogger('langchain_aws').setLevel(logging.WARNING)
+
+class MCPClient:
+    def __init__(self):
+        self.exit_stack = AsyncExitStack()
+        self.tools = []
+        self.session = None
+
+    async def connect_to_server(self, server_url: str):
+        if not server_url.endswith('/'):
+            server_url = f"{server_url}/"
+
+        self.read, self.write, _ = await self.exit_stack.enter_async_context(
+            streamablehttp_client(server_url)
+        )
+        self.session = await self.exit_stack.enter_async_context(
+            ClientSession(self.read, self.write)
+        )
+            
+        session = await self.session.initialize()
+        self.tools = await load_mcp_tools(self.session)
+        self.session = session
+    
+    async def cleanup(self):
+        """Cleanup resources"""
+        if self.exit_stack:
+            await self.exit_stack.aclose()
+
+class MCPReActAgent:
+    def __init__(self, model_id: str = "amazon.nova-lite-v1:0", region_name: str = "us-east-1"):
+        self.model_id = model_id
+        self.region_name = region_name
+        self.bedrock = ChatBedrockConverse(
+            model_id=self.model_id,
+            region_name=self.region_name
+        )
+        self.mcp_client = MCPClient()
+
+    async def connect_mcp_server(self, server_url: str):
+        """Connect to MCP server and retrieve available tools"""
+        
+        try:
+
+            await self.mcp_client.connect_to_server(server_url)
+
+            print("MCP Server Connected!")
+            print("[Available tools]")
+            for tool in self.mcp_client.tools:
+                print(f"- {tool.name}: {tool.description}")
+            
+            self.agent = create_react_agent(
+                model=self.bedrock,
+                tools=self.mcp_client.tools,
+                checkpointer=MemorySaver()
+            )
+            
+        except Exception as e:
+            raise Exception(f"Failed to connect to MCP server: {e}")
+    
+    async def invoke_agent(self, query: str, thread_id: int = 42) -> List[Any]:
+        """Execute query using the MCP agent"""
+        if not self.agent:
+            raise RuntimeError("Client not connected to server")
+        
+        response = await self.agent.ainvoke(
+            {"messages": query},
+            config={"configurable": {"thread_id": thread_id}}
+        )
+        return response["messages"]
+
+    async def stream_agent(self, query: str, thread_id: int = 42):
+        async for chunk in self.agent.astream(
+            {"messages": query},
+            config={"configurable": {"thread_id": thread_id}},
+            stream_mode="updates"
+        ):
+            for value in chunk.values():
+                value["messages"][-1].pretty_print()
+    
+    async def chat_loop(self):
+        """Interactive chat loop for command-line usage"""
+        print("MCP Client Started! Type your queries or 'quit' to exit.")
+        
+        while True:
+            try:
+                query = input("\nQuery: ").strip()
+                if query.lower() == 'quit':
+                    break                
+                await self.stream_agent(query)
+
+            except Exception as e:
+                print(f"Error: {e}")
+
+    async def cleanup(self):
+        """Cleanup resources"""
+        print("clean up")
+        await self.mcp_client.cleanup()
+
+async def main():
+    """Command-line interface"""
+    if len(sys.argv) < 2:
+        print("Usage: python client.py <mcp_server_url>")
+        sys.exit(1)
+    
+    agent = MCPReActAgent()
+    
+    try:
+        server_url = sys.argv[1]
+        await agent.connect_mcp_server(server_url)
+        await agent.chat_loop()
+    except Exception as e:
+        print(f"Error: {e}")
+    finally:
+        await agent.cleanup()
+
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+>[!TIP]
+>이 코드는 MCP(Model Context Protocol) 클라이언트를 구현하여 Amazon Bedrock의 Nova-Lite-V1 모델과 LangChain 프레임워크를 통합한 대화형 AI 에이전트를 구현하고 있으며, Streamable HTTP를 통해 MCP 서버에 연결하여 사용 가능한 도구들을 불러오고, 사용자의 질의에 대해 ReAct 패턴을 기반으로 응답을 생성하는 대화형 인터페이스를 제공합니다.
+
+클라이언트는 mcp 패키지의 streamable_client를 통해 Streamable HTTP Transport 방식으로 MCP 서버와 연결하고, 클라이언트 세션을 초기화합니다. 이후 해당 세션에서 사용 가능한 도구(tools)를 로드하고, LangChain MCP Adapters의 load_mcp_tools 메서드를 통해 이 도구들을 LangChain 및 LangGraph와 호환되는 형식으로 변환합니다. 변환된 도구를 사용하여 LangGraph 기반의 ReAct 에이전트를 생성합니다.
 
 터미널에서 다음 명령어를 실행하여 MCP Client를 테스트할 수 있습니다. 이때, module-02에서 배포한 MCP 서버의 URL 뒤에 /mcp/ 엔드포인트를 추가하여 명령행 인자로 전달합니다.
 
@@ -95,6 +348,119 @@ What are the active weather alerts in Texas?와 같은 쿼리를 입력하여 �
 app.py 파일에서는 client.py에 정의된 MCPClient 클래스를 활용하여 Streamlit 기반의 독립형(standalone) MCP Host 애플리케이션을 구현합니다.
 
 [client\app.py](client\app.py)
+
+```python
+import streamlit as st
+import asyncio
+from client import MCPReActAgent
+import nest_asyncio
+
+nest_asyncio.apply()
+
+if "loop" not in st.session_state:
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    print(loop)
+    st.session_state.loop = loop
+
+if "messages" not in st.session_state:
+    st.session_state.messages = []
+
+if "agent" not in st.session_state:
+    st.session_state.agent = None
+    st.session_state.connected = False
+    st.session_state.tools = None
+
+st.set_page_config(page_title="Streamlit MCP Host", layout="wide")
+
+# side bar
+with st.sidebar:
+    st.header("Server Setting")
+    
+    model_id = st.text_input("Model ID", value="amazon.nova-lite-v1:0")
+    region_name = st.text_input("AWS Region", value="us-east-1")
+    server_url = st.text_input("MCP Server URL", value="")
+
+    if st.button("Connect"):
+        if not st.session_state.connected:
+            with st.spinner("Connecting to server..."):
+                try:
+
+                    agent = MCPReActAgent(model_id=model_id, region_name=region_name)
+
+                    st.session_state.loop.run_until_complete(agent.connect_mcp_server(server_url))
+
+                    st.session_state.agent = agent
+                    st.session_state.connected = True
+                    st.session_state.tools = agent.mcp_client.tools
+                    st.success(f"Successfully connected to server: '{server_url}'")
+                    
+                except Exception as e:
+                    st.error(f"Connection failed: {str(e)}")
+        else:
+            st.info("Already connected to server")
+
+    st.subheader("Available tools")
+    if st.session_state.connected:
+        for tool in st.session_state.agent.mcp_client.tools:
+            with st.expander(f"{tool.name}"):
+                st.markdown(f"**description:** {tool.description}")
+                
+                st.markdown("**arguments:**")
+                params = tool.args_schema.get('properties', {})
+                required = tool.args_schema.get('required', [])
+                
+                if params:
+                    param_data = []
+                    for param_name, param_info in params.items():
+                        param_type = param_info.get('type', '')
+                        is_required = "✓" if param_name in required else ""
+                        param_data.append([param_name, param_type, is_required])
+                    
+                    st.table({
+                        "parameter": [p[0] for p in param_data],
+                        "type": [p[1] for p in param_data],
+                        "required": [p[2] for p in param_data]
+                        })
+    else:
+        st.warning("Please connected to server")
+
+# chat
+st.title("Streamlit MCP Host")
+for message in st.session_state.messages:
+    with st.chat_message(message["role"]):
+        st.write(message["content"])
+
+if prompt := st.chat_input("Input message..."):
+    if not st.session_state.connected:
+        st.error("You have to connect server first.")
+    else:
+        with st.chat_message("user"):
+            st.write(prompt)
+            st.session_state.messages.append({"role": "user", "content": prompt})
+
+        with st.chat_message("assistant"):
+
+            response_placeholder = st.empty()
+            try:
+            
+                messages = st.session_state.loop.run_until_complete(st.session_state.agent.invoke_agent(prompt))
+                
+                with st.expander('full messages'):
+                    st.markdown(messages)
+
+                final_message = messages[-1].content.split("</thinking>")[-1]
+                response_placeholder.markdown(final_message)
+                                    
+                st.session_state.messages.append({"role": "assistant", "content": final_message})
+                
+            except Exception as e:
+                st.error(f"Response failed: {str(e)}")
+
+```
+
+>[!TIP]
+>이 코드는 Streamlit을 사용하여 MCP(Model Context Protocol) 호스트 웹 애플리케이션을 구현하고 있습니다. 사용자는 사이드바에서 Amazon Bedrock 모델 설정과 MCP 서버 연결을 구성할 수 있으며, 연결 후에는 사용 가능한 도구들의 상세 정보를 확인할 수 있습니다. 메인 화면에서는 대화형 인터페이스를 통해 사용자의 입력을 받아 MCP 에이전트로 처리하고, 응답을 스트리밍 방식으로 표시합니다. 이 애플리케이션은 비동기 처리를 위해 asyncio를 사용하며, 세션 상태를 관리하여 연결 상태와 대화 기록을 유지합니다.
 
 Streamlit 애플리케이션에서는 사용할 LLM 모델 ID, AWS 리전, 그리고 MCP Server URL을 입력받아 MCPClient 객체를 생성하고 MCP Server와 연결합니다. 서버 연결이 성공하면 Streamlit의 session_state에 client 인스턴스와 사용 가능한 도구 정보를 저장합니다. 
 
