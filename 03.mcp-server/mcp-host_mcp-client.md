@@ -184,7 +184,7 @@ if __name__ == "__main__":
 
 <BR>
 
-### 4. 다음 명령어를 실행하여 필요한 의존성 패키지를 설치합니다:
+### 4. 다음 명령어를 실행하여 client에 필요한 streamlit, langchain등의 의존성 패키지를 설치합니다:
    ```
    cd client\
    uv pip install -r requirements.txt
