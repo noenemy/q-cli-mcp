@@ -159,7 +159,7 @@ if __name__ == "__main__":
 **참조**  
 - https://github.com/noenemy/q-cli-mcp/blob/main/03.mcp-server/mcp.json
 
-```
+```json
 cat > ~/.aws/amazonq/mcp.json << EOF
 {
   "mcpServers": {
