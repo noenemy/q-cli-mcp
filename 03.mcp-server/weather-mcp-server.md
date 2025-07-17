@@ -146,10 +146,9 @@ if __name__ == "__main__":
 >1. MCP(Model Context Protocol) 서버는 AI 모델이 데이터와 도구에 안전하게 접근할 수 있게 해주는 프로그램으로, FastMCP를 통해 쉽게 구현할 수 있습니다.
 >2. FastMCP 라이브러리는 복잡한 프로토콜 처리, 스키마 생성, 유효성 검사 등을 자동화하여 개발자가 핵심 기능 구현에만 집중할 수 있게 해줍니다.
 >3. 서버는 기본적으로 stdio(Standard Input/Output) 전송 방식을 사용하며, 이는 JSON-RPC 메시지를 표준 입출력 스트림을 통해 주고받는 방식으로 로컬 환경에서 Claude Desktop 같은 클라이언트와의 통신에 이상적입니다.
+<BR><BR>  
 
-
-
-> [!INFO]
+> [!NOTE]
 > 이 스크립트는 미국 국립 기상 서비스 API를 통해 날씨 정보를 가져오는 MCP 서버를 구현합니다. 사용자의 프롬프트로부터 날씨를 받을 때, get_alerts, get_forecast를 활용하여 위도와 경보를 파악하고 기상 정보를 가져오도록 동작합니다.
 
 - Amazon Q Developer CLI는 두 가지 수준의 MCP 구성을 지원합니다.
