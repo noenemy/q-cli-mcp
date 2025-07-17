@@ -37,7 +37,7 @@ uv add "mcp[cli]" httpx
 이론 시간에 filesystem mcp server 를 mcp.json 에 등록하여 file_read 등의 MCP Tool을 사용하는 것을 보셨습니다.
 이번엔 공식 페이지 quick start 에 있는 mcp server를 직접 만들고 등록해서 사용하는 것을 보여 드리겠습니다.
 
-weather.py 파일을 열어 코드를 확인합니다. [weather.py](https://github.com/noenemy/q-cli-mcp/blob/main/02.mcp-server/weather.py)
+weather.py 파일을 열어 코드를 확인합니다. [weather.py](https://github.com/noenemy/q-cli-mcp/blob/main/03.mcp-server/weather.py)
 > cat weather.py
 > [!INFO]
 > 이 스크립트는 미국 국립 기상 서비스 API를 통해 날씨 정보를 가져오는 MCP 서버를 구현합니다. 사용자의 프롬프트로부터 날씨를 받을 때, get_alerts, get_forecast를 활용하여 위도와 경보를 파악하고 기상 정보를 가져오도록 동작합니다.
@@ -48,7 +48,7 @@ weather.py 파일을 열어 코드를 확인합니다. [weather.py](https://gith
 <BR>
 
 **참조**  
-- https://github.com/noenemy/q-cli-mcp/blob/main/02.mcp-server/mcp.json
+- https://github.com/noenemy/q-cli-mcp/blob/main/03.mcp-server/mcp.json
 
 ```
 cat > ~/.aws/amazonq/mcp.json << EOF
@@ -70,10 +70,10 @@ EOF
 <BR><BR>
 
 ## 3.MCP 서버가 정상적으로 등록됐는지 Amazon Q Developer CLI를 다시 실행하고 /tools 명령어로 확인합니다.
-![mcp](https://github.com/noenemy/q-cli-mcp/blob/main/02.mcp-server/images/mcp_00.png)
+![mcp](https://github.com/noenemy/q-cli-mcp/blob/main/03.mcp-server/images/mcp_00.png)
 코드 작성과 실행 그리고 mcp.json이 정상인 경우 Amazon Q Dev. CLI를 재실행시 Loaded 메시지를 보게 된다.
 
-![mcp](https://github.com/noenemy/q-cli-mcp/blob/main/02.mcp-server/images/mcp_01.png)
+![mcp](https://github.com/noenemy/q-cli-mcp/blob/main/03.mcp-server/images/mcp_01.png)
 <BR><BR>
 MCP tools에 기상정보와 기상경보에 대한 tool이 포함되어 있는지를 확인해 본다.
 
@@ -81,14 +81,14 @@ MCP tools에 기상정보와 기상경보에 대한 tool이 포함되어 있는�
 ## 4.Amazon Q Developer CLI 에서 프롬프트를 통해 MCP Tools 호출
 아래와 같은 프롬프트 질문을 하나씩 입력하여 응답을 확인합니다. 
 > Pormpt : 시카고의 현재 날씨를 알려주세요  
-![mcp](https://github.com/noenemy/q-cli-mcp/blob/main/02.mcp-server/images/mcp_02.png)  
-![mcp](https://github.com/noenemy/q-cli-mcp/blob/main/02.mcp-server/images/mcp_03.png)  
+![mcp](https://github.com/noenemy/q-cli-mcp/blob/main/03.mcp-server/images/mcp_02.png)  
+![mcp](https://github.com/noenemy/q-cli-mcp/blob/main/03.mcp-server/images/mcp_03.png)  
 
 <BR>  
  
 > Prompt : 텍사스의 날씨 경보를 알려주세요  
-![mcp](https://github.com/noenemy/q-cli-mcp/blob/main/02.mcp-server/images/mcp_04.png)  
-![mcp](https://github.com/noenemy/q-cli-mcp/blob/main/02.mcp-server/images/mcp_05.png)  
+![mcp](https://github.com/noenemy/q-cli-mcp/blob/main/03.mcp-server/images/mcp_04.png)  
+![mcp](https://github.com/noenemy/q-cli-mcp/blob/main/03.mcp-server/images/mcp_05.png)  
 
 > Allow this action? Use 't' to trust (always allow) this tool for the session. [y/n/t]: 입력창이 나타나면, t를 입력합니다.
 
