@@ -70,7 +70,7 @@ MCP(Model Context Protocol)는 원격 통신을 위해 다양한 Transport 방�
 ### 1. MCP Client 구현
 client.py 파일에는 LangGraph ReAct 에이전트 기반의 MCPClient 클래스가 정의되어 있습니다. MCPClient 객체 초기화 시 비동기 작업 처리를 위한 AsyncExitStack과 LLM 호출을 위한 langchain-aws의 ChatBedrockConverse 인스턴스가 초기화되며, MCP 세션 및 ReAct 에이전트 변수는 초기 값으로 None이 설정됩니다.
 
-client.py
+[client\client.py](client/client.py)
 
 클라이언트는 mcp 패키지의 sse_client를 통해 Streamable HTTP Transport 방식으로 MCP 서버와 연결하고, 클라이언트 세션을 초기화합니다. 이후 해당 세션에서 사용 가능한 도구(tools)를 로드하고, LangChain MCP Adapters의 load_mcp_tools 메서드를 통해 이 도구들을 LangChain 및 LangGraph와 호환되는 형식으로 변환합니다. 변환된 도구를 사용하여 LangGraph 기반의 ReAct 에이전트를 생성합니다.
 
@@ -102,7 +102,7 @@ IDE 터미널에서 다음 명령어를 실행하여 Streamlit 애플리케이�
 ```
 streamlit run app/streamlit-app/app.py
 ```
-![streamlit](https://github.com/noenemy/q-cli-mcp/blob/main/02.mcp-server/images/streamlit-app.png) 
+![streamlit](https://github.com/noenemy/q-cli-mcp/blob/main/03.mcp-server/images/streamlit-app.png) 
 
 
 http://<Your-MCP-Server-Endpoint-URL>/app로 접속하여 배포된 streamlit 애플리케이션을 확인합니다. 이때 MCP Server URL에는 http://<Your-MCP-Server-Endpoint-URL>/mcp/로 기입하고 Connect 버튼으로 연결합니다.
