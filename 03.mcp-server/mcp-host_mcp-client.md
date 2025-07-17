@@ -52,7 +52,7 @@ MCP(Model Context Protocol)는 원격 통신을 위해 다양한 Transport 방�
    source .venv/bin/activate
    ```
 
-2. Remote weather mcp server 기동
+2. Remote weather mcp server 기동<BR>
    [weather3.py](weather3.py)
 
    ```
@@ -64,13 +64,13 @@ MCP(Model Context Protocol)는 원격 통신을 위해 다양한 Transport 방�
    cd client\
    uv pip install -r requirements.txt
    ```
-   [client\requirements.txt](client\requirements.txt)
+   [client/requirements.txt](client/requirements.txt)
 
 ## MCP 클라이언트 및 서버 구축하기
 ### 1. MCP Client 구현
 client.py 파일에는 LangGraph ReAct 에이전트 기반의 MCPClient 클래스가 정의되어 있습니다. MCPClient 객체 초기화 시 비동기 작업 처리를 위한 AsyncExitStack과 LLM 호출을 위한 langchain-aws의 ChatBedrockConverse 인스턴스가 초기화되며, MCP 세션 및 ReAct 에이전트 변수는 초기 값으로 None이 설정됩니다.
 
-[client\client.py](client/client.py)
+[client/client.py](client/client.py)
 
 클라이언트는 mcp 패키지의 sse_client를 통해 Streamable HTTP Transport 방식으로 MCP 서버와 연결하고, 클라이언트 세션을 초기화합니다. 이후 해당 세션에서 사용 가능한 도구(tools)를 로드하고, LangChain MCP Adapters의 load_mcp_tools 메서드를 통해 이 도구들을 LangChain 및 LangGraph와 호환되는 형식으로 변환합니다. 변환된 도구를 사용하여 LangGraph 기반의 ReAct 에이전트를 생성합니다.
 
