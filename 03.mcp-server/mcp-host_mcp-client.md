@@ -25,6 +25,7 @@ MCP(Model Context Protocol)는 원격 통신을 위해 다양한 Transport 방�
 - 특징: 클라이언트가 서버 프로세스를 직접 시작하고 관리
 - 장점: 설정이 간단하고 추가 네트워크 구성이 필요 없음
 - 사용 사례: 로컬 개발 환경, 단일 사용자 시나리오
+<BR>
 
 **streamable HTTP**
 - 실행 방식: HTTP POST와 GET을 통한 양방향 통신
@@ -37,6 +38,7 @@ MCP(Model Context Protocol)는 원격 통신을 위해 다양한 Transport 방�
   - 세션 기반 상태 관리
   - 연결 재개 및 메시지 재전송 지원
   - 사용 사례: 클라우드 환경, 다중 사용자 시나리오
+<BR>
 
 **HTTP/SSE(2024-11-05)**
 - 실행 방식: HTTP를 통한 단방향 이벤트 스트림
@@ -45,14 +47,16 @@ MCP(Model Context Protocol)는 원격 통신을 위해 다양한 Transport 방�
 - 장점: 표준 HTTP를 사용하여 방화벽 통과가 용이함
 - 사용 사례: 중앙 집중식 서버, 여러 사용자가 공유하는 환경
 - 호환성: 2025-03-26 버전과의 하위 호환성 유지
+<BR>
 
-1. IDE 터미널에서 다음 명령어를 실행하여 Python 가상 환경을 생성합니다:
+### 1. IDE 터미널에서 다음 명령어를 실행하여 Python 가상 환경을 생성합니다:
    ```
    uv venv --python 3.12
    source .venv/bin/activate
    ```
+<BR>
 
-2. Remote weather mcp server 기동<BR>
+### 2. Remote weather mcp server 기동<BR>
    [weather3.py](weather3.py)
 
 ```python
@@ -65,7 +69,6 @@ import httpx
 import uvicorn
 
 from mcp.server.fastmcp import FastMCP
-
 
 # Initialize FastMCP server for Weather tools.
 # If json_response is set to True, the server will use JSON responses instead of SSE streams
@@ -169,20 +172,26 @@ if __name__ == "__main__":
 >[!TIP]
 > MCP 서버가 Streamable HTTP 전송방식을 사용하여 원격의 단일 엔드포인트에서 양방향 통신을 제공하며, Uvicorn을 통해 8123 포트에서 실행되어 더 안정적이고 효율적인 날씨 정보 서비스를 제공합니다. (테스트에서는 편의를 위해 같은 instance의 localhost로 구성)
 
-3. Weather MCP server를 기동시킵니다.
+<BR>
+
+### 3. Weather MCP server를 기동시킵니다.
    ```
    uv run weather3.py
    ```
    ![streamlit](https://github.com/noenemy/q-cli-mcp/blob/main/03.mcp-server/images/mcp_07.png)
 > [!TIP]
 > 기동된 weather3.py의 서비스 URL과 포트를 확인 : ex) http://localhost:8123
-   
-4. 다음 명령어를 실행하여 필요한 의존성 패키지를 설치합니다:
+
+<BR>
+
+### 4. 다음 명령어를 실행하여 필요한 의존성 패키지를 설치합니다:
    ```
    cd client\
    uv pip install -r requirements.txt
    ```
    [client/requirements.txt](client/requirements.txt)
+
+<BR><BR>
 
 ## MCP 클라이언트 및 Host 구축하기
 ### 1. MCP Client 구현
@@ -344,6 +353,7 @@ What are the active weather alerts in Texas?와 같은 쿼리를 입력하여 �
 > [!TIP]
 > 그림에서 보는 것처럼 질문에 대해 텍사스, 루이지애나, 아칸소 일부 지역에서 최고 108도의 폭염주의보와 함께 텍사스 루프킨 인근 안젤리나 강 유역의 홍수 경보가 발령되었다는 것을 weather mcp 를 통해 확인할수  있습니다.
 ![mcp-server](https://github.com/noenemy/q-cli-mcp/blob/main/03.mcp-server/images/mcp_09.png) 
+<BR>
 
 ### 2. Streamlit 기반 MCP Host 애플리케이션 개발
 app.py 파일에서는 client.py에 정의된 MCPClient 클래스를 활용하여 Streamlit 기반의 독립형(standalone) MCP Host 애플리케이션을 구현합니다.
@@ -468,7 +478,7 @@ Streamlit 애플리케이션에서는 사용할 LLM 모델 ID, AWS 리전, 그�
 MCP 서버와 성공적으로 연결된 후에는 사용 가능한 각 도구의 이름, 설명, 그리고 매개변수에 관한 상세 정보를 계층적 확장 컴포넌트(expander)를 통해 표시합니다.
 
 MCP 서버와 연결이 완료되면 사용자 입력을 chat_input 컴포넌트를 통해 받아 MCPClient의 invoke_agent 메서드를 비동기적으로 호출합니다. 이때 MCPClient의 ReAct 에이전트는 사용자의 쿼리를 분석하여 적절한 도구를 선택적으로 활용하고, 도구 실행 결과를 바탕으로 최종 응답을 생성합니다.
-
+<BR>
 
 ### 3.애플리케이션 확인하기
 
@@ -484,6 +494,7 @@ http://3.210.201.53:8501/ 로 접속하여 배포된 streamlit 애플리케이�
 <BR><BR>
 쿼리를 입력해서 확인합니다.
 > 시카고의 현재 날시를 예측해주세요
+<BR>
 
 ### 요약
 
