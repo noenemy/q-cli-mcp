@@ -56,10 +56,11 @@ uv add "mcp[cli]" httpx
 
 weather.py 파일을 열어 코드를 작성 합니다. 
 [weather.py](https://github.com/noenemy/q-cli-mcp/blob/main/03.mcp-server/weather.py)
+> [!TIP]
+> cat > weather.py 명령을 통해 작성 후 Ctrl+D 버튼으로 문서 작성
+<BR>
 
 ```python
-cat > weather.py << EOF
-
 from typing import Any
 import httpx
 from mcp.server.fastmcp import FastMCP
@@ -160,7 +161,6 @@ if __name__ == "__main__":
     # Initialize and run the server
     mcp.run(transport='stdio')
 
-EOF
 ```
 
 > [!TIP]
