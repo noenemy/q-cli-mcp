@@ -204,7 +204,7 @@ if __name__ == "__main__":
    EOF
 
    # 의존썽 패키지 설치
-   uv pip3 install -r requirements.txt
+   uv pip install -r requirements.txt
    ```
    [client/requirements.txt](client/requirements.txt)
 
