@@ -187,8 +187,10 @@ if __name__ == "__main__":
 <BR>
 
 ### 4. 새로운 터미널에서 다음 명령어를 실행하여 client에 필요한 streamlit, langchain등의 의존성 패키지를 설치합니다:
+> client 폴더는 client 코드 구분을 위해 만든 폴더로 기본 생성되어 있지 않으므로, client폴더가 없는 경우
+> weather 폴더 및에 client 폴더 생성이 필요합니다.
    ```
-   cd client\
+   cd weather\client\
    uv pip install -r requirements.txt
    ```
    [client/requirements.txt](client/requirements.txt)
