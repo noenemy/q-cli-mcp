@@ -7,7 +7,7 @@
 <BR>
 
 >[!NOTE]
->Python 3.9.xx 버전이 구성된 경우 아래 방법으로 3.11 이상 버전으로 업그레이드 설치 하고 pip, nodejs 버전을 확인하세요
+>Python 3.9.xx 버전이 구성된 경우 아래 방법으로 3.11 이상 버전으로 업그레이드 설치 하고 pip, nodejs 버전을 확인하세요.
 >이미 3.11 이상의 Python 버전 및 환경에 필요한 패키지들이 구성된 경우 아래 내용은 Skip 하셔도 좋습니다.
 ```SHELL
 sudo yum install python3.11 -y
