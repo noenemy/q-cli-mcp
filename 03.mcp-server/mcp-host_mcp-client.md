@@ -52,6 +52,7 @@ MCP(Model Context Protocol)는 원격 통신을 위해 다양한 Transport 방�
 ### 1. IDE 터미널에서 다음 명령어를 실행하여 Python 가상 환경을 생성 및 실행합니다:
 >가상환경 적용은 이미 적용되어 있다면 SKIP 하셔도 좋습니다. 
 >가상환경 적용시 (weather) [ec2-user ... ] 와 같이 맨 앞에 프로젝트 명이 보여지게 됩니다.
+>사전에 Bedrock Model Access 에서 Nova-Lite 버전에 대한 model access를 확인해주세요
    ```
    uv venv --python 3.11
    source .venv/bin/activate
@@ -367,7 +368,9 @@ python client.py <Your-MCP-Server-Endpoint-URL>/mcp/
 ![mcp-server](https://github.com/noenemy/q-cli-mcp/blob/main/03.mcp-server/images/mcp_08.png) 
 * mcp server가 기동된 URL인 http://localhost:8123 과 mcp 프로토콜을 나타내는 http://localhost:8123/mcp/를 호출합니다.
 
-What are the active weather alerts in Texas?와 같은 쿼리를 입력하여 응답을 확인합니다. 정상적인 응답이 반환되면 클라이언트 설정이 완료된 것입니다.
+>What are the active weather alerts in Texas?
+위와 같은 쿼리를 입력하여 응답을 확인합니다. 정상적인 응답이 반환되면 클라이언트 설정이 완료된 것입니다.
+
 > [!TIP]
 > 그림에서 보는 것처럼 질문에 대해 텍사스, 루이지애나, 아칸소 일부 지역에서 최고 108도의 폭염주의보와 함께 텍사스 루프킨 인근 안젤리나 강 유역의 홍수 경보가 발령되었다는 것을 weather mcp 를 통해 확인할수  있습니다.
 ![mcp-server](https://github.com/noenemy/q-cli-mcp/blob/main/03.mcp-server/images/mcp_09.png) 
