@@ -190,7 +190,9 @@ if __name__ == "__main__":
 > client 폴더는 client 코드 구분을 위해 만든 폴더로 기본 생성되어 있지 않으므로, client폴더가 없는 경우
 > weather 폴더 및에 client 폴더 생성이 필요합니다.
    ```
-   cd weather\client\          # 폴더 이동
+   cd weather
+   source .venv/bin/activate
+   cd client          # 폴더 이동
 
    # 파이썬 의존성 패키지 설치를 위해 requirements.txt 작성
    cat > requirements.txt << EOF 
