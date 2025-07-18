@@ -222,6 +222,10 @@ MCP tools에 기상정보와 기상경보에 대한 tool이 포함되어 있는�
 
 > Allow this action? Use 't' to trust (always allow) this tool for the session. [y/n/t]: 입력창이 나타나면, t를 입력합니다.
 
+>[!WARNING]
+>claude-4 model의 경우 글로벌 요청 급증으로 일시적으로 사용이 제한될 수 있습니다.
+>/model 명령을 통해 claude-3.7-sonnet으로 변경해서 실행 합니다.
+
 <BR><BR><BR>
 ## 요약 :shipit: :shipit: 
 > [!NOTE]
