@@ -371,8 +371,9 @@ python client.py http://localhost:8123/mcp/
 ![mcp-server](https://github.com/noenemy/q-cli-mcp/blob/main/03.mcp-server/images/mcp_08.png) 
 * mcp server가 기동된 URL인 http://localhost:8123 과 mcp 프로토콜을 나타내는 http://localhost:8123/mcp/를 호출합니다.
 
+아래와 같은 쿼리를 입력하여 응답을 확인합니다. 정상적인 응답이 반환되면 클라이언트 설정이 완료된 것입니다.
 >What are the active weather alerts in Texas?
-위와 같은 쿼리를 입력하여 응답을 확인합니다. 정상적인 응답이 반환되면 클라이언트 설정이 완료된 것입니다.
+<BR>
 
 > [!TIP]
 > 그림에서 보는 것처럼 질문에 대해 텍사스, 루이지애나, 아칸소 일부 지역에서 최고 108도의 폭염주의보와 함께 텍사스 루프킨 인근 안젤리나 강 유역의 홍수 경보가 발령되었다는 것을 weather mcp 를 통해 확인할수  있습니다.
