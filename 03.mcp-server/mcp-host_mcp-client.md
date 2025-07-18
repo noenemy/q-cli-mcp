@@ -364,6 +364,9 @@ if __name__ == "__main__":
 
 ```
 python client.py <Your-MCP-Server-Endpoint-URL>/mcp/
+
+#예시
+python client.py http://localhost:8123/mcp/
 ```
 ![mcp-server](https://github.com/noenemy/q-cli-mcp/blob/main/03.mcp-server/images/mcp_08.png) 
 * mcp server가 기동된 URL인 http://localhost:8123 과 mcp 프로토콜을 나타내는 http://localhost:8123/mcp/를 호출합니다.
