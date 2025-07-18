@@ -34,10 +34,12 @@ Load tester는 다음과 같이 완성이 되었습니다.!!!!
 이제 테스트 해 봅시다. 테스트 시나리오는 주문 폭주 시뮬레이션이고 10분간 진행된다고 가정해 봅시다. 테스트는 10분 동안 진행이 됩니다. (잠시 커피 한잔하면서 지켜보시죠)
 <img width="1277" height="128" alt="Screenshot 2025-07-18 at 5 42 29 AM" src="https://github.com/user-attachments/assets/acc5bd7c-1b84-4216-a7c7-e3ab52b9939f" />
 
-결과는 아래와 같습니다.
+결과는 아래와 같습니다. <br>
 <img width="354" height="262" alt="2025-07-17 204202" src="https://github.com/user-attachments/assets/f2803688-6079-4a09-8e82-8fd543deb07a" />
+
 
 ```
 CloudWatch의 Metric과 CloudWatch Logs를 통해서 로드 테스트의 결과 보고서를 pdf 파일로 만들어서 ~/ddb-load-test-result/ 디렉토리에 생성해 줘. 그리고 터미널에도 요약 결과를 알려줘. 
 ```
 
+<img width="1323" height="748" alt="Screenshot 2025-07-18 at 5 58 28 AM" src="https://github.com/user-attachments/assets/16983850-1b98-449c-a7a9-2a24e8f5b2eb" />
