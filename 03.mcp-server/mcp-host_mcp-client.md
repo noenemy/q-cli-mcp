@@ -186,7 +186,7 @@ if __name__ == "__main__":
 
 <BR>
 
-### 4. 다음 명령어를 실행하여 client에 필요한 streamlit, langchain등의 의존성 패키지를 설치합니다:
+### 4. 새로운 터미널에서 다음 명령어를 실행하여 client에 필요한 streamlit, langchain등의 의존성 패키지를 설치합니다:
    ```
    cd client\
    uv pip install -r requirements.txt
@@ -344,7 +344,6 @@ if __name__ == "__main__":
 
 터미널에서 다음 명령어를 실행하여 MCP Client를 테스트할 수 있습니다. 이때, module-02에서 배포한 MCP 서버의 URL 뒤에 /mcp/ 엔드포인트를 추가하여 명령행 인자로 전달합니다.
 
-새로운 창을 열어서 
 ```
 python client.py <Your-MCP-Server-Endpoint-URL>/mcp/
 ```
