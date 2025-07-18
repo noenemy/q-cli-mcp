@@ -8,7 +8,7 @@
 
 >[!NOTE]
 >Python 3.9.xx 버전이 구성된 경우 아래 방법으로 3.11 이상 버전으로 업그레이드 설치 하고 pip, nodejs 버전을 확인한다.
-```Mac/Linux
+```SHELL
 sudo yum install python3.11 -y
 sudo yum install python3-pip -y
 sudo ln -s /usr/bin/python3.11 /usr/bin/python
