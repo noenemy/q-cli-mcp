@@ -17,7 +17,8 @@ python --version
 pip3 --version
 node --version
 npm --version
-``` 
+```
+<BR>
 
 ### Set up your environment
 **Windows**
