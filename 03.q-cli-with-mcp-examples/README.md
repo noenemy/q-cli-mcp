@@ -1,5 +1,0 @@
-<h3> 목차 </h3>
-
-3-1 AWS Q Developer CLI를 이용한 AWS Architecture Diagram 만들기<br>
-3-2 Cost Analysis<br>
-3-2 Stock Market 분석<br>
