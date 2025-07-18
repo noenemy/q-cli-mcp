@@ -190,8 +190,21 @@ if __name__ == "__main__":
 > client 폴더는 client 코드 구분을 위해 만든 폴더로 기본 생성되어 있지 않으므로, client폴더가 없는 경우
 > weather 폴더 및에 client 폴더 생성이 필요합니다.
    ```
-   cd weather\client\
-   uv pip install -r requirements.txt
+   cd weather\client\          # 폴더 이동
+
+   # 파이썬 의존성 패키지 설치를 위해 requirements.txt 작성
+   cat > requirements.txt << EOF 
+   streamlit>=1.30.0
+   langchain-mcp-adapters>=0.0.1
+   langchain-aws>=0.1.0
+   langgraph>=0.1.5
+   mcp>=0.1.0
+   boto3>=1.34.0
+   nest-asyncio>=1.6.0
+   EOF
+
+   # 의존썽 패키지 설치
+   uv pip3 install -r requirements.txt
    ```
    [client/requirements.txt](client/requirements.txt)
 
