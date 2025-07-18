@@ -20,17 +20,18 @@ uvx --version
 ```
 <BR>
 
-**환경구성(프로젝트 구성)**
+**가상환경 생성(프로젝트 구성)**
 ```
 uv init weather  # weather 프로젝트를 앞 Lab에서 구성하였다면 skip
 cd weather
 ```
 <BR><BR>
 
+**가상환경 적용 및 필수 패키지 설치**
 ```
 uv venv
 source .venv/bin/activate
-uv add "mcp[cli]" httpx
+uv add "mcp[cli]" httpx request
 ```
 <BR><BR>
 
