@@ -12,7 +12,7 @@ MCP는 Model Context Protocol의 약자로, 애플리케이션이 LLM(Large Lang
 
 ![mcp](https://github.com/noenemy/q-cli-mcp/blob/main/03.mcp-server/images/mcp.jpg)
 
-사용자는 Amazon Q Developer CLI [mcp](https://docs.aws.amazon.com/ko_kr/amazonq/latest/qdeveloper-ug/command-line.html), Claude Desktop [mcp](https://claude.ai/download)과 같은 MCP 클라이언트를 통해 이러한 기능에 쉽게 접근할 수 있습니다. Amazon Q Developer CLI는 MCP 호스트 역할을 하며, 사용자의 질문을 AI 모델에 전달하고, AI 모델이 필요에 따라 MCP 서버의 도구를 호출하도록 합니다. 서버는 요청된 데이터나 기능을 처리한 후 결과를 클라이언트에 반환하고, 이 정보는 다시 AI 모델에게 전달되어 최종적으로 자연어 형태의 응답으로 사용자에게 제공됩니다.
+사용자는 [Amazon Q Developer CLI](https://docs.aws.amazon.com/ko_kr/amazonq/latest/qdeveloper-ug/command-line.html), [Claude Desktop](https://claude.ai/download)과 같은 MCP Host/클라이언트를 통해 이러한 기능에 쉽게 접근할 수 있습니다. Amazon Q Developer CLI는 MCP 호스트 역할을 하며, 사용자의 질문을 AI 모델에 전달하고, AI 모델이 필요에 따라 MCP 서버의 도구를 호출하도록 합니다. 서버는 요청된 데이터나 기능을 처리한 후 결과를 클라이언트에 반환하고, 이 정보는 다시 AI 모델에게 전달되어 최종적으로 자연어 형태의 응답으로 사용자에게 제공됩니다.
 <BR><BR>
 
 ## 핵심 학습 목표
