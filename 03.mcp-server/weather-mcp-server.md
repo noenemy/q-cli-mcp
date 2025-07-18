@@ -46,7 +46,7 @@ cd weather
 ```
 uv venv
 source .venv/bin/activate
-uv add "mcp[cli]" httpx request
+uv add "mcp[cli]" httpx
 ```
 <BR><BR>
 
