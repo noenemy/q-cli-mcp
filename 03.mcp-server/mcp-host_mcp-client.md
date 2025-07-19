@@ -1,4 +1,4 @@
-# Lab.2-2. Streamable-HTTP MCP Server & MCP Client/MCP Host 구축
+# Lab.3-2. Streamable-HTTP MCP Server & MCP Client/MCP Host 구축
 
 
 ## 개요
