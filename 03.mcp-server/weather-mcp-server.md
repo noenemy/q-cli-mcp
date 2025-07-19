@@ -1,5 +1,5 @@
 <!-- Written by @skjun , 2025-07-13 -->
-# Lab 2. Local환경에서 Weather API MCP Server를 만들어 보기
+# Lab 3.1 Local환경에서 Weather API MCP Server를 만들어 보기
 
 ## 1. Python 가상 환경을 설정하고 필요한 패키지를 설치합니다.
 ### System requirements
