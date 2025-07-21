@@ -3,9 +3,31 @@
 DynamoDB 콘솔을 통해서 설정과 테이블들을 확인해 봅시다. 특히 Capacity mode가 On demand인 것이 확인되셨나요? <br>
 <img width="1348" height="605" alt="Screenshot 2025-07-18 at 5 21 55 AM" src="https://github.com/user-attachments/assets/a53d8c61-48d9-4454-a1b3-6ff493d6fc23" />
 
+### MCP 설정에 필요한 패키지를 설치해 봅니다.
+'''
+q chat
+'''
+
+```
+uvx 패키지를 설치해 줘
+```
+
+```
+aws documentation mcp server 파일을 ~/.aws/amazonq/mcp.json에 추가해 줘 기존 설정은 지우지 말아줘.
+```
+
+```
+aws cloudwatch mcp server 파일을 ~/.aws/amazonq/mcp.json에 추가해 줘 기존 설정은 지우지 말아줘.
+```
+
+
+```
+aws pricing
+```
 
 ### DynamoDB 설정 변경하기
 평소 운영하는 DynamoDB가 큰 부하를 일으키지 않는다고 가정하고 아래와 같이 Provisioned Capacity를 설정해 봅니다.
+
 ```
 DynamoDB의 모든 테이블들을 Provisioned Capacity Mode로 바꿔줘. WCU 10, RCU 10으로 변경해 줘.
 ```
