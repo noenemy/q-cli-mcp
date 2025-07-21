@@ -29,7 +29,7 @@ aws Pricing List MCP Server 파일을 ~/.aws/amazonq/mcp.json에 추가해 줘 �
 평소 운영하는 DynamoDB가 큰 부하를 일으키지 않는다고 가정하고 아래와 같이 Provisioned Capacity를 설정해 봅니다.
 
 ```
-DynamoDB의 모든 테이블들을 Provisioned Capacity Mode로 바꿔줘. WCU 10, RCU 10으로 변경해 줘.
+DynamoDB의 모든 테이블들을 Provisioned Capacity Mode로 바꿔줘. WCU 3, RCU 3으로 변경해 줘.
 ```
 
 관리 콘솔을 통해서 변경된 설정을 확인해 봅시다. On Demand에서 Provisioned로 바뀌었는지 확인해 봅시다.
