@@ -61,7 +61,7 @@ Load tester는 다음과 같이 완성이 되었습니다.!!!!
 
 
 ```
-CloudWatch의 Metric과 CloudWatch Logs를 통해서 로드 테스트의 결과 보고서를 pdf 파일로 만들어서 ~/ddb-load-test-result/ 디렉토리에 생성해 줘. 그리고 터미널에도 요약 결과를 알려줘. 
+CloudWatch의 Metric을 통해서 로드 테스트의 결과 보고서를 pdf 파일로 만들어서 ~/ddb-load-test-result/ 디렉토리에 생성해 줘. 그리고 터미널에도 요약 결과를 알려줘. 
 ```
 
 <img width="1323" height="748" alt="Screenshot 2025-07-18 at 5 58 28 AM" src="https://github.com/user-attachments/assets/16983850-1b98-449c-a7a9-2a24e8f5b2eb" />
