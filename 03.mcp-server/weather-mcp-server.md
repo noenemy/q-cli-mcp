@@ -63,7 +63,7 @@ cd ~/weather
 curl https://raw.githubusercontent.com/noenemy/q-cli-mcp/main/03.mcp-server/weather.py --output weather.py
 ```
 
-**weather.py** : [weather.py](https://github.com/noenemy/q-cli-mcp/blob/main/03.mcp-server/weather.py)
+**#코드 : weather.py** : [weather.py](https://github.com/noenemy/q-cli-mcp/blob/main/03.mcp-server/weather.py)
 <BR>
 
 ```python
