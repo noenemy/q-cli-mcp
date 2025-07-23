@@ -60,11 +60,12 @@ weather.py 파일을 열어 코드를 작성 합니다.
 > Mac/Linux에서는 **vi weather.py**  또는 **cat > weather.py** 명령을 통해 코드 작성 후 Ctrl+D 버튼으로 문서를 작성하거나 아래 명령을 통해 코드를 다운로드 받습니다.
 <BR>
 
-```BASH
+```bash
 cd ~/weather
 curl https://raw.githubusercontent.com/noenemy/q-cli-mcp/main/03.mcp-server/weather.py --output weather.py
 ```
 
+**weather.py**
 <BR>
 
 ```python
