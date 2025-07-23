@@ -54,10 +54,8 @@ uv add "mcp[cli]" httpx
 이론 시간에 filesystem mcp server 를 mcp.json 에 등록하여 file_read 등의 MCP Tool을 사용하는 것을 보셨습니다.
 이번엔 공식 페이지 quick start 에 있는 mcp server를 직접 만들고 등록해서 사용하는 것을 보여 드리겠습니다.
 
-weather.py 파일을 열어 코드를 작성 합니다. 
-[weather.py](https://github.com/noenemy/q-cli-mcp/blob/main/03.mcp-server/weather.py)
 > [!TIP]
-> Mac/Linux에서는 **vi weather.py**  또는 **cat > weather.py** 명령을 통해 코드 작성 후 Ctrl+D 버튼으로 문서를 작성하거나 아래 명령을 통해 코드를 다운로드 받습니다.
+> Mac/Linux에서는 **vi weather.py**  또는 **cat > weather.py** 명령을 통해 코드를 붙여넣기 하거나 아래 명령을 통해 코드를 다운로드 받습니다.
 <BR>
 
 ```bash
@@ -65,7 +63,7 @@ cd ~/weather
 curl https://raw.githubusercontent.com/noenemy/q-cli-mcp/main/03.mcp-server/weather.py --output weather.py
 ```
 
-**weather.py**
+**weather.py** : [weather.py](https://github.com/noenemy/q-cli-mcp/blob/main/03.mcp-server/weather.py)
 <BR>
 
 ```python
