@@ -388,7 +388,7 @@ python client.py <Your-MCP-Server-Endpoint-URL>/mcp/
 python client.py http://localhost:8123/mcp/
 ```
 ![mcp-server](https://github.com/noenemy/q-cli-mcp/blob/main/03.mcp-server/images/mcp_08.png) 
-* mcp server가 기동된 URL인 http://localhost:8123 과 mcp 프로토콜을 나타내는 http://localhost:8123/mcp/를 호출합니다.
+* mcp server를 기동할때 확인하였던 mcp server URL ( http://localhost:8123/mcp/ ) 를 호출합니다.
 
 아래와 같은 쿼리를 입력하여 응답을 확인합니다. 정상적인 응답이 반환되면 클라이언트 설정이 완료된 것입니다.
 >What are the active weather alerts in Texas?
