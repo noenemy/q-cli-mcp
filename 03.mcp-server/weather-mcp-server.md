@@ -211,6 +211,15 @@ EOF
 <BR><BR>
 
 ## 3.MCP 서버가 정상적으로 등록됐는지 Amazon Q Developer CLI를 다시 실행하고 /tools 명령어로 확인합니다.
+>[!WARNING]
+>claude-4 model의 경우 글로벌 요청 급증으로 일시적으로 사용이 제한될 수 있습니다.
+>/model 명령을 통해 claude-3.7-sonnet으로 변경해서 실행 하거나 기본 모델을 아래 명령으로 변경할수 있습니다.
+<BR>
+
+```bash
+q settings chat.defaultModel claude-3.7-sonnet
+```
+
 ![mcp](https://github.com/noenemy/q-cli-mcp/blob/main/03.mcp-server/images/mcp_00.png)
 코드 작성과 실행 그리고 mcp.json이 정상인 경우 Amazon Q Dev. CLI를 재실행시 Loaded 메시지를 보게 됩니다.
 
@@ -233,10 +242,6 @@ MCP tools에 기상정보와 기상경보에 대한 tool이 포함되어 있는�
 
 > Allow this action? Use 't' to trust (always allow) this tool for the session. [y/n/t]: 입력창이 나타나면, t를 입력합니다.
 
->[!WARNING]
->claude-4 model의 경우 글로벌 요청 급증으로 일시적으로 사용이 제한될 수 있습니다.
->/model 명령을 통해 claude-3.7-sonnet으로 변경해서 실행 하거나 기본 모델을 아래 명령으로 변경할수 있습니다.
->q settings chat.defaultModel claude-3.7-sonnet
 
 <BR><BR><BR>
 ## 요약 :shipit: :shipit: 
