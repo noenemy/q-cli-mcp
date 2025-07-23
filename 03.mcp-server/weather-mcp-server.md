@@ -177,8 +177,11 @@ if __name__ == "__main__":
 
 > [!NOTE]
 > 이 스크립트는 미국 국립 기상 서비스 API를 통해 날씨 정보를 가져오는 MCP 서버를 구현합니다. 사용자의 프롬프트로부터 날씨를 받을 때, get_alerts, get_forecast를 활용하여 위도와 경보를 파악하고 기상 정보를 가져오도록 동작합니다.
-> weather.py mcp server를 Q Dev. CLI가 호출할 수 있도록 mcp.json 에 mcp server 구성 정보를 작성합니다.
-> 아래 설정은 mcp.json을 덮어쓰기 하므로 필요시 mcp.json을 백업하고 진행해주세요
+<BR>
+
+### mcp.json 설정
+weather.py mcp server를 Q Dev. CLI가 호출할 수 있도록 mcp.json 에 mcp server 구성 정보를 작성합니다.
+아래 설정은 mcp.json을 덮어쓰기 하므로 필요시 mcp.json을 백업하고 진행해주세요
 
 - Amazon Q Developer CLI는 두 가지 수준의 MCP 구성을 지원합니다.
   - 글로벌 구성: ~/.aws/amazonq/mcp.json - 모든 워크스페이스에 적용됩니다.
