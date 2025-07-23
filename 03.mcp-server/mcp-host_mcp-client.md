@@ -59,9 +59,14 @@ MCP(Model Context Protocol)는 원격 통신을 위해 다양한 Transport 방�
    ```
 <BR>
 
-### 2. Remote weather mcp server 기동<BR>
-   [weather3.py](weather3.py)
+### 2. Remote weather mcp server 작성 및 기동<BR>
 
+```bash
+cd ~/weather
+curl https://raw.githubusercontent.com/noenemy/q-cli-mcp/main/03.mcp-server/weather3.py --output weather3.py
+```
+
+**# 코드 : weather3.py** [weather3.py](weather3.py)
 ```python
 """Weather tools for MCP Streamable HTTP server using NWS API."""
 
@@ -184,9 +189,10 @@ if __name__ == "__main__":
 <BR>
 
 ### 3. Weather MCP server를 기동시킵니다.
-   ```
-   uv run weather3.py
-   ```
+```
+cd ~/weather
+uv run weather3.py
+```
    ![streamlit](https://github.com/noenemy/q-cli-mcp/blob/main/03.mcp-server/images/mcp_07.png)
 > [!TIP]
 > 기동된 weather3.py의 서비스 URL과 포트를 확인 : ex) http://localhost:8123
@@ -196,34 +202,42 @@ if __name__ == "__main__":
 ### 4. 새로운 터미널에서 다음 명령어를 실행하여 client에 필요한 streamlit, langchain등의 의존성 패키지를 설치합니다:
 > client 폴더는 client 코드 구분을 위해 만든 폴더로 기본 생성되어 있지 않으므로, client폴더가 없는 경우
 > weather 폴더 및에 client 폴더 생성이 필요합니다.
-   ```
-   cd weather
-   source .venv/bin/activate
-   cd client          # 폴더 이동
-
-   # 파이썬 의존성 패키지 설치를 위해 requirements.txt 작성
-   cat > requirements.txt << EOF 
-   streamlit>=1.30.0
-   langchain-mcp-adapters>=0.0.1
-   langchain-aws>=0.1.0
-   langgraph>=0.1.5
-   mcp>=0.1.0
-   boto3>=1.34.0
-   nest-asyncio>=1.6.0
-   EOF
-
-   # 의존썽 패키지 설치
-   uv pip install -r requirements.txt
-   ```
-   [client/requirements.txt](client/requirements.txt)
-
-<BR><BR>
 
 ## MCP 클라이언트 및 Host 구축하기
 ### 1. MCP Client 구현
 client.py 파일에는 LangGraph ReAct 에이전트 기반의 MCPClient 클래스가 정의되어 있습니다. MCPClient 객체 초기화 시 비동기 작업 처리를 위한 AsyncExitStack과 LLM 호출을 위한 langchain-aws의 ChatBedrockConverse 인스턴스가 초기화되며, MCP 세션 및 ReAct 에이전트 변수는 초기 값으로 None이 설정됩니다.
 
-[client/client.py](client/client.py)
+```bash
+cd ~/weather/client
+curl https://raw.githubusercontent.com/noenemy/q-cli-mcp/main/03.mcp-server/client/requirements.txt --output requirements.txt
+curl https://raw.githubusercontent.com/noenemy/q-cli-mcp/main/03.mcp-server/client/client.py --output client.py
+```
+
+```
+cd weather
+source .venv/bin/activate
+cd client          # 폴더 이동
+
+# 파이썬 의존성 패키지 설치를 위해 requirements.txt 작성
+cat > requirements.txt << EOF 
+streamlit>=1.30.0
+langchain-mcp-adapters>=0.0.1
+langchain-aws>=0.1.0
+langgraph>=0.1.5
+mcp>=0.1.0
+boto3>=1.34.0
+nest-asyncio>=1.6.0
+EOF
+
+# 의존썽 패키지 설치
+uv pip install -r requirements.txt
+```
+[client/requirements.txt](client/requirements.txt)
+
+<BR><BR>
+
+
+**# 코드 : client/client.py** : [client/client.py](client/client.py)
 ```python
 import asyncio
 import sys
@@ -389,7 +403,12 @@ python client.py http://localhost:8123/mcp/
 ### 2. Streamlit 기반 MCP Host 애플리케이션 개발
 app.py 파일에서는 client.py에 정의된 MCPClient 클래스를 활용하여 Streamlit 기반의 독립형(standalone) MCP Host 애플리케이션을 구현합니다.
 
-[client\app.py](client\app.py)
+```bash
+cd ~/weather/client
+curl https://raw.githubusercontent.com/noenemy/q-cli-mcp/main/03.mcp-server/client/app.py --output app.py
+```
+
+**#코드 : client\app.py** : [client\app.py](client\app.py)
 
 ```python
 import streamlit as st
