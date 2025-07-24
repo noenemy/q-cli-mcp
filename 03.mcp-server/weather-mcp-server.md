@@ -21,7 +21,7 @@ npm --version
 ```
 <BR>
 
-### Set up your environment
+### Set up your environment ( nodejs 와 uv 를 이미 설치하신 분들은 skip 하셔도 좋습니다. )
 **Windows**
 ```
 powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
