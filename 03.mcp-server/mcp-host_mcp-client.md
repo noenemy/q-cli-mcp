@@ -197,7 +197,8 @@ uv run weather3.py
    ![streamlit](https://github.com/noenemy/q-cli-mcp/blob/main/03.mcp-server/images/mcp_07.png)
 > [!TIP]
 > 기동된 weather3.py의 서비스 URL과 포트를 확인 : ex) http://localhost:8123
-
+> [!CAUTION]
+> 도전과제 : 8123포트에 대한 Secuirty Group은 구성되어 있지 않습니다. 콘솔, CLI, Q CLI를 통해서 8123포트를 접근할수 있게 수정해보세요
 <BR>
 
 ### 4. 새로운 터미널에서 다음 명령어를 실행하여 client에 필요한 streamlit, langchain등의 의존성 패키지를 설치합니다:
@@ -378,7 +379,7 @@ if __name__ == "__main__":
 >[!TIP]
 >이 코드는 MCP(Model Context Protocol) 클라이언트를 구현하여 Amazon Bedrock의 Nova-Lite-V1 모델과 LangChain 프레임워크를 통합한 대화형 AI 에이전트를 구현하고 있으며, Streamable HTTP를 통해 MCP 서버에 연결하여 사용 가능한 도구들을 불러오고, 사용자의 질의에 대해 ReAct 패턴을 기반으로 응답을 생성하는 대화형 인터페이스를 제공합니다.
 
-클라이언트는 mcp 패키지의 streamable_client를 통해 Streamable HTTP Transport 방식으로 MCP 서버와 연결하고, 클라이언트 세션을 초기화합니다. 이후 해당 세션에서 사용 가능한 도구(tools)를 로드하고, LangChain MCP Adapters의 load_mcp_tools 메서드를 통해 이 도구들을 LangChain 및 LangGraph와 호환되는 형식으로 변환합니다. 변환된 도구를 사용하여 LangGraph 기반의 ReAct 에이전트를 생성합니다.
+mcp 패키지의 streamable_client를 통해 Streamable HTTP Transport 방식으로 MCP 서버와 연결하고, 세션을 초기화합니다. 이후 해당 세션에서 사용 가능한 도구(tools)를 로드하고 LangGraph 기반의 ReAct 에이전트를 이용해서 프롬프트를 서버로 전달합니다.
 
 터미널에서 다음 명령어를 실행하여 MCP Client를 테스트할 수 있습니다. 이때, module-02에서 배포한 MCP 서버의 URL 뒤에 /mcp/ 엔드포인트를 추가하여 명령행 인자로 전달합니다.
 
