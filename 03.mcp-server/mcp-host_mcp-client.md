@@ -382,7 +382,7 @@ if __name__ == "__main__":
 
 mcp 패키지의 streamable_client를 통해 Streamable HTTP Transport 방식으로 MCP 서버와 연결하고, 세션을 초기화합니다. 이후 해당 세션에서 사용 가능한 도구(tools)를 로드하고 LangGraph 기반의 ReAct 에이전트를 이용해서 프롬프트를 서버로 전달합니다.
 
-터미널에서 다음 명령어를 실행하여 MCP Client를 테스트할 수 있습니다. 이때, module-02에서 배포한 MCP 서버의 URL 뒤에 /mcp/ 엔드포인트를 추가하여 명령행 인자로 전달합니다.
+터미널에서 다음 명령어를 실행하여 MCP Client를 테스트할 수 있습니다. 이때, weather3 MCP 서버의 URL 뒤에 /mcp/ 엔드포인트를 추가하여 명령행 인자로 전달합니다.
 
 ```
 python client.py <Your-MCP-Server-Endpoint-URL>/mcp/
