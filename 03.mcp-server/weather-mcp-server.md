@@ -21,6 +21,10 @@ npm --version
 ```
 <BR>
 
+### Bedrock Model Access
+Bedrock Console > Model Access > Enable Specific mdodels > Nova lite 를 선택하고 Save를 눌려줍니다.
+![mcp](https://github.com/noenemy/q-cli-mcp/blob/main/03.mcp-server/images/mcp_12.png)
+
 ### Set up your environment ( nodejs 와 uv 를 이미 설치하신 분들은 skip 하셔도 좋습니다. )
 **Windows**
 ```
