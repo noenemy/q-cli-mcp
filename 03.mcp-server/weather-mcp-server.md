@@ -224,7 +224,7 @@ EOF
 <BR>
 
 ```bash
-q settings chat.defaultModel claude-3.5-sonnet
+q settings chat.defaultModel claude-3.7-sonnet
 q chat
 ```
 
