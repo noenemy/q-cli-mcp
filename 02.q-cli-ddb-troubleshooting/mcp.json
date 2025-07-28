@@ -7,20 +7,7 @@
       ],
       "env": {
         "FASTMCP_LOG_LEVEL": "ERROR",
-        "AWS_PROFILE": "your-aws-profile",
-        "AWS_REGION": "us-east-1"
-      },
-      "disabled": false,
-      "autoApprove": []
-    },
-   "awslabs.aws-pricing-mcp-server": {
-      "command": "uvx",
-      "args": [
-         "awslabs.aws-pricing-mcp-server@latest"
-      ],
-      "env": {
-        "FASTMCP_LOG_LEVEL": "ERROR",
-        "AWS_PROFILE": "your-aws-profile",
+        "AWS_PROFILE": "default",
         "AWS_REGION": "us-east-1"
       },
       "disabled": false,
@@ -34,7 +21,7 @@
         "awslabs.cloudwatch-mcp-server@latest"
       ],
       "env": {
-        "AWS_PROFILE": "[The AWS Profile Name to use for AWS access]",
+        "AWS_PROFILE": "default",
         "FASTMCP_LOG_LEVEL": "ERROR"
       },
       "transportType": "stdio"
@@ -48,8 +35,8 @@
         "awslabs.cloudwatch-logs-mcp-server@latest"
       ],
       "env": {
-        "AWS_PROFILE": "[The AWS Profile Name to use for AWS access]",
-        "AWS_REGION": "[The AWS region to run in]",
+        "AWS_PROFILE": "default",
+        "AWS_REGION": "us-east-1",
         "FASTMCP_LOG_LEVEL": "ERROR"
       },
       "transportType": "stdio"
