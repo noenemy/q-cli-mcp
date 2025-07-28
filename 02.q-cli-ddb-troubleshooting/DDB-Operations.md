@@ -9,22 +9,10 @@ https://github.com/noenemy/q-cli-mcp/blob/main/02.q-cli-ddb-troubleshooting/mcp.
 <BR>
 
 >[!NOTE]
->Python 3.9.xx 버전이 구성된 경우 아래 방법으로 3.11 이상 버전으로 업그레이드 설치 하고 pip, nodejs 버전을 확인하세요.
->이미 3.11 이상의 Python 버전 및 환경에 필요한 패키지들이 구성된 경우 아래 내용은 Skip 하셔도 좋습니다.
-```SHELL
-sudo yum install python3.11 -y
-sudo yum install python3-pip -y
-sudo ln -s /usr/bin/python3.11 /usr/bin/python
+>AWS Credential은 Workshop Studio에서 확인하여 mcp.json 파일에 입력합니다. 
+>반드시 메모장 등에서 미리 파일을 준비하고, EC2 SSH 세션에서는 붙여넣기만 합니다.
 
-python --version
-pip3 --version
-node --version
-npm --version
-```
 <BR>
-
->[!NOTE] AWS Credential은 Workshop Studio에서 확인하여 mcp.json 파일에 입력합니다. 
-> 반드시 메모장 등에서 미리 파일을 준비하고, EC2 SSH 세션에서는 붙여넣기만 합니다.
 
 ```
 vi /home/ec2-user/.aws/amazonq/mcp.json
