@@ -1,10 +1,27 @@
-# Prime Day 이벤트 준비를 위한 Load Test 준비하기
+# Prime Day 이벤트 준비를 위한 Load Test 로 대비하기
 
 DynamoDB 콘솔을 통해서 설정과 테이블들을 확인해 봅시다. 특히 Capacity mode가 On demand인 것이 확인되셨나요? <br>
 <img width="1348" height="605" alt="Screenshot 2025-07-18 at 5 21 55 AM" src="https://github.com/user-attachments/assets/a53d8c61-48d9-4454-a1b3-6ff493d6fc23" />
 
 /home/ec2-user/.aws/amazonq/mcp.json 파일을 생성합니다. 그리고 본 랩의 폴더에 있는 mcp.json 파일의 내용을 입력합니다.
 https://github.com/noenemy/q-cli-mcp/blob/main/02.q-cli-ddb-troubleshooting/mcp.json
+
+<BR>
+
+>[!NOTE]
+>Python 3.9.xx 버전이 구성된 경우 아래 방법으로 3.11 이상 버전으로 업그레이드 설치 하고 pip, nodejs 버전을 확인하세요.
+>이미 3.11 이상의 Python 버전 및 환경에 필요한 패키지들이 구성된 경우 아래 내용은 Skip 하셔도 좋습니다.
+```SHELL
+sudo yum install python3.11 -y
+sudo yum install python3-pip -y
+sudo ln -s /usr/bin/python3.11 /usr/bin/python
+
+python --version
+pip3 --version
+node --version
+npm --version
+```
+<BR>
 
 >[!NOTE] AWS Credential은 Workshop Studio에서 확인하여 mcp.json 파일에 입력합니다. 
 > 반드시 메모장 등에서 미리 파일을 준비하고, EC2 SSH 세션에서는 붙여넣기만 합니다.
