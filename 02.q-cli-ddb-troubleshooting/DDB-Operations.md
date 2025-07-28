@@ -5,6 +5,7 @@ DynamoDB 콘솔을 통해서 설정과 테이블들을 확인해 봅시다. 특�
 
 /home/ec2-user/.aws/amazonq/mcp.json 파일을 생성합니다. 그리고 본 랩의 폴더에 있는 mcp.json 파일의 내용을 입력합니다.
 https://github.com/noenemy/q-cli-mcp/blob/main/02.q-cli-ddb-troubleshooting/mcp.json
+
 >[!NOTE] AWS Credential은 Workshop Studio에서 확인하여 mcp.json 파일에 입력합니다. 
 > 반드시 메모장 등에서 미리 파일을 준비하고, EC2 SSH 세션에서는 붙여넣기만 합니다.
 
