@@ -26,21 +26,6 @@
       },
       "transportType": "stdio"
     },
-    "awslabs.cloudwatch-logs-mcp-server": {
-      "autoApprove": [],
-      "disabled": false,
-      "timeout": 60,
-      "command": "uvx",
-      "args": [
-        "awslabs.cloudwatch-logs-mcp-server@latest"
-      ],
-      "env": {
-        "AWS_PROFILE": "default",
-        "AWS_REGION": "us-east-1",
-        "FASTMCP_LOG_LEVEL": "ERROR"
-      },
-      "transportType": "stdio"
-    },
     "awslabs.aws-documentation-mcp-server": {
       "command": "uvx",
       "args": ["awslabs.aws-documentation-mcp-server@latest"],
