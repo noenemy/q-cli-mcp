@@ -13,7 +13,7 @@
       "disabled": false,
       "autoApprove": []
     },
- "awslabs.cloudwatch-mcp-server": {
+    "awslabs.cloudwatch-mcp-server": {
       "autoApprove": [],
       "disabled": false,
       "command": "uvx",
@@ -26,7 +26,7 @@
       },
       "transportType": "stdio"
     },
- "awslabs.cloudwatch-logs-mcp-server": {
+    "awslabs.cloudwatch-logs-mcp-server": {
       "autoApprove": [],
       "disabled": false,
       "timeout": 60,
@@ -41,7 +41,7 @@
       },
       "transportType": "stdio"
     },
- "awslabs.aws-documentation-mcp-server": {
+    "awslabs.aws-documentation-mcp-server": {
       "command": "uvx",
       "args": ["awslabs.aws-documentation-mcp-server@latest"],
       "env": {
