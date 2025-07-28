@@ -15,22 +15,7 @@
       "disabled": false,
       "autoApprove": []
     },
- "awslabs.cloudwatch-mcp-server": {
-      "autoApprove": [],
-      "disabled": false,
-      "command": "uvx",
-      "args": [
-        "awslabs.cloudwatch-mcp-server@latest"
-      ],
-      "env": {
-        "AWS_ACCESS_KEY_ID": "FOLLOW_INSTRUCTOR",
-        "AWS_SECRET_ACCESS_KEY": "FOLLOW_INSTRUCTOR",
-        "AWS_SESSION_TOKEN": "FOLLOW_INSTRUCTOR",
-        "FASTMCP_LOG_LEVEL": "ERROR"
-      },
-      "transportType": "stdio"
-    },
- "awslabs.aws-documentation-mcp-server": {
+    "awslabs.aws-documentation-mcp-server": {
       "command": "uvx",
       "args": ["awslabs.aws-documentation-mcp-server@latest"],
       "env": {
