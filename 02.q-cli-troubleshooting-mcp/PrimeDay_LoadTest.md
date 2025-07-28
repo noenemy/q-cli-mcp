@@ -27,15 +27,14 @@ q chat
 uvx 패키지를 설치해 주세요
 ```
 
-uvx 패키지 설치가 완료되었으면 q chat을 빠져나옵니다.
+uvx 패키지 설치가 완료되었으면 MCP 서버의 정상 동작 확인을 위해 q chat을 재시작합니다.
 ```
 /quit
 ```
-
-q chat을 다시 실행하고 mcp.json 에서 만든 MCP 서버가 추가된 것을 확인합니다.
 ```
 q chat
 ```
+MCP 서버가 등록되었는지 아래 커맨드로 확인합니다.
 ```
 /tools
 ```
@@ -52,7 +51,8 @@ DynamoDB의 모든 테이블들을 Provisioned Capacity Mode로 변경하고 WCU
 
 
 ### Prime Day 준비하기
-이제 테이블에 로드테스트를 해 보겠습니다. Q Developer CLI가 만들어 준 파일을 이용하여 load 테스트를 해 봅시다. 이커머스의 특성상 Peak load를 테스트하기 위해서 아래와 같은 로드 테스트 시나리오를 준비해 봅니다.
+본격적으로 Prime Day를 위한 로드테스트를 준비합니다. Q Developer CLI가 생성하는 스크립트를 이용합니다. 
+이커머스의 특성상 Peak load를 테스트하기 위해서 아래와 같은 로드 테스트 시나리오를 준비해 봅니다.
 
 ```
 이커머스 Amazon Prime Day를 예상하고 DynamoDB의 여러 테이블들에 부하를 주려고 합니다.
@@ -67,7 +67,7 @@ Load Tester를 위한 스크립트를 Python 으로 만들어 주세요.
 
 ### Prime Day를 위한 Load Test하기
 Load tester가 완성되었다면, Q Developer CLI가 생성한 스크립트를 이용해서 부하테스트를 시작합니다. 
-사용법을 꼼꼼히 읽어보고 시작합니다. 만약 부하가 충분하지 않을 것으로 생각된다면, 변경을 요청합니다.
+**반드시 사용법을 꼼꼼히 읽어보고 시작합니다.** 만약 부하가 충분하지 않을 것으로 생각된다면, 변경을 요청합니다.
 
 부하를 충분히 주도록 테스트를 10분 동안 20개 쓰레드를 이용해서 진행합니다. 
 (잠시 커피 한잔하면서 지켜봅니다.)
@@ -89,6 +89,5 @@ Load tester가 완성되었다면, Q Developer CLI가 생성한 스크립트를 
 위의 요약 정리된 내용이 정확한지 Support Case로 문의할 예정입니다.
 진행한 부하테스트와 해결 방법을 문의하도록 제목과 내용을 300글자 이하로 작성해주세요. 
 ```
-
 <img width="1323" height="748" alt="Screenshot 2025-07-18 at 5 58 28 AM" src="https://github.com/user-attachments/assets/16983850-1b98-449c-a7a9-2a24e8f5b2eb" />
 
