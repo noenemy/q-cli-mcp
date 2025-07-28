@@ -3,8 +3,7 @@
 DynamoDB 콘솔을 통해서 설정과 테이블들을 확인해 봅시다. 특히 Capacity mode가 On demand인 것이 확인되셨나요? <br>
 <img width="1348" height="605" alt="Screenshot 2025-07-18 at 5 21 55 AM" src="https://github.com/user-attachments/assets/a53d8c61-48d9-4454-a1b3-6ff493d6fc23" />
 
-/home/ec2-user/.aws/amazonq/mcp.json 파일을 생성합니다. 그리고 본 랩의 폴더에 있는 mcp.json 파일의 내용을 입력합니다.
-https://github.com/noenemy/q-cli-mcp/blob/main/02.q-cli-ddb-troubleshooting/mcp.json
+/home/ec2-user/.aws/amazonq/mcp.json 파일을 생성합니다. 그리고 본 랩의 폴더에 있는 [mcp.json](https://github.com/noenemy/q-cli-mcp/blob/main/02.q-cli-ddb-troubleshooting/mcp.json) 파일의 내용을 입력합니다.
 
 <BR>
 
