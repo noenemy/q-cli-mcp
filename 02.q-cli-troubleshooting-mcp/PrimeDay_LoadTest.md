@@ -1,9 +1,9 @@
 # Prime Day 이벤트 준비를 위한 Load Test 로 대비하기
 
-DynamoDB 콘솔을 통해서 설정과 테이블들을 확인해 봅시다. 특히 Capacity mode가 On demand인 것이 확인되셨나요? <br>
+DynamoDB 콘솔을 통해서 설정과 테이블들을 확인해 봅시다. 특히 Capacity mode가 On demand인지 확인합니다. <br>
 <img width="1348" height="605" alt="Screenshot 2025-07-18 at 5 21 55 AM" src="https://github.com/user-attachments/assets/a53d8c61-48d9-4454-a1b3-6ff493d6fc23" />
 
-/home/ec2-user/.aws/amazonq/mcp.json 파일을 생성합니다. 그리고 본 랩의 폴더에 있는 [mcp.json](https://github.com/noenemy/q-cli-mcp/blob/main/02.q-cli-ddb-troubleshooting/mcp.json) 파일의 내용을 입력합니다.
+/home/ec2-user/.aws/amazonq/mcp.json 파일을 생성합니다. 그리고 본 랩의 폴더에 있는 [mcp.json](https://github.com/noenemy/q-cli-mcp/blob/main/02.q-cli-troubleshooting-mcp/mcp.json) 파일의 내용을 입력합니다.
 
 <BR>
 
@@ -40,19 +40,19 @@ MCP 서버가 등록되었는지 아래 커맨드로 확인합니다.
 ```
 
 ### DynamoDB 설정 변경하기
-평소 운영하는 DynamoDB가 큰 부하를 일으키지 않는다고 가정하고 아래와 같이 Provisioned Capacity를 설정해 봅니다.
+평소 운영하는 DynamoDB가 큰 부하를 일으키지 않는다고 가정하고 아래와 같이 Provisioned Capacity를 설정합니다.
 
 ```
 DynamoDB의 모든 테이블들을 Provisioned Capacity Mode로 변경하고 WCU 2, RCU 2으로 설정해 주세요.
 ```
 
-관리 콘솔을 통해서 변경된 설정을 확인해 봅시다. On Demand에서 Provisioned로 바뀌었는지 확인해 봅시다.
+관리 콘솔을 통해서 변경된 설정을 확인해 봅시다. On Demand에서 Provisioned로 변경되었는지 확인합니다.
 <img width="1329" height="1065" alt="Screenshot 2025-07-18 at 5 22 58 AM" src="https://github.com/user-attachments/assets/9475aedf-874f-46bb-a255-842313ab23ae" />
 
 
 ### Prime Day 준비하기
 본격적으로 Prime Day를 위한 로드테스트를 준비합니다. Q Developer CLI가 생성하는 스크립트를 이용합니다. 
-이커머스의 특성상 Peak load를 테스트하기 위해서 아래와 같은 로드 테스트 시나리오를 준비해 봅니다.
+이커머스의 특성상 Peak load를 테스트하기 위해서 아래와 같은 로드 테스트 시나리오를 준비합니다.
 
 ```
 이커머스 Amazon Prime Day를 예상하고 DynamoDB의 여러 테이블들에 부하를 주려고 합니다.
@@ -65,7 +65,7 @@ Load Tester를 위한 스크립트를 Python 으로 만들어 주세요.
 <img width="1676" height="757" alt="Screenshot 2025-07-18 at 5 39 16 AM" src="https://github.com/user-attachments/assets/c650fcca-e084-4d4f-8b18-7436d092b796" />
 
 
-### Prime Day를 위한 Load Test하기
+### Load Test 실행하기
 Load tester가 완성되었다면, Q Developer CLI가 생성한 스크립트를 이용해서 부하테스트를 시작합니다. 
 **반드시 사용법을 꼼꼼히 읽어보고 시작합니다.** 만약 부하가 충분하지 않을 것으로 생각된다면, 변경을 요청합니다.
 
