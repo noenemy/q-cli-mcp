@@ -125,3 +125,5 @@ q chat 이 데이터베이스와 웹서비스를 모두 변경하는지 검수�
 * 완료된 후에 웹사이트를 둘러보고 기능을 점검합니다.
 * 변경하고 싶은 부분을 생각해 봅니다.
 * 여러분 만의 요구사항을 자연어로 지시합니다.
+
+[![Next](../03.mcp-server/images/next.png)](../02.q-cli-troubleshooting-mcp/01.PrimeDay_LoadTest.md)
