@@ -23,11 +23,11 @@ MCP는 Model Context Protocol의 약자로, 애플리케이션이 LLM(Large Lang
 <BR><BR>
 
 ## Lab.3-1. Local Weather API MCP Server
-- [Modelcontext.io - Weather MCP Server](https://github.com/noenemy/q-cli-mcp/blob/main/03.mcp-server/weather-mcp-server.md)
+- [Modelcontext.io - Weather MCP Server](https://github.com/noenemy/q-cli-mcp/blob/main/03.mcp-server/01.weather-mcp-server.md)
 <BR><BR>
 
 ## Lab.3-2. Streamable-HTTP MCP Server & MCP Client/MCP Host
-- [Remote Weather MCP Server, MCP Client, MCP Host](https://github.com/noenemy/q-cli-mcp/blob/main/03.mcp-server/mcp-host_mcp-client.md)
+- [Remote Weather MCP Server, MCP Client, MCP Host](https://github.com/noenemy/q-cli-mcp/blob/main/03.mcp-server/02.mcp-host_mcp-client.md)
 <BR><BR>
 
 ### 참조
