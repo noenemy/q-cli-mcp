@@ -385,31 +385,6 @@
             background: #e5e4e2;
             color: #333;
         }
-        
-        .rating-stars {
-            color: #ffa500;
-            font-size: 16px;
-        }
-        
-        .verified-badge {
-            color: #28a745;
-            font-weight: bold;
-        }
-        
-        .review-content {
-            max-width: 200px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-        
-        .review-title {
-            max-width: 150px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            font-weight: 500;
-        }
     </style>
 </head>
 <body>
@@ -424,7 +399,6 @@
             <button class="tab" onclick="showTab('products')">제품</button>
             <button class="tab" onclick="showTab('customers')">고객</button>
             <button class="tab" onclick="showTab('orders')">주문</button>
-            <button class="tab" onclick="showTab('reviews')">리뷰</button>
         </div>
         
         <!-- Categories Tab -->
@@ -510,6 +484,8 @@
         <!-- Orders Tab -->
         <div id="orders-tab" class="content" style="display: none;">
             <div class="search-section">
+                <input type="text" id="orders-search" class="search-input" placeholder="주문 ID, 고객 ID, 상태로 검색...">
+                <button class="btn btn-primary" onclick="searchOrders()">검색</button>
                 <button class="btn btn-primary" onclick="loadOrders()">새로고침</button>
                 <button class="btn btn-success" onclick="showAddOrderModal()">+ 주문 추가</button>
             </div>
@@ -528,35 +504,6 @@
                     </thead>
                     <tbody id="orders-tbody">
                         <tr><td colspan="7" class="loading">데이터 로딩 중...</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        
-        <!-- Reviews Tab -->
-        <div id="reviews-tab" class="content" style="display: none;">
-            <div class="search-section">
-                <input type="text" id="reviews-search" class="search-input" placeholder="리뷰 제목 또는 내용으로 검색...">
-                <button class="btn btn-primary" onclick="searchReviews()">검색</button>
-                <button class="btn btn-success" onclick="showAddReviewModal()">+ 리뷰 추가</button>
-            </div>
-            <div class="table-container">
-                <table id="reviews-table">
-                    <thead>
-                        <tr>
-                            <th>리뷰 ID</th>
-                            <th>제품 ID</th>
-                            <th>고객 ID</th>
-                            <th>평점</th>
-                            <th>제목</th>
-                            <th>내용</th>
-                            <th>작성일</th>
-                            <th>구매확인</th>
-                            <th>작업</th>
-                        </tr>
-                    </thead>
-                    <tbody id="reviews-tbody">
-                        <tr><td colspan="9" class="loading">데이터 로딩 중...</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -752,71 +699,6 @@
             </form>
         </div>
     </div>
-    
-    <!-- Review Modal -->
-    <div id="review-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="review-modal-title">리뷰 추가</h2>
-                <span class="close" onclick="closeReviewModal()">&times;</span>
-            </div>
-            <form id="review-form">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="review-id">리뷰 ID</label>
-                        <input type="text" id="review-id" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="review-product">제품 ID</label>
-                        <input type="text" id="review-product" required>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="review-customer">고객 ID</label>
-                        <input type="text" id="review-customer" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="review-rating">평점</label>
-                        <select id="review-rating" required>
-                            <option value="">평점 선택</option>
-                            <option value="1">1점</option>
-                            <option value="2">2점</option>
-                            <option value="3">3점</option>
-                            <option value="4">4점</option>
-                            <option value="5">5점</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="review-title">제목</label>
-                    <input type="text" id="review-title" required>
-                </div>
-                <div class="form-group">
-                    <label for="review-content">내용</label>
-                    <textarea id="review-content" rows="4" required></textarea>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="review-date">작성일</label>
-                        <input type="date" id="review-date" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="review-verified">구매확인</label>
-                        <select id="review-verified">
-                            <option value="false">미확인</option>
-                            <option value="true">확인됨</option>
-                        </select>
-                    </div>
-                </div>
-                <div style="text-align: right;">
-                    <button type="button" class="btn btn-secondary" onclick="closeReviewModal()">취소</button>
-                    <button type="submit" class="btn btn-primary">저장</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
     <script>
         // Global variables
         let currentEditingId = null;
@@ -825,7 +707,6 @@
         let products = [];
         let customers = [];
         let orders = [];
-        let reviews = [];
 
         // Initialize the application
         document.addEventListener('DOMContentLoaded', function() {
@@ -862,9 +743,6 @@
                     break;
                 case 'orders':
                     loadOrders();
-                    break;
-                case 'reviews':
-                    loadReviews();
                     break;
             }
         }
@@ -911,7 +789,6 @@
                 alertDiv.remove();
             }, 5000);
         }
-
         // Categories functions
         async function loadCategories() {
             try {
@@ -994,7 +871,6 @@
         function closeCategoryModal() {
             document.getElementById('category-modal').style.display = 'none';
         }
-
         // Products functions
         async function loadProducts() {
             try {
@@ -1107,7 +983,6 @@
         function closeProductModal() {
             document.getElementById('product-modal').style.display = 'none';
         }
-
         // Customers functions
         async function loadCustomers() {
             try {
@@ -1204,7 +1079,6 @@
         function closeCustomerModal() {
             document.getElementById('customer-modal').style.display = 'none';
         }
-
         // Orders functions
         async function loadOrders() {
             try {
@@ -1249,6 +1123,21 @@
             }).join('');
         }
 
+        async function searchOrders() {
+            const searchTerm = document.getElementById('orders-search').value;
+            if (!searchTerm.trim()) {
+                renderOrders(orders);
+                return;
+            }
+            
+            try {
+                const searchResults = await apiCall(`/api/orders?search=${encodeURIComponent(searchTerm)}`);
+                renderOrders(searchResults);
+            } catch (error) {
+                // Error already handled in apiCall
+            }
+        }
+
         function showAddOrderModal() {
             currentEditingId = null;
             currentEditingType = 'order';
@@ -1290,113 +1179,6 @@
         function closeOrderModal() {
             document.getElementById('order-modal').style.display = 'none';
         }
-
-        // Reviews functions
-        async function loadReviews() {
-            try {
-                const tbody = document.getElementById('reviews-tbody');
-                tbody.innerHTML = '<tr><td colspan="9" class="loading">데이터 로딩 중...</td></tr>';
-                
-                reviews = await apiCall('/api/reviews');
-                renderReviews(reviews);
-            } catch (error) {
-                document.getElementById('reviews-tbody').innerHTML = 
-                    '<tr><td colspan="9" class="empty-state"><h3>데이터 로딩 실패</h3><p>서버 연결을 확인해주세요.</p></td></tr>';
-            }
-        }
-
-        function renderReviews(data) {
-            const tbody = document.getElementById('reviews-tbody');
-            
-            if (data.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="9" class="empty-state"><h3>리뷰가 없습니다</h3><p>새 리뷰를 추가해보세요.</p></td></tr>';
-                return;
-            }
-            
-            tbody.innerHTML = data.map(review => {
-                const stars = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
-                const verifiedBadge = review.verified_purchase ? 
-                    '<span style="color: green; font-weight: bold;">✓</span>' : 
-                    '<span style="color: gray;">-</span>';
-                
-                return `
-                    <tr>
-                        <td>${review.review_id}</td>
-                        <td>${review.product_id}</td>
-                        <td>${review.customer_id}</td>
-                        <td><span style="color: #ffa500;">${stars}</span> (${review.rating})</td>
-                        <td style="max-width: 150px; overflow: hidden; text-overflow: ellipsis;">${review.title}</td>
-                        <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis;">${review.content}</td>
-                        <td>${review.review_date}</td>
-                        <td>${verifiedBadge}</td>
-                        <td>
-                            <button class="btn btn-warning" onclick="editReview('${review.review_id}')">수정</button>
-                            <button class="btn btn-danger" onclick="deleteReview('${review.review_id}')">삭제</button>
-                        </td>
-                    </tr>
-                `;
-            }).join('');
-        }
-
-        async function searchReviews() {
-            const searchTerm = document.getElementById('reviews-search').value;
-            if (!searchTerm.trim()) {
-                renderReviews(reviews);
-                return;
-            }
-            
-            try {
-                const searchResults = await apiCall(`/api/reviews?search=${encodeURIComponent(searchTerm)}`);
-                renderReviews(searchResults);
-            } catch (error) {
-                // Error already handled in apiCall
-            }
-        }
-
-        function showAddReviewModal() {
-            currentEditingId = null;
-            currentEditingType = 'review';
-            document.getElementById('review-modal-title').textContent = '리뷰 추가';
-            document.getElementById('review-form').reset();
-            document.getElementById('review-id').disabled = false;
-            document.getElementById('review-modal').style.display = 'block';
-        }
-
-        function editReview(reviewId) {
-            const review = reviews.find(r => r.review_id === reviewId);
-            if (!review) return;
-            
-            currentEditingId = reviewId;
-            currentEditingType = 'review';
-            document.getElementById('review-modal-title').textContent = '리뷰 수정';
-            document.getElementById('review-id').value = review.review_id;
-            document.getElementById('review-id').disabled = true;
-            document.getElementById('review-product').value = review.product_id;
-            document.getElementById('review-customer').value = review.customer_id;
-            document.getElementById('review-rating').value = review.rating;
-            document.getElementById('review-title').value = review.title;
-            document.getElementById('review-content').value = review.content;
-            document.getElementById('review-date').value = review.review_date;
-            document.getElementById('review-verified').value = review.verified_purchase.toString();
-            document.getElementById('review-modal').style.display = 'block';
-        }
-
-        async function deleteReview(reviewId) {
-            if (!confirm('정말로 이 리뷰를 삭제하시겠습니까?')) return;
-            
-            try {
-                await apiCall(`/api/reviews/${reviewId}`, 'DELETE');
-                showAlert('리뷰가 삭제되었습니다.');
-                loadReviews();
-            } catch (error) {
-                // Error already handled in apiCall
-            }
-        }
-
-        function closeReviewModal() {
-            document.getElementById('review-modal').style.display = 'none';
-        }
-
         // Form handlers
         function setupFormHandlers() {
             // Category form
@@ -1514,36 +1296,6 @@
                         showAlert('주문 항목 JSON 형식이 올바르지 않습니다.', 'error');
                     }
                     // Other errors already handled in apiCall
-                }
-            });
-
-            // Review form
-            document.getElementById('review-form').addEventListener('submit', async function(e) {
-                e.preventDefault();
-                
-                const data = {
-                    review_id: document.getElementById('review-id').value,
-                    product_id: document.getElementById('review-product').value,
-                    customer_id: document.getElementById('review-customer').value,
-                    rating: parseInt(document.getElementById('review-rating').value),
-                    title: document.getElementById('review-title').value,
-                    content: document.getElementById('review-content').value,
-                    review_date: document.getElementById('review-date').value,
-                    verified_purchase: document.getElementById('review-verified').value === 'true'
-                };
-                
-                try {
-                    if (currentEditingId) {
-                        await apiCall(`/api/reviews/${currentEditingId}`, 'PUT', data);
-                        showAlert('리뷰가 수정되었습니다.');
-                    } else {
-                        await apiCall('/api/reviews', 'POST', data);
-                        showAlert('리뷰가 추가되었습니다.');
-                    }
-                    closeReviewModal();
-                    loadReviews();
-                } catch (error) {
-                    // Error already handled in apiCall
                 }
             });
         }
