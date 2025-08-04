@@ -1,4 +1,4 @@
-# Lab 1-1. Amazon Q Developer CLI(약칭. Q Dev. CLI)  시작하기
+# Lab 1. Amazon Q Developer CLI(약칭. Q Dev. CLI)  시작하기
 ## 개요 
 Amazon Q Dev CLI에 자연어로 지시해서 쉽고 빠르게 서비스를 만들 수 있습니다.
 이 랩에서는 온라인 쇼핑 데이터를 관리하는 웹서비스를 만들어 봅니다. 데이터베이스는 DynamoDB로, 웹서비스는 EC2 Instance 에서 호스팅 합니다.
