@@ -530,5 +530,4 @@ class EcommerceHandler(BaseHTTPRequestHandler):
 if __name__ == '__main__':
     server = HTTPServer(('0.0.0.0', 8000), EcommerceHandler)
     print("이커머스 관리 서버가 http://0.0.0.0:8000 에서 실행 중입니다...")
-    print("공인IP 접속: http://3.84.225.230:8000")
     server.serve_forever()
