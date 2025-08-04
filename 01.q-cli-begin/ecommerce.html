@@ -1,0 +1,1562 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이커머스 데이터베이스 관리</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .tabs {
+            display: flex;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        
+        .tab {
+            flex: 1;
+            padding: 15px 20px;
+            background: #f8f9fa;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border-right: 1px solid #e9ecef;
+        }
+        
+        .tab:last-child {
+            border-right: none;
+        }
+        
+        .tab.active {
+            background: #667eea;
+            color: white;
+        }
+        
+        .tab:hover:not(.active) {
+            background: #e9ecef;
+        }
+        
+        .content {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        .search-section {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .search-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #5a6fd8;
+            transform: translateY(-2px);
+        }
+        
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: #218838;
+        }
+        
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background: #c82333;
+        }
+        
+        .btn-warning {
+            background: #ffc107;
+            color: #212529;
+        }
+        
+        .btn-warning:hover {
+            background: #e0a800;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin-top: 20px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #495057;
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+        
+        tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #495057;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e9ecef;
+        }
+        
+        .modal-header h2 {
+            color: #495057;
+        }
+        
+        .close {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            line-height: 1;
+        }
+        
+        .close:hover {
+            color: #000;
+        }
+        
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+        
+        .alert-success {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        
+        .alert-error {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #6c757d;
+        }
+        
+        .loading::after {
+            content: '';
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6c757d;
+        }
+        
+        .empty-state h3 {
+            margin-bottom: 10px;
+            color: #495057;
+        }
+        
+        .price {
+            font-weight: 600;
+            color: #28a745;
+        }
+        
+        .status {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-processing {
+            background: #cce5ff;
+            color: #004085;
+        }
+        
+        .status-shipped {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+        
+        .status-delivered {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .membership {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        
+        .membership-bronze {
+            background: #cd7f32;
+            color: white;
+        }
+        
+        .membership-silver {
+            background: #c0c0c0;
+            color: #333;
+        }
+        
+        .membership-gold {
+            background: #ffd700;
+            color: #333;
+        }
+        
+        .membership-platinum {
+            background: #e5e4e2;
+            color: #333;
+        }
+        
+        .rating-stars {
+            color: #ffa500;
+            font-size: 16px;
+        }
+        
+        .verified-badge {
+            color: #28a745;
+            font-weight: bold;
+        }
+        
+        .review-content {
+            max-width: 200px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        .review-title {
+            max-width: 150px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🛒 이커머스 데이터베이스 관리</h1>
+            <p>DynamoDB를 활용한 이커머스 시스템 관리 도구</p>
+        </div>
+        
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('categories')">카테고리</button>
+            <button class="tab" onclick="showTab('products')">제품</button>
+            <button class="tab" onclick="showTab('customers')">고객</button>
+            <button class="tab" onclick="showTab('orders')">주문</button>
+            <button class="tab" onclick="showTab('reviews')">리뷰</button>
+        </div>
+        
+        <!-- Categories Tab -->
+        <div id="categories-tab" class="content">
+            <div class="search-section">
+                <input type="text" id="categories-search" class="search-input" placeholder="카테고리 검색...">
+                <button class="btn btn-primary" onclick="searchCategories()">검색</button>
+                <button class="btn btn-success" onclick="showAddCategoryModal()">+ 카테고리 추가</button>
+            </div>
+            <div class="table-container">
+                <table id="categories-table">
+                    <thead>
+                        <tr>
+                            <th>카테고리 ID</th>
+                            <th>이름</th>
+                            <th>설명</th>
+                            <th>작업</th>
+                        </tr>
+                    </thead>
+                    <tbody id="categories-tbody">
+                        <tr><td colspan="4" class="loading">데이터 로딩 중...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Products Tab -->
+        <div id="products-tab" class="content" style="display: none;">
+            <div class="search-section">
+                <input type="text" id="products-search" class="search-input" placeholder="제품명으로 검색...">
+                <button class="btn btn-primary" onclick="searchProducts()">검색</button>
+                <button class="btn btn-success" onclick="showAddProductModal()">+ 제품 추가</button>
+            </div>
+            <div class="table-container">
+                <table id="products-table">
+                    <thead>
+                        <tr>
+                            <th>제품 ID</th>
+                            <th>제품명</th>
+                            <th>브랜드</th>
+                            <th>모델</th>
+                            <th>가격</th>
+                            <th>재고</th>
+                            <th>카테고리</th>
+                            <th>작업</th>
+                        </tr>
+                    </thead>
+                    <tbody id="products-tbody">
+                        <tr><td colspan="8" class="loading">데이터 로딩 중...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Customers Tab -->
+        <div id="customers-tab" class="content" style="display: none;">
+            <div class="search-section">
+                <input type="text" id="customers-search" class="search-input" placeholder="고객명으로 검색...">
+                <button class="btn btn-primary" onclick="searchCustomers()">검색</button>
+                <button class="btn btn-success" onclick="showAddCustomerModal()">+ 고객 추가</button>
+            </div>
+            <div class="table-container">
+                <table id="customers-table">
+                    <thead>
+                        <tr>
+                            <th>고객 ID</th>
+                            <th>이름</th>
+                            <th>이메일</th>
+                            <th>전화번호</th>
+                            <th>주소</th>
+                            <th>멤버십</th>
+                            <th>가입일</th>
+                            <th>작업</th>
+                        </tr>
+                    </thead>
+                    <tbody id="customers-tbody">
+                        <tr><td colspan="8" class="loading">데이터 로딩 중...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Orders Tab -->
+        <div id="orders-tab" class="content" style="display: none;">
+            <div class="search-section">
+                <button class="btn btn-primary" onclick="loadOrders()">새로고침</button>
+                <button class="btn btn-success" onclick="showAddOrderModal()">+ 주문 추가</button>
+            </div>
+            <div class="table-container">
+                <table id="orders-table">
+                    <thead>
+                        <tr>
+                            <th>주문 ID</th>
+                            <th>고객 ID</th>
+                            <th>주문일</th>
+                            <th>총 금액</th>
+                            <th>상태</th>
+                            <th>주문 항목</th>
+                            <th>작업</th>
+                        </tr>
+                    </thead>
+                    <tbody id="orders-tbody">
+                        <tr><td colspan="7" class="loading">데이터 로딩 중...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Reviews Tab -->
+        <div id="reviews-tab" class="content" style="display: none;">
+            <div class="search-section">
+                <input type="text" id="reviews-search" class="search-input" placeholder="리뷰 제목 또는 내용으로 검색...">
+                <button class="btn btn-primary" onclick="searchReviews()">검색</button>
+                <button class="btn btn-success" onclick="showAddReviewModal()">+ 리뷰 추가</button>
+            </div>
+            <div class="table-container">
+                <table id="reviews-table">
+                    <thead>
+                        <tr>
+                            <th>리뷰 ID</th>
+                            <th>제품 ID</th>
+                            <th>고객 ID</th>
+                            <th>평점</th>
+                            <th>제목</th>
+                            <th>내용</th>
+                            <th>작성일</th>
+                            <th>구매확인</th>
+                            <th>작업</th>
+                        </tr>
+                    </thead>
+                    <tbody id="reviews-tbody">
+                        <tr><td colspan="9" class="loading">데이터 로딩 중...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Category Modal -->
+    <div id="category-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="category-modal-title">카테고리 추가</h2>
+                <span class="close" onclick="closeCategoryModal()">&times;</span>
+            </div>
+            <form id="category-form">
+                <div class="form-group">
+                    <label for="category-id">카테고리 ID</label>
+                    <input type="text" id="category-id" required>
+                </div>
+                <div class="form-group">
+                    <label for="category-name">카테고리 이름</label>
+                    <input type="text" id="category-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="category-description">설명</label>
+                    <textarea id="category-description" rows="3" required></textarea>
+                </div>
+                <div style="text-align: right;">
+                    <button type="button" class="btn btn-secondary" onclick="closeCategoryModal()">취소</button>
+                    <button type="submit" class="btn btn-primary">저장</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Product Modal -->
+    <div id="product-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="product-modal-title">제품 추가</h2>
+                <span class="close" onclick="closeProductModal()">&times;</span>
+            </div>
+            <form id="product-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="product-id">제품 ID</label>
+                        <input type="text" id="product-id" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="product-category">카테고리</label>
+                        <select id="product-category" required>
+                            <option value="">카테고리 선택</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="product-name">제품명</label>
+                    <input type="text" id="product-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="product-description">설명</label>
+                    <textarea id="product-description" rows="3" required></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="product-brand">브랜드</label>
+                        <input type="text" id="product-brand" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="product-model">모델</label>
+                        <input type="text" id="product-model" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="product-price">가격</label>
+                        <input type="number" id="product-price" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="product-stock">재고</label>
+                        <input type="number" id="product-stock" required>
+                    </div>
+                </div>
+                <div style="text-align: right;">
+                    <button type="button" class="btn btn-secondary" onclick="closeProductModal()">취소</button>
+                    <button type="submit" class="btn btn-primary">저장</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Customer Modal -->
+    <div id="customer-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="customer-modal-title">고객 추가</h2>
+                <span class="close" onclick="closeCustomerModal()">&times;</span>
+            </div>
+            <form id="customer-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="customer-id">고객 ID</label>
+                        <input type="text" id="customer-id" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="customer-name">이름</label>
+                        <input type="text" id="customer-name" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="customer-email">이메일</label>
+                        <input type="email" id="customer-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="customer-phone">전화번호</label>
+                        <input type="text" id="customer-phone" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="customer-address">주소</label>
+                    <input type="text" id="customer-address" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="customer-membership">멤버십 레벨</label>
+                        <select id="customer-membership" required>
+                            <option value="">멤버십 선택</option>
+                            <option value="BRONZE">BRONZE</option>
+                            <option value="SILVER">SILVER</option>
+                            <option value="GOLD">GOLD</option>
+                            <option value="PLATINUM">PLATINUM</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="customer-date">가입일</label>
+                        <input type="date" id="customer-date" required>
+                    </div>
+                </div>
+                <div style="text-align: right;">
+                    <button type="button" class="btn btn-secondary" onclick="closeCustomerModal()">취소</button>
+                    <button type="submit" class="btn btn-primary">저장</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Order Modal -->
+    <div id="order-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="order-modal-title">주문 추가</h2>
+                <span class="close" onclick="closeOrderModal()">&times;</span>
+            </div>
+            <form id="order-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="order-id">주문 ID</label>
+                        <input type="text" id="order-id" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="order-customer">고객 ID</label>
+                        <input type="text" id="order-customer" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="order-date">주문일</label>
+                        <input type="date" id="order-date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="order-status">상태</label>
+                        <select id="order-status" required>
+                            <option value="">상태 선택</option>
+                            <option value="PENDING">PENDING</option>
+                            <option value="PROCESSING">PROCESSING</option>
+                            <option value="SHIPPED">SHIPPED</option>
+                            <option value="DELIVERED">DELIVERED</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="order-total">총 금액</label>
+                    <input type="number" id="order-total" required>
+                </div>
+                <div class="form-group">
+                    <label>주문 항목 (JSON 형식)</label>
+                    <textarea id="order-items" rows="5" placeholder='[{"product_id": "PROD001", "quantity": 1, "price": 1200000}]' required></textarea>
+                </div>
+                <div style="text-align: right;">
+                    <button type="button" class="btn btn-secondary" onclick="closeOrderModal()">취소</button>
+                    <button type="submit" class="btn btn-primary">저장</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Review Modal -->
+    <div id="review-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="review-modal-title">리뷰 추가</h2>
+                <span class="close" onclick="closeReviewModal()">&times;</span>
+            </div>
+            <form id="review-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="review-id">리뷰 ID</label>
+                        <input type="text" id="review-id" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="review-product">제품 ID</label>
+                        <input type="text" id="review-product" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="review-customer">고객 ID</label>
+                        <input type="text" id="review-customer" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="review-rating">평점</label>
+                        <select id="review-rating" required>
+                            <option value="">평점 선택</option>
+                            <option value="1">1점</option>
+                            <option value="2">2점</option>
+                            <option value="3">3점</option>
+                            <option value="4">4점</option>
+                            <option value="5">5점</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="review-title">제목</label>
+                    <input type="text" id="review-title" required>
+                </div>
+                <div class="form-group">
+                    <label for="review-content">내용</label>
+                    <textarea id="review-content" rows="4" required></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="review-date">작성일</label>
+                        <input type="date" id="review-date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="review-verified">구매확인</label>
+                        <select id="review-verified">
+                            <option value="false">미확인</option>
+                            <option value="true">확인됨</option>
+                        </select>
+                    </div>
+                </div>
+                <div style="text-align: right;">
+                    <button type="button" class="btn btn-secondary" onclick="closeReviewModal()">취소</button>
+                    <button type="submit" class="btn btn-primary">저장</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let currentEditingId = null;
+        let currentEditingType = null;
+        let categories = [];
+        let products = [];
+        let customers = [];
+        let orders = [];
+        let reviews = [];
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCategories();
+            setupFormHandlers();
+        });
+
+        // Tab management
+        function showTab(tabName) {
+            // Hide all tabs
+            const tabs = document.querySelectorAll('.content');
+            tabs.forEach(tab => tab.style.display = 'none');
+            
+            // Remove active class from all tab buttons
+            const tabButtons = document.querySelectorAll('.tab');
+            tabButtons.forEach(button => button.classList.remove('active'));
+            
+            // Show selected tab
+            document.getElementById(tabName + '-tab').style.display = 'block';
+            
+            // Add active class to selected tab button
+            event.target.classList.add('active');
+            
+            // Load data for the selected tab
+            switch(tabName) {
+                case 'categories':
+                    loadCategories();
+                    break;
+                case 'products':
+                    loadProducts();
+                    break;
+                case 'customers':
+                    loadCustomers();
+                    break;
+                case 'orders':
+                    loadOrders();
+                    break;
+                case 'reviews':
+                    loadReviews();
+                    break;
+            }
+        }
+
+        // API helper functions
+        async function apiCall(url, method = 'GET', data = null) {
+            const options = {
+                method: method,
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            };
+            
+            if (data) {
+                options.body = JSON.stringify(data);
+            }
+            
+            try {
+                const response = await fetch(url, options);
+                const result = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(result.error || 'API 호출 실패');
+                }
+                
+                return result;
+            } catch (error) {
+                console.error('API Error:', error);
+                showAlert('오류: ' + error.message, 'error');
+                throw error;
+            }
+        }
+
+        // Alert system
+        function showAlert(message, type = 'success') {
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${type}`;
+            alertDiv.textContent = message;
+            
+            const container = document.querySelector('.container');
+            container.insertBefore(alertDiv, container.firstChild);
+            
+            setTimeout(() => {
+                alertDiv.remove();
+            }, 5000);
+        }
+
+        // Categories functions
+        async function loadCategories() {
+            try {
+                const tbody = document.getElementById('categories-tbody');
+                tbody.innerHTML = '<tr><td colspan="4" class="loading">데이터 로딩 중...</td></tr>';
+                
+                categories = await apiCall('/api/categories');
+                renderCategories(categories);
+            } catch (error) {
+                document.getElementById('categories-tbody').innerHTML = 
+                    '<tr><td colspan="4" class="empty-state"><h3>데이터 로딩 실패</h3><p>서버 연결을 확인해주세요.</p></td></tr>';
+            }
+        }
+
+        function renderCategories(data) {
+            const tbody = document.getElementById('categories-tbody');
+            
+            if (data.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" class="empty-state"><h3>카테고리가 없습니다</h3><p>새 카테고리를 추가해보세요.</p></td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = data.map(category => `
+                <tr>
+                    <td>${category.category_id}</td>
+                    <td>${category.name}</td>
+                    <td>${category.description}</td>
+                    <td>
+                        <button class="btn btn-warning" onclick="editCategory('${category.category_id}')">수정</button>
+                        <button class="btn btn-danger" onclick="deleteCategory('${category.category_id}')">삭제</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function searchCategories() {
+            const searchTerm = document.getElementById('categories-search').value.toLowerCase();
+            const filtered = categories.filter(category => 
+                category.name.toLowerCase().includes(searchTerm) ||
+                category.description.toLowerCase().includes(searchTerm)
+            );
+            renderCategories(filtered);
+        }
+
+        function showAddCategoryModal() {
+            currentEditingId = null;
+            currentEditingType = 'category';
+            document.getElementById('category-modal-title').textContent = '카테고리 추가';
+            document.getElementById('category-form').reset();
+            document.getElementById('category-id').disabled = false;
+            document.getElementById('category-modal').style.display = 'block';
+        }
+
+        function editCategory(categoryId) {
+            const category = categories.find(c => c.category_id === categoryId);
+            if (!category) return;
+            
+            currentEditingId = categoryId;
+            currentEditingType = 'category';
+            document.getElementById('category-modal-title').textContent = '카테고리 수정';
+            document.getElementById('category-id').value = category.category_id;
+            document.getElementById('category-id').disabled = true;
+            document.getElementById('category-name').value = category.name;
+            document.getElementById('category-description').value = category.description;
+            document.getElementById('category-modal').style.display = 'block';
+        }
+
+        async function deleteCategory(categoryId) {
+            if (!confirm('정말로 이 카테고리를 삭제하시겠습니까?')) return;
+            
+            try {
+                await apiCall(`/api/categories/${categoryId}`, 'DELETE');
+                showAlert('카테고리가 삭제되었습니다.');
+                loadCategories();
+            } catch (error) {
+                // Error already handled in apiCall
+            }
+        }
+
+        function closeCategoryModal() {
+            document.getElementById('category-modal').style.display = 'none';
+        }
+
+        // Products functions
+        async function loadProducts() {
+            try {
+                const tbody = document.getElementById('products-tbody');
+                tbody.innerHTML = '<tr><td colspan="8" class="loading">데이터 로딩 중...</td></tr>';
+                
+                products = await apiCall('/api/products');
+                if (categories.length === 0) {
+                    categories = await apiCall('/api/categories');
+                }
+                renderProducts(products);
+                updateProductCategoryOptions();
+            } catch (error) {
+                document.getElementById('products-tbody').innerHTML = 
+                    '<tr><td colspan="8" class="empty-state"><h3>데이터 로딩 실패</h3><p>서버 연결을 확인해주세요.</p></td></tr>';
+            }
+        }
+
+        function renderProducts(data) {
+            const tbody = document.getElementById('products-tbody');
+            
+            if (data.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="8" class="empty-state"><h3>제품이 없습니다</h3><p>새 제품을 추가해보세요.</p></td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = data.map(product => {
+                const category = categories.find(c => c.category_id === product.category_id);
+                return `
+                    <tr>
+                        <td>${product.product_id}</td>
+                        <td>${product.name}</td>
+                        <td>${product.brand}</td>
+                        <td>${product.model}</td>
+                        <td class="price">₩${product.price.toLocaleString()}</td>
+                        <td>${product.stock}</td>
+                        <td>${category ? category.name : product.category_id}</td>
+                        <td>
+                            <button class="btn btn-warning" onclick="editProduct('${product.product_id}')">수정</button>
+                            <button class="btn btn-danger" onclick="deleteProduct('${product.product_id}')">삭제</button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        async function searchProducts() {
+            const searchTerm = document.getElementById('products-search').value;
+            if (!searchTerm.trim()) {
+                renderProducts(products);
+                return;
+            }
+            
+            try {
+                const searchResults = await apiCall(`/api/products?search=${encodeURIComponent(searchTerm)}`);
+                renderProducts(searchResults);
+            } catch (error) {
+                // Error already handled in apiCall
+            }
+        }
+
+        function updateProductCategoryOptions() {
+            const select = document.getElementById('product-category');
+            select.innerHTML = '<option value="">카테고리 선택</option>';
+            categories.forEach(category => {
+                select.innerHTML += `<option value="${category.category_id}">${category.name}</option>`;
+            });
+        }
+
+        function showAddProductModal() {
+            currentEditingId = null;
+            currentEditingType = 'product';
+            document.getElementById('product-modal-title').textContent = '제품 추가';
+            document.getElementById('product-form').reset();
+            document.getElementById('product-id').disabled = false;
+            document.getElementById('product-modal').style.display = 'block';
+        }
+
+        function editProduct(productId) {
+            const product = products.find(p => p.product_id === productId);
+            if (!product) return;
+            
+            currentEditingId = productId;
+            currentEditingType = 'product';
+            document.getElementById('product-modal-title').textContent = '제품 수정';
+            document.getElementById('product-id').value = product.product_id;
+            document.getElementById('product-id').disabled = true;
+            document.getElementById('product-name').value = product.name;
+            document.getElementById('product-description').value = product.description;
+            document.getElementById('product-brand').value = product.brand;
+            document.getElementById('product-model').value = product.model;
+            document.getElementById('product-price').value = product.price;
+            document.getElementById('product-stock').value = product.stock;
+            document.getElementById('product-category').value = product.category_id;
+            document.getElementById('product-modal').style.display = 'block';
+        }
+
+        async function deleteProduct(productId) {
+            if (!confirm('정말로 이 제품을 삭제하시겠습니까?')) return;
+            
+            try {
+                await apiCall(`/api/products/${productId}`, 'DELETE');
+                showAlert('제품이 삭제되었습니다.');
+                loadProducts();
+            } catch (error) {
+                // Error already handled in apiCall
+            }
+        }
+
+        function closeProductModal() {
+            document.getElementById('product-modal').style.display = 'none';
+        }
+
+        // Customers functions
+        async function loadCustomers() {
+            try {
+                const tbody = document.getElementById('customers-tbody');
+                tbody.innerHTML = '<tr><td colspan="8" class="loading">데이터 로딩 중...</td></tr>';
+                
+                customers = await apiCall('/api/customers');
+                renderCustomers(customers);
+            } catch (error) {
+                document.getElementById('customers-tbody').innerHTML = 
+                    '<tr><td colspan="8" class="empty-state"><h3>데이터 로딩 실패</h3><p>서버 연결을 확인해주세요.</p></td></tr>';
+            }
+        }
+
+        function renderCustomers(data) {
+            const tbody = document.getElementById('customers-tbody');
+            
+            if (data.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="8" class="empty-state"><h3>고객이 없습니다</h3><p>새 고객을 추가해보세요.</p></td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = data.map(customer => `
+                <tr>
+                    <td>${customer.customer_id}</td>
+                    <td>${customer.name}</td>
+                    <td>${customer.email}</td>
+                    <td>${customer.phone}</td>
+                    <td>${customer.address}</td>
+                    <td><span class="membership membership-${customer.membership_level.toLowerCase()}">${customer.membership_level}</span></td>
+                    <td>${customer.created_date}</td>
+                    <td>
+                        <button class="btn btn-warning" onclick="editCustomer('${customer.customer_id}')">수정</button>
+                        <button class="btn btn-danger" onclick="deleteCustomer('${customer.customer_id}')">삭제</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        async function searchCustomers() {
+            const searchTerm = document.getElementById('customers-search').value;
+            if (!searchTerm.trim()) {
+                renderCustomers(customers);
+                return;
+            }
+            
+            try {
+                const searchResults = await apiCall(`/api/customers?search=${encodeURIComponent(searchTerm)}`);
+                renderCustomers(searchResults);
+            } catch (error) {
+                // Error already handled in apiCall
+            }
+        }
+
+        function showAddCustomerModal() {
+            currentEditingId = null;
+            currentEditingType = 'customer';
+            document.getElementById('customer-modal-title').textContent = '고객 추가';
+            document.getElementById('customer-form').reset();
+            document.getElementById('customer-id').disabled = false;
+            document.getElementById('customer-modal').style.display = 'block';
+        }
+
+        function editCustomer(customerId) {
+            const customer = customers.find(c => c.customer_id === customerId);
+            if (!customer) return;
+            
+            currentEditingId = customerId;
+            currentEditingType = 'customer';
+            document.getElementById('customer-modal-title').textContent = '고객 수정';
+            document.getElementById('customer-id').value = customer.customer_id;
+            document.getElementById('customer-id').disabled = true;
+            document.getElementById('customer-name').value = customer.name;
+            document.getElementById('customer-email').value = customer.email;
+            document.getElementById('customer-phone').value = customer.phone;
+            document.getElementById('customer-address').value = customer.address;
+            document.getElementById('customer-membership').value = customer.membership_level;
+            document.getElementById('customer-date').value = customer.created_date;
+            document.getElementById('customer-modal').style.display = 'block';
+        }
+
+        async function deleteCustomer(customerId) {
+            if (!confirm('정말로 이 고객을 삭제하시겠습니까?')) return;
+            
+            try {
+                await apiCall(`/api/customers/${customerId}`, 'DELETE');
+                showAlert('고객이 삭제되었습니다.');
+                loadCustomers();
+            } catch (error) {
+                // Error already handled in apiCall
+            }
+        }
+
+        function closeCustomerModal() {
+            document.getElementById('customer-modal').style.display = 'none';
+        }
+
+        // Orders functions
+        async function loadOrders() {
+            try {
+                const tbody = document.getElementById('orders-tbody');
+                tbody.innerHTML = '<tr><td colspan="7" class="loading">데이터 로딩 중...</td></tr>';
+                
+                orders = await apiCall('/api/orders');
+                renderOrders(orders);
+            } catch (error) {
+                document.getElementById('orders-tbody').innerHTML = 
+                    '<tr><td colspan="7" class="empty-state"><h3>데이터 로딩 실패</h3><p>서버 연결을 확인해주세요.</p></td></tr>';
+            }
+        }
+
+        function renderOrders(data) {
+            const tbody = document.getElementById('orders-tbody');
+            
+            if (data.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" class="empty-state"><h3>주문이 없습니다</h3><p>새 주문을 추가해보세요.</p></td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = data.map(order => {
+                const itemsText = order.items.map(item => 
+                    `${item.product_id} (${item.quantity}개)`
+                ).join(', ');
+                
+                return `
+                    <tr>
+                        <td>${order.order_id}</td>
+                        <td>${order.customer_id}</td>
+                        <td>${order.order_date}</td>
+                        <td class="price">₩${order.total_amount.toLocaleString()}</td>
+                        <td><span class="status status-${order.status.toLowerCase()}">${order.status}</span></td>
+                        <td>${itemsText}</td>
+                        <td>
+                            <button class="btn btn-warning" onclick="editOrder('${order.order_id}')">수정</button>
+                            <button class="btn btn-danger" onclick="deleteOrder('${order.order_id}')">삭제</button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function showAddOrderModal() {
+            currentEditingId = null;
+            currentEditingType = 'order';
+            document.getElementById('order-modal-title').textContent = '주문 추가';
+            document.getElementById('order-form').reset();
+            document.getElementById('order-id').disabled = false;
+            document.getElementById('order-modal').style.display = 'block';
+        }
+
+        function editOrder(orderId) {
+            const order = orders.find(o => o.order_id === orderId);
+            if (!order) return;
+            
+            currentEditingId = orderId;
+            currentEditingType = 'order';
+            document.getElementById('order-modal-title').textContent = '주문 수정';
+            document.getElementById('order-id').value = order.order_id;
+            document.getElementById('order-id').disabled = true;
+            document.getElementById('order-customer').value = order.customer_id;
+            document.getElementById('order-date').value = order.order_date;
+            document.getElementById('order-status').value = order.status;
+            document.getElementById('order-total').value = order.total_amount;
+            document.getElementById('order-items').value = JSON.stringify(order.items, null, 2);
+            document.getElementById('order-modal').style.display = 'block';
+        }
+
+        async function deleteOrder(orderId) {
+            if (!confirm('정말로 이 주문을 삭제하시겠습니까?')) return;
+            
+            try {
+                await apiCall(`/api/orders/${orderId}`, 'DELETE');
+                showAlert('주문이 삭제되었습니다.');
+                loadOrders();
+            } catch (error) {
+                // Error already handled in apiCall
+            }
+        }
+
+        function closeOrderModal() {
+            document.getElementById('order-modal').style.display = 'none';
+        }
+
+        // Reviews functions
+        async function loadReviews() {
+            try {
+                const tbody = document.getElementById('reviews-tbody');
+                tbody.innerHTML = '<tr><td colspan="9" class="loading">데이터 로딩 중...</td></tr>';
+                
+                reviews = await apiCall('/api/reviews');
+                renderReviews(reviews);
+            } catch (error) {
+                document.getElementById('reviews-tbody').innerHTML = 
+                    '<tr><td colspan="9" class="empty-state"><h3>데이터 로딩 실패</h3><p>서버 연결을 확인해주세요.</p></td></tr>';
+            }
+        }
+
+        function renderReviews(data) {
+            const tbody = document.getElementById('reviews-tbody');
+            
+            if (data.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="9" class="empty-state"><h3>리뷰가 없습니다</h3><p>새 리뷰를 추가해보세요.</p></td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = data.map(review => {
+                const stars = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
+                const verifiedBadge = review.verified_purchase ? 
+                    '<span style="color: green; font-weight: bold;">✓</span>' : 
+                    '<span style="color: gray;">-</span>';
+                
+                return `
+                    <tr>
+                        <td>${review.review_id}</td>
+                        <td>${review.product_id}</td>
+                        <td>${review.customer_id}</td>
+                        <td><span style="color: #ffa500;">${stars}</span> (${review.rating})</td>
+                        <td style="max-width: 150px; overflow: hidden; text-overflow: ellipsis;">${review.title}</td>
+                        <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis;">${review.content}</td>
+                        <td>${review.review_date}</td>
+                        <td>${verifiedBadge}</td>
+                        <td>
+                            <button class="btn btn-warning" onclick="editReview('${review.review_id}')">수정</button>
+                            <button class="btn btn-danger" onclick="deleteReview('${review.review_id}')">삭제</button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        async function searchReviews() {
+            const searchTerm = document.getElementById('reviews-search').value;
+            if (!searchTerm.trim()) {
+                renderReviews(reviews);
+                return;
+            }
+            
+            try {
+                const searchResults = await apiCall(`/api/reviews?search=${encodeURIComponent(searchTerm)}`);
+                renderReviews(searchResults);
+            } catch (error) {
+                // Error already handled in apiCall
+            }
+        }
+
+        function showAddReviewModal() {
+            currentEditingId = null;
+            currentEditingType = 'review';
+            document.getElementById('review-modal-title').textContent = '리뷰 추가';
+            document.getElementById('review-form').reset();
+            document.getElementById('review-id').disabled = false;
+            document.getElementById('review-modal').style.display = 'block';
+        }
+
+        function editReview(reviewId) {
+            const review = reviews.find(r => r.review_id === reviewId);
+            if (!review) return;
+            
+            currentEditingId = reviewId;
+            currentEditingType = 'review';
+            document.getElementById('review-modal-title').textContent = '리뷰 수정';
+            document.getElementById('review-id').value = review.review_id;
+            document.getElementById('review-id').disabled = true;
+            document.getElementById('review-product').value = review.product_id;
+            document.getElementById('review-customer').value = review.customer_id;
+            document.getElementById('review-rating').value = review.rating;
+            document.getElementById('review-title').value = review.title;
+            document.getElementById('review-content').value = review.content;
+            document.getElementById('review-date').value = review.review_date;
+            document.getElementById('review-verified').value = review.verified_purchase.toString();
+            document.getElementById('review-modal').style.display = 'block';
+        }
+
+        async function deleteReview(reviewId) {
+            if (!confirm('정말로 이 리뷰를 삭제하시겠습니까?')) return;
+            
+            try {
+                await apiCall(`/api/reviews/${reviewId}`, 'DELETE');
+                showAlert('리뷰가 삭제되었습니다.');
+                loadReviews();
+            } catch (error) {
+                // Error already handled in apiCall
+            }
+        }
+
+        function closeReviewModal() {
+            document.getElementById('review-modal').style.display = 'none';
+        }
+
+        // Form handlers
+        function setupFormHandlers() {
+            // Category form
+            document.getElementById('category-form').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const data = {
+                    category_id: document.getElementById('category-id').value,
+                    name: document.getElementById('category-name').value,
+                    description: document.getElementById('category-description').value
+                };
+                
+                try {
+                    if (currentEditingId) {
+                        await apiCall(`/api/categories/${currentEditingId}`, 'PUT', data);
+                        showAlert('카테고리가 수정되었습니다.');
+                    } else {
+                        await apiCall('/api/categories', 'POST', data);
+                        showAlert('카테고리가 추가되었습니다.');
+                    }
+                    closeCategoryModal();
+                    loadCategories();
+                } catch (error) {
+                    // Error already handled in apiCall
+                }
+            });
+
+            // Product form
+            document.getElementById('product-form').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const data = {
+                    product_id: document.getElementById('product-id').value,
+                    name: document.getElementById('product-name').value,
+                    description: document.getElementById('product-description').value,
+                    brand: document.getElementById('product-brand').value,
+                    model: document.getElementById('product-model').value,
+                    price: parseInt(document.getElementById('product-price').value),
+                    stock: parseInt(document.getElementById('product-stock').value),
+                    category_id: document.getElementById('product-category').value
+                };
+                
+                try {
+                    if (currentEditingId) {
+                        await apiCall(`/api/products/${currentEditingId}`, 'PUT', data);
+                        showAlert('제품이 수정되었습니다.');
+                    } else {
+                        await apiCall('/api/products', 'POST', data);
+                        showAlert('제품이 추가되었습니다.');
+                    }
+                    closeProductModal();
+                    loadProducts();
+                } catch (error) {
+                    // Error already handled in apiCall
+                }
+            });
+
+            // Customer form
+            document.getElementById('customer-form').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const data = {
+                    customer_id: document.getElementById('customer-id').value,
+                    name: document.getElementById('customer-name').value,
+                    email: document.getElementById('customer-email').value,
+                    phone: document.getElementById('customer-phone').value,
+                    address: document.getElementById('customer-address').value,
+                    membership_level: document.getElementById('customer-membership').value,
+                    created_date: document.getElementById('customer-date').value
+                };
+                
+                try {
+                    if (currentEditingId) {
+                        await apiCall(`/api/customers/${currentEditingId}`, 'PUT', data);
+                        showAlert('고객 정보가 수정되었습니다.');
+                    } else {
+                        await apiCall('/api/customers', 'POST', data);
+                        showAlert('고객이 추가되었습니다.');
+                    }
+                    closeCustomerModal();
+                    loadCustomers();
+                } catch (error) {
+                    // Error already handled in apiCall
+                }
+            });
+
+            // Order form
+            document.getElementById('order-form').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                try {
+                    const itemsText = document.getElementById('order-items').value;
+                    const items = JSON.parse(itemsText);
+                    
+                    const data = {
+                        order_id: document.getElementById('order-id').value,
+                        customer_id: document.getElementById('order-customer').value,
+                        order_date: document.getElementById('order-date').value,
+                        status: document.getElementById('order-status').value,
+                        total_amount: parseInt(document.getElementById('order-total').value),
+                        items: items
+                    };
+                    
+                    if (currentEditingId) {
+                        await apiCall(`/api/orders/${currentEditingId}`, 'PUT', data);
+                        showAlert('주문이 수정되었습니다.');
+                    } else {
+                        await apiCall('/api/orders', 'POST', data);
+                        showAlert('주문이 추가되었습니다.');
+                    }
+                    closeOrderModal();
+                    loadOrders();
+                } catch (error) {
+                    if (error.message.includes('JSON')) {
+                        showAlert('주문 항목 JSON 형식이 올바르지 않습니다.', 'error');
+                    }
+                    // Other errors already handled in apiCall
+                }
+            });
+
+            // Review form
+            document.getElementById('review-form').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const data = {
+                    review_id: document.getElementById('review-id').value,
+                    product_id: document.getElementById('review-product').value,
+                    customer_id: document.getElementById('review-customer').value,
+                    rating: parseInt(document.getElementById('review-rating').value),
+                    title: document.getElementById('review-title').value,
+                    content: document.getElementById('review-content').value,
+                    review_date: document.getElementById('review-date').value,
+                    verified_purchase: document.getElementById('review-verified').value === 'true'
+                };
+                
+                try {
+                    if (currentEditingId) {
+                        await apiCall(`/api/reviews/${currentEditingId}`, 'PUT', data);
+                        showAlert('리뷰가 수정되었습니다.');
+                    } else {
+                        await apiCall('/api/reviews', 'POST', data);
+                        showAlert('리뷰가 추가되었습니다.');
+                    }
+                    closeReviewModal();
+                    loadReviews();
+                } catch (error) {
+                    // Error already handled in apiCall
+                }
+            });
+        }
+
+        // Close modals when clicking outside
+        window.onclick = function(event) {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
