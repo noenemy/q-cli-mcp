@@ -5,7 +5,7 @@
 다음 실습 내용을 포함합니다. 
 
 <li>Lab 1 - Q Dev CLI 실습</li>
-<li>Lab 2 - DDB 트러블슈팅</li>
+<li>Lab 2 - DDB 트러블슈팅 + MCP 서버로 질의하기 </li>
 <li>Lab 3 - MCP 서버 실습</li>
 
 <img src="https://d2908q01vomqb2.cloudfront.net/7719a1c782a1ba91c031a682a0a2f8658209adbf/2025/05/20/cli-persistence.png" width="600">
