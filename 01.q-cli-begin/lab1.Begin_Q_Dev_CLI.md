@@ -126,6 +126,13 @@ AWS 콘솔에서 DynamoDB 콘솔로 이동하여 직접 확인할 수 있습니�
 
 * 완료가 되었다면 웹서비스의 포트를 확인합니다. (기본 포트는 8000)
 
+<BR>
+
+>[!NOTE]
+> Workshop 환경은 8000번 포트가 Security Group에서 Inbound로 오픈되어 있지 않습니다.
+> 접근을 위해서는 Inbound 규칙에 TCP 포트 8000과 sourceIP를 추가해주세요.
+<BR>
+
 완료가 되었다면 웹서비스를 실행합니다. 그리고 현재 접속한 EC2 Instance의 Public IP와 포트를 이용해서 URL로 접속합니다. `http://<publicIP>:port`
 ```
 !python3 ecommerce_server.py
