@@ -22,7 +22,7 @@ class EcommerceHandler(BaseHTTPRequestHandler):
         if path == '/':
             self.serve_html()
         elif path == '/api/categories':
-            self.get_categories()
+            self.get_categories(query_params)
         elif path == '/api/products':
             self.get_products(query_params)
         elif path == '/api/customers':
@@ -132,16 +132,31 @@ class EcommerceHandler(BaseHTTPRequestHandler):
         self.end_headers()
     
     # Categories CRUD
-    def get_categories(self):
+    def get_categories(self, query_params=None):
         try:
-            response = self.dynamodb.scan(TableName='Categories')
-            items = []
-            for item in response['Items']:
-                items.append({
-                    'category_id': item['category_id']['S'],
-                    'name': item['name']['S'],
-                    'description': item['description']['S']
-                })
+            if query_params and 'search' in query_params:
+                # 카테고리 이름 및 설명으로 검색
+                search_term = query_params['search'][0].lower()
+                response = self.dynamodb.scan(TableName='Categories')
+                items = []
+                for item in response['Items']:
+                    category_name = item['name']['S'].lower()
+                    category_desc = item['description']['S'].lower()
+                    if search_term in category_name or search_term in category_desc:
+                        items.append({
+                            'category_id': item['category_id']['S'],
+                            'name': item['name']['S'],
+                            'description': item['description']['S']
+                        })
+            else:
+                response = self.dynamodb.scan(TableName='Categories')
+                items = []
+                for item in response['Items']:
+                    items.append({
+                        'category_id': item['category_id']['S'],
+                        'name': item['name']['S'],
+                        'description': item['description']['S']
+                    })
             self.send_json_response(items)
         except Exception as e:
             self.send_json_response({'error': str(e)}, 500)
@@ -347,8 +362,30 @@ class EcommerceHandler(BaseHTTPRequestHandler):
     # Orders CRUD
     def get_orders(self, query_params):
         try:
-            response = self.dynamodb.scan(TableName='Orders')
-            items = [self.format_order(item) for item in response['Items']]
+            if 'search' in query_params:
+                # 주문 ID, 고객 ID, 상태로 검색
+                search_term = query_params['search'][0].lower()
+                response = self.dynamodb.scan(TableName='Orders')
+                items = []
+                for item in response['Items']:
+                    order_id = item['order_id']['S'].lower()
+                    customer_id = item['customer_id']['S'].lower()
+                    status = item['status']['S'].lower()
+                    if search_term in order_id or search_term in customer_id or search_term in status:
+                        items.append(self.format_order(item))
+            elif 'customer_id' in query_params:
+                # 특정 고객의 주문 조회
+                customer_id = query_params['customer_id'][0]
+                response = self.dynamodb.query(
+                    TableName='Orders',
+                    IndexName='CustomerIndex',
+                    KeyConditionExpression='customer_id = :cid',
+                    ExpressionAttributeValues={':cid': {'S': customer_id}}
+                )
+                items = [self.format_order(item) for item in response['Items']]
+            else:
+                response = self.dynamodb.scan(TableName='Orders')
+                items = [self.format_order(item) for item in response['Items']]
             self.send_json_response(items)
         except Exception as e:
             self.send_json_response({'error': str(e)}, 500)
@@ -356,13 +393,27 @@ class EcommerceHandler(BaseHTTPRequestHandler):
     def format_order(self, item):
         items_list = []
         for order_item in item['items']['L']:
-            items_list.append({
+            item_data = {
                 'product_id': order_item['M']['product_id']['S'],
-                'quantity': int(order_item['M']['quantity']['N']),
-                'price': int(order_item['M']['price']['N'])
-            })
+                'quantity': int(order_item['M']['quantity']['N'])
+            }
+            # price 또는 unit_price 필드 처리
+            if 'price' in order_item['M']:
+                item_data['price'] = int(order_item['M']['price']['N'])
+            elif 'unit_price' in order_item['M']:
+                item_data['price'] = int(order_item['M']['unit_price']['N'])
+            
+            # 추가 필드들 처리
+            if 'product_name' in order_item['M']:
+                item_data['product_name'] = order_item['M']['product_name']['S']
+            if 'original_price' in order_item['M']:
+                item_data['original_price'] = int(order_item['M']['original_price']['N'])
+            if 'discount_rate' in order_item['M']:
+                item_data['discount_rate'] = float(order_item['M']['discount_rate']['N'])
+                
+            items_list.append(item_data)
         
-        return {
+        order_data = {
             'order_id': item['order_id']['S'],
             'customer_id': item['customer_id']['S'],
             'order_date': item['order_date']['S'],
@@ -370,6 +421,18 @@ class EcommerceHandler(BaseHTTPRequestHandler):
             'status': item['status']['S'],
             'items': items_list
         }
+        
+        # 추가 필드들 처리
+        if 'payment_method' in item:
+            order_data['payment_method'] = item['payment_method']['S']
+        if 'shipping_address' in item:
+            order_data['shipping_address'] = item['shipping_address']['S']
+        if 'estimated_delivery' in item:
+            order_data['estimated_delivery'] = item['estimated_delivery']['S']
+        if 'is_prime_day_order' in item:
+            order_data['is_prime_day_order'] = item['is_prime_day_order']['BOOL']
+            
+        return order_data
     
     def create_order(self, data):
         try:
