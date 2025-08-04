@@ -102,8 +102,10 @@ AWS 콘솔에서 DynamoDB 콘솔로 이동하여 직접 확인할 수 있습니�
 <BR>
 
 >[!NOTE]
->웹서비스 구축 파일 생성에는 시간이 15분 이상 소요될 수 있습니다. 시간 절약을 위해 Q Dev CLI 가 이미 구현한 [ecommerce_server.py](https://github.com/noenemy/q-cli-mcp/blob/main/01.q-cli-begin/ecommerce_server.py) 파일을 활용해보세요. 
+>웹서비스 구축 파일 생성에는 시간이 15분 이상 소요될 수 있습니다. 시간 절약을 위해 Q Dev CLI 가 이미 구현한 웹서비스 파일을 활용해보세요.
 >
+>* [ecommerce_server.py](https://github.com/noenemy/q-cli-mcp/blob/main/01.q-cli-begin/ecommerce_server.py) 
+>* [ecommerce.html](https://github.com/noenemy/q-cli-mcp/blob/main/01.q-cli-begin/ecommerce.html) 
 <BR>
 ```
 지금 있는 DynamoDB를 이용해서 이커머스 데이터베이스를 관리할 수 있는 웹서비스를 로컬에 만들어 주세요.
