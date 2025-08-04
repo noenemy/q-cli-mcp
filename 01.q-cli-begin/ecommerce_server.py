@@ -29,8 +29,6 @@ class EcommerceHandler(BaseHTTPRequestHandler):
             self.get_customers(query_params)
         elif path == '/api/orders':
             self.get_orders(query_params)
-        elif path == '/api/reviews':
-            self.get_reviews(query_params)
         else:
             self.send_error(404)
     
@@ -49,8 +47,6 @@ class EcommerceHandler(BaseHTTPRequestHandler):
             self.create_customer(data)
         elif path == '/api/orders':
             self.create_order(data)
-        elif path == '/api/reviews':
-            self.create_review(data)
         else:
             self.send_error(404)
     
@@ -73,9 +69,6 @@ class EcommerceHandler(BaseHTTPRequestHandler):
         elif path.startswith('/api/orders/'):
             order_id = path.split('/')[-1]
             self.update_order(order_id, data)
-        elif path.startswith('/api/reviews/'):
-            review_id = path.split('/')[-1]
-            self.update_review(review_id, data)
         else:
             self.send_error(404)
     
@@ -94,9 +87,6 @@ class EcommerceHandler(BaseHTTPRequestHandler):
         elif path.startswith('/api/orders/'):
             order_id = path.split('/')[-1]
             self.delete_order(order_id)
-        elif path.startswith('/api/reviews/'):
-            review_id = path.split('/')[-1]
-            self.delete_review(review_id)
         else:
             self.send_error(404)
     
@@ -495,96 +485,6 @@ class EcommerceHandler(BaseHTTPRequestHandler):
             self.dynamodb.delete_item(
                 TableName='Orders',
                 Key={'order_id': {'S': order_id}}
-            )
-            self.send_json_response({'success': True})
-        except Exception as e:
-            self.send_json_response({'error': str(e)}, 500)
-    
-    # Reviews CRUD
-    def get_reviews(self, query_params):
-        try:
-            if 'search' in query_params:
-                search_term = query_params['search'][0].lower()
-                response = self.dynamodb.scan(TableName='Reviews')
-                items = []
-                for item in response['Items']:
-                    review_title = item['title']['S'].lower()
-                    review_content = item['content']['S'].lower()
-                    if search_term in review_title or search_term in review_content:
-                        items.append(self.format_review(item))
-            elif 'product_id' in query_params:
-                # 특정 제품의 리뷰 조회
-                product_id = query_params['product_id'][0]
-                response = self.dynamodb.query(
-                    TableName='Reviews',
-                    IndexName='ProductIndex',
-                    KeyConditionExpression='product_id = :pid',
-                    ExpressionAttributeValues={':pid': {'S': product_id}}
-                )
-                items = [self.format_review(item) for item in response['Items']]
-            else:
-                response = self.dynamodb.scan(TableName='Reviews')
-                items = [self.format_review(item) for item in response['Items']]
-            self.send_json_response(items)
-        except Exception as e:
-            self.send_json_response({'error': str(e)}, 500)
-    
-    def format_review(self, item):
-        return {
-            'review_id': item['review_id']['S'],
-            'product_id': item['product_id']['S'],
-            'customer_id': item['customer_id']['S'],
-            'rating': int(item['rating']['N']),
-            'title': item['title']['S'],
-            'content': item['content']['S'],
-            'review_date': item['review_date']['S'],
-            'verified_purchase': item.get('verified_purchase', {}).get('BOOL', False)
-        }
-    
-    def create_review(self, data):
-        try:
-            self.dynamodb.put_item(
-                TableName='Reviews',
-                Item={
-                    'review_id': {'S': data['review_id']},
-                    'product_id': {'S': data['product_id']},
-                    'customer_id': {'S': data['customer_id']},
-                    'rating': {'N': str(data['rating'])},
-                    'title': {'S': data['title']},
-                    'content': {'S': data['content']},
-                    'review_date': {'S': data['review_date']},
-                    'verified_purchase': {'BOOL': data.get('verified_purchase', False)}
-                }
-            )
-            self.send_json_response({'success': True})
-        except Exception as e:
-            self.send_json_response({'error': str(e)}, 500)
-    
-    def update_review(self, review_id, data):
-        try:
-            self.dynamodb.update_item(
-                TableName='Reviews',
-                Key={'review_id': {'S': review_id}},
-                UpdateExpression='SET product_id = :pid, customer_id = :cid, rating = :rating, title = :title, content = :content, review_date = :date, verified_purchase = :verified',
-                ExpressionAttributeValues={
-                    ':pid': {'S': data['product_id']},
-                    ':cid': {'S': data['customer_id']},
-                    ':rating': {'N': str(data['rating'])},
-                    ':title': {'S': data['title']},
-                    ':content': {'S': data['content']},
-                    ':date': {'S': data['review_date']},
-                    ':verified': {'BOOL': data.get('verified_purchase', False)}
-                }
-            )
-            self.send_json_response({'success': True})
-        except Exception as e:
-            self.send_json_response({'error': str(e)}, 500)
-    
-    def delete_review(self, review_id):
-        try:
-            self.dynamodb.delete_item(
-                TableName='Reviews',
-                Key={'review_id': {'S': review_id}}
             )
             self.send_json_response({'success': True})
         except Exception as e:
