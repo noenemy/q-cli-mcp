@@ -104,9 +104,9 @@ AWS 콘솔에서 DynamoDB 콘솔로 이동하여 직접 확인할 수 있습니�
 1. Python 내장 HTTP 서버(http.server)만 사용해주세요
 2. 모든 UI는 단일 HTML 파일로 구현해주세요
 3. JavaScript와 CSS는 HTML 파일 내에 포함해주세요
-4. CRUD 기능을 모두 구현해주세요
-5. 간단한 검색 기능을 포함해주세요
-6. 1000
+4. 모든 DynamoDB 테이블에 대해 CRUD 기능을 모두 구현해주세요
+5. 모든 DynamoDB 테이블에 대해 간단한 검색 기능을 포함해주세요
+6. Public IP로 접속 가능하도록 서버를 바인딩하세요
 ```
 이제 Q Dev CLI 는 웹 애플리케이션을 만들 것입니다.
 
