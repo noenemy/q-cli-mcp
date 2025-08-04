@@ -81,6 +81,9 @@ DynamoDB를 이용해서 이커머스 데이터베이스를 만들어주세요.
 제품에는 에어콘과 난방기를 포함해주세요.
 각 테이블마다 샘플 데이타는 테이블당 50개 이하로 만들어주세요.
 ```
+<img width="1432" height="508" alt="Screenshot 2025-08-04 at 12 55 56 PM" src="https://github.com/user-attachments/assets/b944e4b2-ee52-4ad8-8e40-1fb87ed303f4" />
+
+
 이렇게 DynamoDB에 대한 지식이 없는 누구나 쉽게 DynamoDB를 이용하여 샘플 데이타를 만들 수 있습니다.
 컨텍스트 입력 전 후, Q CLI의 응답에 변화가 있었나요? 어떤 것인가요?
 
