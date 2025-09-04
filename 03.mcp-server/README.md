@@ -19,7 +19,7 @@ MCP는 Model Context Protocol의 약자로, 애플리케이션이 LLM(Large Lang
 > MCP 프로토콜을 이용한 AI-인프라 연동 시스템 설계
 <BR><BR>
 
-[![Next](images/next.png)](weather-mcp-server.md)
+[![Next](images/next.png)](01.weather-mcp-server.md)
 <BR><BR>
 
 ## Lab.3-1. Local Weather API MCP Server
