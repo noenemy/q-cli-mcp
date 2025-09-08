@@ -41,10 +41,10 @@ q chat
 /quit
 ```
 
-* q chat으로부터 일관된 응답을 받기 위해 Context를 입력하여 응답 내용을 지시하겠습니다.
+* q chat으로부터 일관된 응답을 받기 위해 Knowledge를 입력하여 응답 내용을 지시하겠습니다.
 다음과 같이 markdown 파일로 입력합니다. 
 ```
-cat > mycontext.md << EOF
+cat > myknowledge.md << EOF
 응답 시 지시사항을 명시적으로 참조해주세요.
 AWS를 능숙하게 다루는 이커머스 서비스 개발자의 관점에서 답변해주세요.
 서비스 구축은 최대한 간단하고 신속하게 진행해주세요.
@@ -58,6 +58,11 @@ DynamoDB의 describe_table의 ItemCount는 신뢰할 수 없으므로 사용을 
 EOF
 ```
 
+* q chat에 지식 기능을 활성화 합니다.
+```
+q settings chat.enableKnowledge true
+```
+
 * 이제 지시사항을 적용하기 위해 q chat에 다시 접속합니다. 
 ```
 q chat
@@ -65,12 +70,12 @@ q chat
 
 * 작성된 mycontext.md 파일을 q chat이 참조하도록 합니다.
 ```
-/context add mycontext.md
+/knowledge add mycontext.md
 ```
 
 * 위의 Context가 잘 추가 되었는지 확인합니다.
 ```
-/context show
+/knowledge show
 ```
 현재 profile에 mycontext.md 파일이 추가되어 있습니다. Q Dev CLI 에서는 여러 개의 profile을 가질 수 있고, 각 profile은 다른 Context 를 맵핑할 수 있습니다. 자세한 내용은 [링크](https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/command-line-context-profiles.html)에서 확인 가능합니다.
 
