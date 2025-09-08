@@ -77,7 +77,7 @@ q chat
 ```
 /knowledge show
 ```
-현재 Agent에 myknowledge.md 파일이 지식으로 추가되어 있습니다. Q Dev CLI 에서는 여러 개의 profile을 가질 수 있고, 각 Agent마다 다른 지식을 맵핑할 수 있습니다. 자세한 내용은 [링크](https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/command-line-custom-agents.html)에서 확인 가능합니다.
+현재 Agent에 myknowledge.md 파일이 지식으로 추가되어 있습니다. Q Dev CLI 에서는 여러 개의 Agent을 가질 수 있고, 각 Agent마다 다른 지식을 맵핑할 수 있습니다. 자세한 내용은 [링크](https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/command-line-custom-agents.html)에서 확인 가능합니다.
 
 * 이제 우리는 DynamoDB를 이용해서 데이터베이스를 만들 것입니다. q chat에 다음과 같이 지시합니다.
 ```
