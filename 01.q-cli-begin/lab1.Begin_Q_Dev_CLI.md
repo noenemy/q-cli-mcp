@@ -68,16 +68,16 @@ q settings chat.enableKnowledge true
 q chat
 ```
 
-* 작성된 mycontext.md 파일을 q chat이 참조하도록 합니다.
+* 작성된 myknowledge.md 파일을 q chat이 참조하도록 합니다.
 ```
-/knowledge add mycontext.md
+/knowledge add myknowledge.md
 ```
 
-* 위의 Context가 잘 추가 되었는지 확인합니다.
+* 위의 지식이 잘 추가 되었는지 확인합니다.
 ```
 /knowledge show
 ```
-현재 profile에 mycontext.md 파일이 추가되어 있습니다. Q Dev CLI 에서는 여러 개의 profile을 가질 수 있고, 각 profile은 다른 Context 를 맵핑할 수 있습니다. 자세한 내용은 [링크](https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/command-line-context-profiles.html)에서 확인 가능합니다.
+현재 Agent에 myknowledge.md 파일이 지식으로 추가되어 있습니다. Q Dev CLI 에서는 여러 개의 profile을 가질 수 있고, 각 Agent마다 다른 지식을 맵핑할 수 있습니다. 자세한 내용은 [링크](https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/command-line-custom-agents.html)에서 확인 가능합니다.
 
 * 이제 우리는 DynamoDB를 이용해서 데이터베이스를 만들 것입니다. q chat에 다음과 같이 지시합니다.
 ```
