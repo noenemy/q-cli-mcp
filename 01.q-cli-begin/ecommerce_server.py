@@ -214,11 +214,9 @@ class EcommerceHandler(BaseHTTPRequestHandler):
         return {
             'product_id': item['product_id']['S'],
             'name': item['name']['S'],
-            'description': item['description']['S'],
             'price': int(item['price']['N']),
             'stock': int(item['stock']['N']),
             'brand': item['brand']['S'],
-            'model': item['model']['S'],
             'category_id': item['category_id']['S']
         }
     
@@ -297,7 +295,6 @@ class EcommerceHandler(BaseHTTPRequestHandler):
             'email': item['email']['S'],
             'phone': item['phone']['S'],
             'address': item['address']['S'],
-            'membership_level': item['membership_level']['S'],
             'created_date': item['created_date']['S']
         }
     
