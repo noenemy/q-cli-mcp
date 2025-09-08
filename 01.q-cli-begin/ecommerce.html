@@ -469,13 +469,12 @@
                             <th>이메일</th>
                             <th>전화번호</th>
                             <th>주소</th>
-                            <th>멤버십</th>
                             <th>가입일</th>
                             <th>작업</th>
                         </tr>
                     </thead>
                     <tbody id="customers-tbody">
-                        <tr><td colspan="8" class="loading">데이터 로딩 중...</td></tr>
+                        <tr><td colspan="7" class="loading">데이터 로딩 중...</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -1001,7 +1000,7 @@
             const tbody = document.getElementById('customers-tbody');
             
             if (data.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="8" class="empty-state"><h3>고객이 없습니다</h3><p>새 고객을 추가해보세요.</p></td></tr>';
+                tbody.innerHTML = '<tr><td colspan="7" class="empty-state"><h3>고객이 없습니다</h3><p>새 고객을 추가해보세요.</p></td></tr>';
                 return;
             }
             
@@ -1012,7 +1011,6 @@
                     <td>${customer.email}</td>
                     <td>${customer.phone}</td>
                     <td>${customer.address}</td>
-                    <td><span class="membership membership-${customer.membership_level.toLowerCase()}">${customer.membership_level}</span></td>
                     <td>${customer.created_date}</td>
                     <td>
                         <button class="btn btn-warning" onclick="editCustomer('${customer.customer_id}')">수정</button>
