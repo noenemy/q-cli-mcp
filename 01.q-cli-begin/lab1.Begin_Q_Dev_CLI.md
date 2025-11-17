@@ -70,7 +70,7 @@ q chat
 
 * 작성된 myknowledge.md 파일을 q chat이 참조하도록 합니다.
 ```
-/knowledge add myknowledge.md
+/knowledge add --name e-commerce-developer --path myknowledge.md
 ```
 
 * 위의 지식이 잘 추가 되었는지 확인합니다.
