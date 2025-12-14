@@ -1,5 +1,5 @@
 시작 전에, Workshop Studio에서 실습 환경을 구성합니다. MacOS/Linux 환경이라면, Kiro CLI 를 로컬에 설치하여 사용할 수 있습니다. 
-[Kiro CLI 설치하기]([https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/command-line-installing.html](https://kiro.dev/docs/cli/installation/))
+[Kiro CLI 설치하기](https://kiro.dev/docs/cli/installation/)
 > [!WARNING]
 > 로컬에 Kiro CLI 를 설치해서 실습할 경우 AWS CLI 에 구성되어 있는 연결계정으로 사용할 수 있습니다. 또한 로컬의 파일과 환경을 변경할 수 있습니다.
 Preparation 에 있는 두가지 항목을 완료하고 이 Github를 시작합니다.
