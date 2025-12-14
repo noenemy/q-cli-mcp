@@ -1,15 +1,15 @@
-# Lab 1. Amazon Q Developer CLI(약칭. Q Dev. CLI)  시작하기
+# Lab 1. Kiro CLI(예전 이름 : Q CLI) 시작하기
 ## 개요 
-Amazon Q Dev CLI에 자연어로 지시해서 쉽고 빠르게 서비스를 만들 수 있습니다.
+Kiro CLI에 자연어로 지시해서 쉽고 빠르게 서비스를 만들 수 있습니다.
 이 랩에서는 온라인 쇼핑 데이터를 관리하는 웹서비스를 만들어 봅니다. 데이터베이스는 DynamoDB로, 웹서비스는 EC2 Instance 에서 호스팅 합니다.
 
 AWS에 대한 지식이 없더라도 자연어로 서비스를 구현 가능합니다.
  
 **Let's go!**
 
-* Q Dev CLI와 자연어 채팅을 시작하려면 다음과 같이 실행합니다. 
+* Kiro CLI와 자연어 채팅을 시작하려면 다음과 같이 실행합니다. 
 ```
-q chat
+kiro-cli
 ```
 
 * 다음과 같이 입력해서 샘플 이커머스 고객 데이터를 만들어 봅니다.
@@ -29,19 +29,19 @@ q chat
 모든 답변은 한국어로 작성해주시되, 기술 용어는 영어로 표기해주세요.
 ```
 
-* q chat이 지시사항을 따르는지 다음과 같이 테스트 합니다.
+* Kiro CLI가 지시사항을 따르는지 다음과 같이 테스트 합니다.
 ```
 이커머스 데이터를 관리하는 웹 애플리케이션을 만드는 가장 간단한 방법은 무엇인가요? 방법론만 설명해주세요
 ```
 답변이 위의 지시사항 처럼 한국어로, 기술용어는 영어로 표기되었는지 확인합니다.
 
-* q chat을 종료하기 위해서는 다음과 같이 입력합니다.  
-참고) q chat 내에서 `/` 를 입력하면 다양한 커맨드를 확인할 수 있습니다.
+* Kiro CLI를 종료하기 위해서는 다음과 같이 입력합니다.  
+참고) Kiro CLI 내에서 `/` 를 입력하면 다양한 커맨드를 확인할 수 있습니다.
 ```
 /quit
 ```
 
-* q chat으로부터 일관된 응답을 받기 위해 Knowledge를 입력하여 응답 내용을 지시하겠습니다.
+* Kiro CLI로부터 일관된 응답을 받기 위해 Knowledge를 입력하여 응답 내용을 지시하겠습니다.
 다음과 같이 markdown 파일로 입력합니다. 
 ```
 cat > myknowledge.md << EOF
@@ -58,14 +58,14 @@ DynamoDB의 describe_table의 ItemCount는 신뢰할 수 없으므로 사용을 
 EOF
 ```
 
-* q chat에 지식 기능을 활성화 합니다.
+* Kiro CLI에 지식 기능을 활성화 합니다.
 ```
-q settings chat.enableKnowledge true
+kiro-cli settings chat.enableKnowledge true
 ```
 
 * 이제 지시사항을 적용하기 위해 q chat에 다시 접속합니다. 
 ```
-q chat
+kiro-cli
 ```
 
 * 작성된 myknowledge.md 파일을 q chat이 참조하도록 합니다.
@@ -77,9 +77,9 @@ q chat
 ```
 /knowledge show
 ```
-현재 Agent에 myknowledge.md 파일이 지식으로 추가되어 있습니다. Q Dev CLI 에서는 여러 개의 Agent을 가질 수 있고, 각 Agent마다 다른 지식을 맵핑할 수 있습니다. 자세한 내용은 [링크](https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/command-line-custom-agents.html)에서 확인 가능합니다.
+현재 Agent에 myknowledge.md 파일이 지식으로 추가되어 있습니다. Kiro CLI 에서는 여러 개의 Agent을 가질 수 있고, 각 Agent마다 다른 지식을 맵핑할 수 있습니다. 자세한 내용은 [링크](https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/command-line-custom-agents.html)에서 확인 가능합니다.
 
-* 이제 우리는 DynamoDB를 이용해서 데이터베이스를 만들 것입니다. q chat에 다음과 같이 지시합니다.
+* 이제 우리는 DynamoDB를 이용해서 데이터베이스를 만들 것입니다. Kiro CLI에 다음과 같이 지시합니다.
 ```
 DynamoDB를 이용해서 이커머스 데이터베이스를 만들어주세요. 
 테이블은 총 4개입니다. 1) Categories 2) Products 3) Customers 4) Orders
@@ -90,9 +90,9 @@ DynamoDB를 이용해서 이커머스 데이터베이스를 만들어주세요.
 
 
 이렇게 DynamoDB에 대한 지식이 없는 누구나 쉽게 DynamoDB를 이용하여 샘플 데이타를 만들 수 있습니다.
-컨텍스트 입력 전 후, Q CLI의 응답에 변화가 있었나요? 어떤 것인가요?
+컨텍스트 입력 전 후, Kiro CLI의 응답에 변화가 있었나요? 어떤 것인가요?
 
-* DynamoDB에 테이블 4개가 모두 생성되었는지, 각 테이블마다 샘플 데이타가 모두 지시대로 생성되었는지 확인해 봅니다. 혹시 누락된 것이 있다면 q chat에 직접 지시해서 보완합니다.
+* DynamoDB에 테이블 4개가 모두 생성되었는지, 각 테이블마다 샘플 데이타가 모두 지시대로 생성되었는지 확인해 봅니다. 혹시 누락된 것이 있다면 Kiro CLI에 직접 지시해서 보완합니다.
 ```
 DynamoDB에 테이블 4개가 모두 생성되었는지, 각 테이블마다 샘플 데이타가 있는지 확인해주세요. 
 ```
@@ -124,7 +124,7 @@ AWS 콘솔에서 DynamoDB 콘솔로 이동하여 직접 확인할 수 있습니�
 >* [ecommerce.html](https://github.com/noenemy/q-cli-mcp/blob/main/01.q-cli-begin/ecommerce.html) 
 <BR>
 
-이제 Q Dev CLI 는 웹 애플리케이션을 만들 것입니다.
+이제 Kiro CLI 는 웹 애플리케이션을 만들 것입니다.
 
 
 * 완료가 되었습니까? 혹시 중간에 끊기거나 완료되지 않으면 `계속하세요` 라고 입력합니다.
@@ -149,11 +149,11 @@ AWS 콘솔에서 DynamoDB 콘솔로 이동하여 직접 확인할 수 있습니�
 ```
 * 웹서비스로 접속을 할 수 있게 되면 페이지를 둘러봅니다. 함께 랩을 진행한 웹페이지와 차이점을 비교해 봅니다.
 * 웹페이지의 기능이 요구사항 대로 동작하는지 검증해 보세요.
-* 시스템 구축 단계에서 요구사항이 변경된다고 가정합니다. 우리 시스템에는 `리뷰`라는 항목이 추가되어야 합니다. 데이터베이스와 웹서버 모두 변경이 필요합니다. q chat 에 요구사항을 입력합니다.
+* 시스템 구축 단계에서 요구사항이 변경된다고 가정합니다. 우리 시스템에는 `리뷰`라는 항목이 추가되어야 합니다. 데이터베이스와 웹서버 모두 변경이 필요합니다. Kiro CLI 에 요구사항을 입력합니다.
 ```
 리뷰라는 항목이 추가되어야 합니다. 웹서비스와 다이나모 디비 모두 리뷰라는 항목이 추가되도록 변경해 주세요.
 ```
-q chat 이 데이터베이스와 웹서비스를 모두 변경하는지 검수합니다.
+Kiro CLI가 데이터베이스와 웹서비스를 모두 변경하는지 검수합니다.
 
 * 완료된 후에 웹사이트를 둘러보고 기능을 점검합니다.
 * 변경하고 싶은 부분을 생각해 봅니다.
