@@ -1,0 +1,36 @@
+이 디렉토리에 있는 파일을 로컬에 다운로드합니다. 
+이 PDF파일은 S3 버킷으로 업로드하여 Knowledge base (RAG)로 사용됩니다.
+
+### 로컬로 다운받는 방법:
+
+#### Mac/Linux
+1. curl + GitHub API
+bash
+curl -L https://api.github.com/repos/noenemy/q-cli-mcp/contents/04.BedrockAgent/loandocs | grep download_url | cut -d '"' -f 4 | xargs -n 1 curl -LO
+
+
+2. wget (재귀적 다운로드)
+bash
+wget -r -np -nH --cut-dirs=3 -R "index.html*" https://raw.githubusercontent.com/noenemy/q-cli-mcp/main/04.BedrockAgent/loandocs/
+
+
+3. SVN (가장 간단)
+bash
+svn export https://github.com/noenemy/q-cli-mcp/trunk/04.BedrockAgent/loandocs
+
+#### Windows 환경에서는 curl, wget을 별도로 다운받아서 진행 가능합니다.
+이미 git 커맨드가 있다면 다음과 같이 사용 가능합니다.
+
+1. Sparse Checkout 사용 (권장)
+bash
+git clone --filter=blob:none --sparse https://github.com/noenemy/q-cli-mcp.git
+cd q-cli-mcp
+git sparse-checkout set 04.BedrockAgent/loandocs
+
+2. GitHub CLI 사용
+bash
+gh repo clone noenemy/q-cli-mcp -- --filter=blob:none --sparse
+cd q-cli-mcp
+git sparse-checkout set 04.BedrockAgent/loandocs
+
+
