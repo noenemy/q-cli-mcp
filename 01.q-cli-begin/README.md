@@ -6,4 +6,4 @@ Preparation 에 있는 두가지 항목을 완료하고 이 Github를 시작합�
   1. AWS Account
   2. 실습환경 구성
 
-이제 본격적으로 실습을 시작하세요. [lab1.Begin_Kiro_CLI.md](https://github.com/noenemy/q-cli-mcp/blob/main/01.q-cli-begin/lab1.Begin_Q_Dev_CLI.md)
+이제 본격적으로 실습을 시작하세요. [lab1.Begin_Kiro_CLI.md](https://github.com/noenemy/q-cli-mcp/blob/main/01.q-cli-begin/lab1.Begin_Kiro_CLI.md)
