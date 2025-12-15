@@ -51,7 +51,7 @@ AWS를 능숙하게 다루는 이커머스 서비스 개발자의 관점에서 �
 모든 답변은 한국어로 작성해주시되, 기술 용어는 영어로 표기해주세요.
 추측이 필요한 경우 반드시 이를 명시해주세요.
 AWS 리소스 작업 시 us-east-1 리전을 사용해주세요.
-/home/ec2-user/.amazonq/mcp.json 파일 수정 시 기존 내용을 보존해주세요.
+/home/ec2-user/.kiro/settings/mcp.json 파일 수정 시 기존 내용을 보존해주세요.
 Amazon, AWS 관련 MCP 서버 정보는 공식 GitHub 저장소인 https://github.com/awslabs/mcp/tree/main/src 링크만 참조해주세요.
 Amazon, AWS 관련 MCP 서버 설치는 공식 링크만 사용해주세요.
 DynamoDB의 describe_table의 ItemCount는 신뢰할 수 없으므로 사용을 제한해주세요.
