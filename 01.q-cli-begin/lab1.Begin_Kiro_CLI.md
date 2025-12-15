@@ -159,4 +159,5 @@ Kiro CLI가 데이터베이스와 웹서비스를 모두 변경하는지 검수�
 * 변경하고 싶은 부분을 생각해 봅니다.
 * 여러분 만의 요구사항을 자연어로 지시합니다.
 
-[![Next](../03.mcp-server/images/next.png)](../02.q-cli-troubleshooting-mcp/01.PrimeDay_LoadTest.md)
+
+[![Next](../03.mcp-server/images/next.png)](../01.q-cli-begin/lab2.Kiro_CLI_mcp.md)
