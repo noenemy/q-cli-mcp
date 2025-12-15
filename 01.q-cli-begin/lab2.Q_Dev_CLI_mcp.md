@@ -1,25 +1,25 @@
-# Lab 2. Amazon Q Developer CLI 로 MCP 활용하기
+# Lab 2. Kiro CLI 로 MCP 활용하기
 ## 개요
-Amazon Q Dev CLI 는 다양한 MCP 서버와 연동하여 확장 가능한 AI Agent 어플리케이션 입니다. 
+Kiro CLI 는 다양한 MCP 서버와 연동하여 확장 가능한 AI Agent 어플리케이션 입니다. 
 이번 Lab 에서는 AWS 에서 제공하는 다양한 MCP 서버를 로딩하여 자연어를 통해 현재 환경을 분석하고 제안할 수 있는 예제를 수행해 보도록 하겠습니다. 
 
 ### MCP 설정에 필요한 패키지를 설치합니다.
 아래와 같은 프롬프트를 입력하여 mcp 서버 실행에 필요한 환경을 구성합니다. 
 ```
 python 3.10 이상 버전과 uvx 패키지를 설치해 주세요.
-그리고 q chat에서 python 3.10 이상을 사용할 수 있도록 PATH 를 설정해주세요
+그리고 kiro-cli에서 python 3.10 이상을 사용할 수 있도록 PATH 를 설정해주세요
 ```
 
 ### mcp 설정 파일을 생성합니다.
-아래의 command 로 q dev cli 를 위한 mcp 설정 파일을 생성합니다.
+아래의 command 로 kiro-cli 를 위한 mcp 설정 파일을 생성합니다.
 
 ```
-touch /home/ec2-user/.aws/amazonq/mcp.json
+touch /home/ec2-user/.kiro/settings/mcp.json
 ```
 
 파일을 생성 후 아래의 명령어로 mcp.json 파일을 편집합니다.
 ```
-vi /home/ec2-user/.aws/amazonq/mcp.json
+vi /home/ec2-user/.kiro/settings/mcp.json
 ```
 
 아래의 mcp 서버 설정을 copy & paste 합니다. 
@@ -79,7 +79,7 @@ vi /home/ec2-user/.aws/amazonq/mcp.json
   }
 }
 ```
-mcp 서버가 다시 로딩 되도록 하기 위해 q cli 를 종료 후 다시 시작합니다.
+mcp 서버가 다시 로딩 되도록 하기 위해 kiro cli 를 종료 후 다시 시작합니다.
 
 ```
 # 종료
@@ -87,12 +87,12 @@ mcp 서버가 다시 로딩 되도록 하기 위해 q cli 를 종료 후 다시 
 ```
 
 ```
-# Q CLI 실행
-q chat
+# Kiro CLI 실행
+kiro-cli
 ```
 
 ## AWS MCP 서버 테스트
-Q Dev CLI 에 로딩된 MCP 서버는 아래와 같습니다. 각 서버에 적절한 질의를 통해 원하는 결과를 얻을 수 있는지 테스트 해보도록 하겠습니다. 
+Kiro CLI 에 로딩된 MCP 서버는 아래와 같습니다. 각 서버에 적절한 질의를 통해 원하는 결과를 얻을 수 있는지 테스트 해보도록 하겠습니다. 
 
 ```
 비용 레포트를 작성하고 외부에서 웹으로 조회할 수 있도록 구성해줘
